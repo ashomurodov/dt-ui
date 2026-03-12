@@ -1,0 +1,5 @@
+export { default as DtDialog } from './DtDialog.vue'
+export { default as DtDialogTrigger } from './DtDialogTrigger.vue'
+export { default as DtDialogContent } from './DtDialogContent.vue'
+export { default as DtDialogHeader } from './DtDialogHeader.vue'
+export { default as DtDialogFooter } from './DtDialogFooter.vue'

@@ -1,0 +1,143 @@
+:root {
+  /* Base */
+  --dt-background: hsl(0 0% 100%);
+  --dt-foreground: hsl(240 10% 10%);
+
+  /* Primary — the brand color */
+  --dt-primary: hsl(220 72% 50%);
+  --dt-primary-hover: hsl(220 72% 42%);
+  --dt-primary-foreground: hsl(0 0% 100%);
+
+  /* Secondary */
+  --dt-secondary: hsl(220 14% 94%);
+  --dt-secondary-hover: hsl(220 14% 88%);
+  --dt-secondary-foreground: hsl(220 10% 20%);
+
+  /* Muted */
+  --dt-muted: hsl(220 14% 96%);
+  --dt-muted-foreground: hsl(220 8% 46%);
+
+  /* Accent */
+  --dt-accent: hsl(220 14% 94%);
+  --dt-accent-foreground: hsl(220 10% 20%);
+
+  /* Destructive */
+  --dt-destructive: hsl(0 72% 51%);
+  --dt-destructive-hover: hsl(0 72% 43%);
+  --dt-destructive-foreground: hsl(0 0% 100%);
+
+  /* Success */
+  --dt-success: hsl(142 72% 40%);
+  --dt-success-hover: hsl(142 72% 34%);
+  --dt-success-foreground: hsl(0 0% 100%);
+
+  /* Warning */
+  --dt-warning: hsl(38 92% 50%);
+  --dt-warning-hover: hsl(38 92% 42%);
+  --dt-warning-foreground: hsl(0 0% 100%);
+
+  /* Borders & Rings */
+  --dt-border: hsl(220 13% 88%);
+  --dt-border-hover: hsl(220 13% 78%);
+  --dt-ring: hsl(220 72% 50%);
+
+  /* Radii */
+  --dt-radius-sm: 0.25rem;
+  --dt-radius-md: 0.375rem;
+  --dt-radius-lg: 0.5rem;
+  --dt-radius-xl: 0.75rem;
+  --dt-radius-full: 9999px;
+
+  /* Shadows */
+  --dt-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --dt-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --dt-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+  /* Spacing scale */
+  --dt-space-1: 0.25rem;
+  --dt-space-2: 0.5rem;
+  --dt-space-3: 0.75rem;
+  --dt-space-4: 1rem;
+  --dt-space-5: 1.25rem;
+  --dt-space-6: 1.5rem;
+  --dt-space-8: 2rem;
+  --dt-space-10: 2.5rem;
+  --dt-space-12: 3rem;
+
+  /* Typography */
+  --dt-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --dt-font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --dt-font-size-xs: 0.75rem;
+  --dt-font-size-sm: 0.8125rem;
+  --dt-font-size-base: 0.875rem;
+  --dt-font-size-lg: 1rem;
+  --dt-font-size-xl: 1.125rem;
+
+  /* Z-index layers */
+  --dt-z-dropdown: 50;
+  --dt-z-overlay: 100;
+  --dt-z-modal: 200;
+  --dt-z-toast: 300;
+
+  /* Transitions */
+  --dt-transition-fast: 0.1s ease;
+  --dt-transition-base: 0.15s ease;
+  --dt-transition-slow: 0.3s ease;
+}
+
+/* Dark mode */
+.dark {
+  --dt-background: hsl(240 10% 8%);
+  --dt-foreground: hsl(0 0% 95%);
+
+  --dt-primary: hsl(220 72% 60%);
+  --dt-primary-hover: hsl(220 72% 68%);
+  --dt-primary-foreground: hsl(0 0% 100%);
+
+  --dt-secondary: hsl(220 14% 16%);
+  --dt-secondary-hover: hsl(220 14% 22%);
+  --dt-secondary-foreground: hsl(0 0% 90%);
+
+  --dt-muted: hsl(220 14% 14%);
+  --dt-muted-foreground: hsl(220 8% 55%);
+
+  --dt-accent: hsl(220 14% 18%);
+  --dt-accent-foreground: hsl(0 0% 90%);
+
+  --dt-destructive: hsl(0 62% 55%);
+  --dt-destructive-hover: hsl(0 62% 63%);
+  --dt-destructive-foreground: hsl(0 0% 100%);
+
+  --dt-success: hsl(142 72% 48%);
+  --dt-success-hover: hsl(142 72% 56%);
+  --dt-success-foreground: hsl(0 0% 100%);
+
+  --dt-warning: hsl(38 92% 55%);
+  --dt-warning-hover: hsl(38 92% 63%);
+  --dt-warning-foreground: hsl(0 0% 100%);
+
+  --dt-border: hsl(220 13% 20%);
+  --dt-border-hover: hsl(220 13% 30%);
+  --dt-ring: hsl(220 72% 60%);
+
+  --dt-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --dt-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+  --dt-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+}
+
+/* Base reset applied when base.css is imported */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  font-family: var(--dt-font-sans);
+  font-size: var(--dt-font-size-base);
+  color: var(--dt-foreground);
+  background-color: var(--dt-background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

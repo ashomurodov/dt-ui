@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.env
+.env.local
+.env.*.local
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+docs/.vitepress/dist/
+docs/.vitepress/cache/
+.vitepress/cache/

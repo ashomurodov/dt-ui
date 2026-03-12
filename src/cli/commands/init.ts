@@ -1,0 +1,130 @@
+import fs from 'node:fs'
+import path from 'node:path'
+import * as p from '@clack/prompts'
+import pc from 'picocolors'
+import {
+  configExists,
+  writeConfig,
+  detectFramework,
+  type DtUiConfig,
+} from '../utils/config.js'
+import { getStylesContent, getLibContent } from '../utils/registry.js'
+import { createAgentMd } from '../utils/agent.js'
+
+export async function initCommand() {
+  p.intro(pc.bold(pc.cyan('dt-ui init')))
+
+  if (configExists()) {
+    const overwrite = await p.confirm({
+      message: 'A .dtui.json config already exists. Overwrite?',
+      initialValue: false,
+    })
+    if (p.isCancel(overwrite) || !overwrite) {
+      p.cancel('Init cancelled.')
+      process.exit(0)
+    }
+  }
+
+  const detectedFramework = detectFramework()
+
+  const answers = await p.group(
+    {
+      framework: () =>
+        p.select({
+          message: 'Which framework does your project use?',
+          initialValue: detectedFramework,
+          options: [
+            { value: 'nuxt' as const, label: 'Nuxt', hint: detectedFramework === 'nuxt' ? 'detected' : undefined },
+            { value: 'vue-vite' as const, label: 'Vue + Vite', hint: detectedFramework === 'vue-vite' ? 'detected' : undefined },
+            { value: 'vue' as const, label: 'Vue (plain)', hint: detectedFramework === 'vue' ? 'detected' : undefined },
+          ],
+        }),
+      componentsDir: () =>
+        p.text({
+          message: 'Where should components be installed?',
+          initialValue: 'src/components/ui',
+          placeholder: 'src/components/ui',
+        }),
+      libDir: () =>
+        p.text({
+          message: 'Where should lib utils go?',
+          initialValue: 'src/lib',
+          placeholder: 'src/lib',
+        }),
+      agent: () =>
+        p.confirm({
+          message: 'Include AI agent documentation (AGENT.md)?',
+          initialValue: true,
+        }),
+    },
+    {
+      onCancel: () => {
+        p.cancel('Init cancelled.')
+        process.exit(0)
+      },
+    },
+  )
+
+  const stylesDir = 'src/styles'
+
+  const config: DtUiConfig = {
+    framework: answers.framework,
+    componentsDir: answers.componentsDir as string,
+    libDir: answers.libDir as string,
+    stylesDir,
+    installedComponents: [],
+    agent: answers.agent as boolean,
+  }
+
+  const s = p.spinner()
+
+  // Write config
+  writeConfig(config)
+
+  // Copy base.css
+  s.start('Copying base.css...')
+  const stylesPath = path.resolve(process.cwd(), stylesDir)
+  fs.mkdirSync(stylesPath, { recursive: true })
+  fs.writeFileSync(
+    path.join(stylesPath, 'base.css'),
+    getStylesContent(),
+    'utf-8',
+  )
+  s.stop('base.css copied')
+
+  // Copy lib/utils.ts
+  s.start('Copying lib/utils.ts...')
+  const libPath = path.resolve(process.cwd(), answers.libDir as string)
+  fs.mkdirSync(libPath, { recursive: true })
+  fs.writeFileSync(
+    path.join(libPath, 'utils.ts'),
+    getLibContent(),
+    'utf-8',
+  )
+  s.stop('lib/utils.ts copied')
+
+  // Create AGENT.md
+  if (answers.agent) {
+    s.start('Creating AGENT.md...')
+    createAgentMd()
+    s.stop('AGENT.md created')
+  }
+
+  p.note(
+    [
+      `${pc.bold('Next steps:')}`,
+      '',
+      `1. Import base.css in your main entry file:`,
+      `   ${pc.cyan("import './styles/base.css'")}` ,
+      '',
+      `2. Add your first component:`,
+      `   ${pc.cyan('npx dt-ui add button')}`,
+      '',
+      `3. Use it in your Vue components:`,
+      `   ${pc.cyan("<DtButton variant=\"default\">Click me</DtButton>")}`,
+    ].join('\n'),
+    'Setup complete!',
+  )
+
+  p.outro(pc.green('dt-ui initialized successfully!'))
+}

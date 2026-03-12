@@ -1,0 +1,52 @@
+{
+  "components": {
+    "button": {
+      "name": "DtButton",
+      "description": "A clickable button with multiple variants and sizes",
+      "files": ["DtButton.vue", "index.ts"],
+      "internalDeps": [],
+      "peerDeps": [],
+      "docs": "docs/button.md"
+    },
+    "input": {
+      "name": "DtInput",
+      "description": "A text input with label, error, and hint support",
+      "files": ["DtInput.vue", "index.ts"],
+      "internalDeps": [],
+      "peerDeps": [],
+      "docs": "docs/input.md"
+    },
+    "card": {
+      "name": "DtCard",
+      "description": "A container card with header, content, and footer sections",
+      "files": ["DtCard.vue", "DtCardHeader.vue", "DtCardContent.vue", "DtCardFooter.vue", "index.ts"],
+      "internalDeps": [],
+      "peerDeps": [],
+      "docs": "docs/card.md"
+    },
+    "badge": {
+      "name": "DtBadge",
+      "description": "A small status indicator with multiple variants",
+      "files": ["DtBadge.vue", "index.ts"],
+      "internalDeps": [],
+      "peerDeps": [],
+      "docs": "docs/badge.md"
+    },
+    "dialog": {
+      "name": "DtDialog",
+      "description": "Modal dialog with overlay, header, content, and footer",
+      "files": ["DtDialog.vue", "DtDialogContent.vue", "DtDialogHeader.vue", "DtDialogFooter.vue", "DtDialogTrigger.vue", "index.ts"],
+      "internalDeps": ["button"],
+      "peerDeps": [],
+      "docs": "docs/dialog.md"
+    },
+    "select": {
+      "name": "DtSelect",
+      "description": "Custom dropdown select with search and keyboard navigation",
+      "files": ["DtSelect.vue", "DtSelectTrigger.vue", "DtSelectContent.vue", "DtSelectItem.vue", "index.ts"],
+      "internalDeps": [],
+      "peerDeps": [],
+      "docs": "docs/select.md"
+    }
+  }
+}
