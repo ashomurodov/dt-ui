@@ -3,23 +3,23 @@
   --dt-background: hsl(0 0% 100%);
   --dt-foreground: hsl(240 10% 10%);
 
-  /* Primary — the brand color */
-  --dt-primary: hsl(220 72% 50%);
-  --dt-primary-hover: hsl(220 72% 42%);
+  /* Primary — the brand color (RGB 0, 150, 178) */
+  --dt-primary: hsl(190 100% 35%);
+  --dt-primary-hover: hsl(190 100% 28%);
   --dt-primary-foreground: hsl(0 0% 100%);
 
-  /* Secondary */
-  --dt-secondary: hsl(220 14% 94%);
-  --dt-secondary-hover: hsl(220 14% 88%);
-  --dt-secondary-foreground: hsl(220 10% 20%);
+  /* Secondary — (RGB 102, 112, 133) */
+  --dt-secondary: hsl(220 13% 46%);
+  --dt-secondary-hover: hsl(220 13% 38%);
+  --dt-secondary-foreground: hsl(0 0% 100%);
 
   /* Muted */
-  --dt-muted: hsl(220 14% 96%);
-  --dt-muted-foreground: hsl(220 8% 46%);
+  --dt-muted: hsl(190 14% 96%);
+  --dt-muted-foreground: hsl(190 8% 46%);
 
   /* Accent */
-  --dt-accent: hsl(220 14% 94%);
-  --dt-accent-foreground: hsl(220 10% 20%);
+  --dt-accent: hsl(190 14% 94%);
+  --dt-accent-foreground: hsl(190 10% 20%);
 
   /* Destructive */
   --dt-destructive: hsl(0 72% 51%);
@@ -37,9 +37,9 @@
   --dt-warning-foreground: hsl(0 0% 100%);
 
   /* Borders & Rings */
-  --dt-border: hsl(220 13% 88%);
-  --dt-border-hover: hsl(220 13% 78%);
-  --dt-ring: hsl(220 72% 50%);
+  --dt-border: hsl(190 13% 88%);
+  --dt-border-hover: hsl(190 13% 78%);
+  --dt-ring: hsl(190 100% 35%);
 
   /* Radii */
   --dt-radius-sm: 0.25rem;
@@ -90,18 +90,18 @@
   --dt-background: hsl(240 10% 8%);
   --dt-foreground: hsl(0 0% 95%);
 
-  --dt-primary: hsl(220 72% 60%);
-  --dt-primary-hover: hsl(220 72% 68%);
+  --dt-primary: hsl(190 100% 45%);
+  --dt-primary-hover: hsl(190 100% 52%);
   --dt-primary-foreground: hsl(0 0% 100%);
 
-  --dt-secondary: hsl(220 14% 16%);
-  --dt-secondary-hover: hsl(220 14% 22%);
-  --dt-secondary-foreground: hsl(0 0% 90%);
+  --dt-secondary: hsl(220 13% 54%);
+  --dt-secondary-hover: hsl(220 13% 62%);
+  --dt-secondary-foreground: hsl(0 0% 100%);
 
-  --dt-muted: hsl(220 14% 14%);
-  --dt-muted-foreground: hsl(220 8% 55%);
+  --dt-muted: hsl(190 14% 14%);
+  --dt-muted-foreground: hsl(190 8% 55%);
 
-  --dt-accent: hsl(220 14% 18%);
+  --dt-accent: hsl(190 14% 18%);
   --dt-accent-foreground: hsl(0 0% 90%);
 
   --dt-destructive: hsl(0 62% 55%);
@@ -116,9 +116,9 @@
   --dt-warning-hover: hsl(38 92% 63%);
   --dt-warning-foreground: hsl(0 0% 100%);
 
-  --dt-border: hsl(220 13% 20%);
-  --dt-border-hover: hsl(220 13% 30%);
-  --dt-ring: hsl(220 72% 60%);
+  --dt-border: hsl(190 13% 20%);
+  --dt-border-hover: hsl(190 13% 30%);
+  --dt-ring: hsl(190 100% 45%);
 
   --dt-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
   --dt-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.3);
