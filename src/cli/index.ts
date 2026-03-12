@@ -3,6 +3,7 @@ import { Command } from 'commander'
 import { initCommand } from './commands/init.js'
 import { addCommand } from './commands/add.js'
 import { listCommand } from './commands/list.js'
+import { updateCommand } from './commands/update.js'
 
 const program = new Command()
 
@@ -26,5 +27,10 @@ program
   .command('list')
   .description('List all available components')
   .action(listCommand)
+
+program
+  .command('update')
+  .description('Update base.css, utils, and AGENT.md to latest version')
+  .action(updateCommand)
 
 program.parse()
