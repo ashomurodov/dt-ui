@@ -1,6 +1,6 @@
 {
   "name": "aetherx-dt-ui",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Lightweight, customizable Vue components for DT projects",
   "type": "module",
   "bin": {
