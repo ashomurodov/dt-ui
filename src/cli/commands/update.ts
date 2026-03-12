@@ -6,7 +6,12 @@ import {
   configExists,
   readConfig,
 } from '../utils/config.js'
-import { getStylesContent, getLibContent } from '../utils/registry.js'
+import {
+  getStylesContent,
+  getLibContent,
+  getComponentFiles,
+  loadRegistry,
+} from '../utils/registry.js'
 import { rebuildAgentMd } from '../utils/agent.js'
 
 export async function updateCommand() {
@@ -18,6 +23,7 @@ export async function updateCommand() {
   }
 
   const config = readConfig()
+  const registry = loadRegistry()
   const s = p.spinner()
 
   // Update base.css
@@ -41,6 +47,43 @@ export async function updateCommand() {
     'utf-8',
   )
   s.stop('lib/utils.ts updated')
+
+  // Offer to update installed components
+  if (config.installedComponents.length > 0) {
+    const updateComponents = await p.confirm({
+      message: `Update ${config.installedComponents.length} installed component(s)? This will overwrite any local changes.`,
+      initialValue: false,
+    })
+
+    if (!p.isCancel(updateComponents) && updateComponents) {
+      const updatedComponents: string[] = []
+
+      for (const componentName of config.installedComponents) {
+        const comp = registry.components[componentName]
+        if (!comp) continue
+
+        s.start(`Updating ${pc.cyan(comp.name)}...`)
+        const files = getComponentFiles(componentName)
+        const targetDir = path.resolve(
+          process.cwd(),
+          config.componentsDir,
+          componentName,
+        )
+        fs.mkdirSync(targetDir, { recursive: true })
+
+        for (const file of files) {
+          fs.writeFileSync(path.join(targetDir, file.name), file.content, 'utf-8')
+        }
+
+        updatedComponents.push(componentName)
+        s.stop(`${pc.green('✓')} ${comp.name} updated`)
+      }
+
+      if (updatedComponents.length > 0) {
+        p.log.success(`${updatedComponents.length} component(s) updated`)
+      }
+    }
+  }
 
   // Rebuild AGENT.md
   if (config.agent) {
