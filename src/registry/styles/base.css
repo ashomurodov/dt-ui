@@ -3,7 +3,7 @@
   --dt-background: hsl(0 0% 100%);
   --dt-foreground: hsl(240 10% 10%);
 
-  /* Primary — the brand color (RGB 0, 150, 178) */
+  /* Primary — brand color (RGB 0, 150, 178) */
   --dt-primary: hsl(190 100% 35%);
   --dt-primary-hover: hsl(190 100% 28%);
   --dt-primary-foreground: hsl(0 0% 100%);
