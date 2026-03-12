@@ -1,10 +1,10 @@
 {
-  "name": "dt-ui",
+  "name": "dtui",
   "version": "0.1.0",
   "description": "Lightweight, customizable Vue components for DT projects",
   "type": "module",
   "bin": {
-    "dt-ui": "./dist/cli/index.mjs"
+    "dt-ui": "dist/cli/index.mjs"
   },
   "files": [
     "dist",
