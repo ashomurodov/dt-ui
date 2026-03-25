@@ -1,6 +1,6 @@
 # DtPagination
 
-Page navigation with prev/next arrows and numbered page buttons. Supports two visual hierarchies (primary/secondary) and 3 sizes from the Figma design system. Shows a sliding window of up to 3 page numbers. Automatically hides on single page.
+Page navigation with prev/next arrows, numbered page buttons, and smart ellipsis. Supports two visual hierarchies (primary/secondary) and 3 sizes from the Figma design system. Shows a stable 5-page window with first/last page always visible. Automatically hides on single page.
 
 ## Import
 
@@ -23,6 +23,19 @@ import { DtPagination } from '@/components/ui/pagination'
 | Event | Payload | Description |
 |-------|---------|-------------|
 | `update:page` | `number` | Emitted when a page button or arrow is clicked. |
+
+## Page Window Behavior
+
+The pagination shows a stable 5-page window with ellipsis for large page counts:
+
+| Position | Display |
+|----------|---------|
+| ≤7 total pages | All pages shown, no ellipsis |
+| Near start (page 1–4) | **1 2 3 4 5** ... 50 |
+| Middle (page 16) | 1 ... 14 15 **16** 17 18 ... 50 |
+| Near end (page 47–50) | 1 ... **46 47 48 49 50** |
+
+The first 5 pages remain as a stable block — no pages appear or disappear one by one when clicking through the first few pages.
 
 ## Variants (Figma)
 
@@ -49,17 +62,20 @@ import { DtPagination } from '@/components/ui/pagination'
 ## Usage
 
 ```vue
+<!-- Few pages — all visible -->
+<DtPagination v-model:page="page" :total-count="25" />
+
 <!-- Secondary (bordered, dark active) — default -->
-<DtPagination v-model:page="page" :total-count="totalCount" />
+<DtPagination v-model:page="page" :total-count="500" />
 
 <!-- Primary (accent active) -->
-<DtPagination v-model:page="page" :total-count="totalCount" variant="primary" />
+<DtPagination v-model:page="page" :total-count="500" variant="primary" />
 
 <!-- Small size -->
-<DtPagination v-model:page="page" :total-count="totalCount" size="sm" />
+<DtPagination v-model:page="page" :total-count="500" size="sm" />
 
 <!-- Large, primary -->
-<DtPagination v-model:page="page" :total-count="totalCount" variant="primary" size="lg" />
+<DtPagination v-model:page="page" :total-count="500" variant="primary" size="lg" />
 ```
 
 ## CSS Custom Properties
@@ -68,6 +84,7 @@ import { DtPagination } from '@/components/ui/pagination'
 |----------|-------|
 | `--dt-gray-100` | Hover and disabled background. |
 | `--dt-gray-300` | Disabled text color. |
+| `--dt-gray-400` | Ellipsis color. |
 | `--dt-gray-500` | Default text/icon color. |
 | `--dt-gray-800` | Hover text, secondary active fill. |
 | `--dt-color-accent` | Primary active fill. |

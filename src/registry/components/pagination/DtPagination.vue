@@ -22,41 +22,42 @@ const emit = defineEmits<{
 
 const totalPages = computed(() => Math.ceil(props.totalCount / props.pageSize))
 
-// Build page items: numbers and ellipsis markers
-// Shows: 1 ... [current-2] [current-1] [current] [current+1] [current+2] ... last
+// Build page items with stable 5-page window
+// Near start:  1 2 3 4 5 ... 50
+// Middle:      1 ... 14 15 16 17 18 ... 50
+// Near end:    1 ... 46 47 48 49 50
 const pageItems = computed(() => {
   const total = totalPages.value
   const current = props.page
   const items: (number | 'ellipsis')[] = []
 
   if (total <= 7) {
-    // Show all pages
     for (let i = 1; i <= total; i++) items.push(i)
     return items
   }
 
-  // Always show first page
+  // Near start — pin first 5
+  if (current <= 4) {
+    for (let i = 1; i <= 5; i++) items.push(i)
+    items.push('ellipsis')
+    items.push(total)
+    return items
+  }
+
+  // Near end — pin last 5
+  if (current >= total - 3) {
+    items.push(1)
+    items.push('ellipsis')
+    for (let i = total - 4; i <= total; i++) items.push(i)
+    return items
+  }
+
+  // Middle — show window of 5 around current
   items.push(1)
-
-  if (current > 4) {
-    items.push('ellipsis')
-  }
-
-  // Window of 5 around current
-  const start = Math.max(2, current - 2)
-  const end = Math.min(total - 1, current + 2)
-
-  for (let i = start; i <= end; i++) {
-    items.push(i)
-  }
-
-  if (current < total - 3) {
-    items.push('ellipsis')
-  }
-
-  // Always show last page
+  items.push('ellipsis')
+  for (let i = current - 2; i <= current + 2; i++) items.push(i)
+  items.push('ellipsis')
   items.push(total)
-
   return items
 })
 
