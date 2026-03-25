@@ -45,6 +45,8 @@ Pre-styled header with logo area, badge, module switcher button, and profile ava
 | `badge` | `string` | `undefined` | Badge text displayed next to the logo (e.g., "Specialist", "Cabinet"). |
 | `profileName` | `string` | `undefined` | Used to generate avatar initials when no image is provided. |
 | `profileAvatar` | `string` | `undefined` | URL for the profile avatar image. Falls back to initials. |
+| `activeModule` | `string` | `'cabinet'` | The current module's identifier. Passed to the DT modules modal to highlight the active module. |
+| `envMode` | `'dev' \| 'preprod' \| 'prod'` | `'dev'` | Environment mode. Determines which CDN domain the modules modal uses. |
 | `showModulesButton` | `boolean` | `true` | Whether to show the grid modules button. |
 
 #### Events
@@ -52,7 +54,17 @@ Pre-styled header with logo area, badge, module switcher button, and profile ava
 | Event | Payload | Description |
 |-------|---------|-------------|
 | `toggle-profile` | — | Emitted when the profile avatar button is clicked. |
-| `open-modules` | — | Emitted when the modules grid button is clicked. |
+
+#### Modules Modal (Built-in)
+
+The header automatically initializes the DT modules modal on mount using the external `dt-header.js` script. You must include it in your `index.html`:
+
+```html
+<script src="https://cdn.dthub.uz/dt-header/dist/dt-header.js"></script>
+<link rel="stylesheet" href="https://cdn.dthub.uz/dt-header/dist/style.css">
+```
+
+The `activeModule` prop highlights the current module in the grid. The `envMode` prop controls which API environment the modal uses (dev → `.dthub.uz`, preprod → `.predt.uz`, prod → `.dt.uz`).
 
 #### Slots
 
@@ -243,6 +255,8 @@ const navItems: DtNavItem[] = [
         badge="Specialist"
         :profile-name="store.user?.first_name + ' ' + store.user?.last_name"
         :profile-avatar="store.user?.logo_url"
+        active-module="cabinet"
+        :env-mode="import.meta.env.DEV ? 'dev' : 'prod'"
         @toggle-profile="showProfile = !showProfile"
       >
         <template #logo>
