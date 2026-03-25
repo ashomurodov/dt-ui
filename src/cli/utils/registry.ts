@@ -69,6 +69,13 @@ export function getStylesContent(): string {
   return fs.readFileSync(path.join(registryDir, 'styles', 'base.css'), 'utf-8')
 }
 
+export function getTableCellsContent(): string {
+  const registryDir = getRegistryDir()
+  const filePath = path.join(registryDir, 'styles', 'table-cells.css')
+  if (!fs.existsSync(filePath)) return ''
+  return fs.readFileSync(filePath, 'utf-8')
+}
+
 export function getLibContent(): string {
   const registryDir = getRegistryDir()
   return fs.readFileSync(path.join(registryDir, 'lib', 'utils.ts'), 'utf-8')

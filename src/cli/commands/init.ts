@@ -8,7 +8,7 @@ import {
   detectFramework,
   type DtUiConfig,
 } from '../utils/config.js'
-import { getStylesContent, getLibContent } from '../utils/registry.js'
+import { getStylesContent, getTableCellsContent, getLibContent } from '../utils/registry.js'
 import { createAgentMd } from '../utils/agent.js'
 
 export async function initCommand() {
@@ -51,11 +51,6 @@ export async function initCommand() {
           initialValue: 'src/lib',
           placeholder: 'src/lib',
         }),
-      agent: () =>
-        p.confirm({
-          message: 'Include AI agent documentation (AGENT.md)?',
-          initialValue: true,
-        }),
     },
     {
       onCancel: () => {
@@ -73,7 +68,7 @@ export async function initCommand() {
     libDir: answers.libDir as string,
     stylesDir,
     installedComponents: [],
-    agent: answers.agent as boolean,
+    agent: true,
   }
 
   const s = p.spinner()
@@ -92,6 +87,18 @@ export async function initCommand() {
   )
   s.stop('base.css copied')
 
+  // Copy table-cells.css
+  const tableCellsContent = getTableCellsContent()
+  if (tableCellsContent) {
+    s.start('Copying table-cells.css...')
+    fs.writeFileSync(
+      path.join(stylesPath, 'table-cells.css'),
+      tableCellsContent,
+      'utf-8',
+    )
+    s.stop('table-cells.css copied')
+  }
+
   // Copy lib/utils.ts
   s.start('Copying lib/utils.ts...')
   const libPath = path.resolve(process.cwd(), answers.libDir as string)
@@ -104,11 +111,9 @@ export async function initCommand() {
   s.stop('lib/utils.ts copied')
 
   // Create AGENT.md
-  if (answers.agent) {
-    s.start('Creating AGENT.md...')
-    createAgentMd()
-    s.stop('AGENT.md created')
-  }
+  s.start('Creating AGENT.md...')
+  createAgentMd()
+  s.stop('AGENT.md created')
 
   p.note(
     [

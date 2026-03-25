@@ -23,6 +23,7 @@ type Locale = 'uz' | 'ru' | 'en'
 // Built-in i18n — shared across all 23 modules
 const i18n: Record<Locale, Record<string, string>> = {
   ru: {
+    profile: 'Профиль',
     appearance: 'Внешний вид',
     language: 'Язык',
     logout: 'Выйти',
@@ -31,6 +32,7 @@ const i18n: Record<Locale, Record<string, string>> = {
     systemTheme: 'Системная',
   },
   uz: {
+    profile: 'Profil',
     appearance: 'Tashqi ko\'rinish',
     language: 'Til',
     logout: 'Chiqish',
@@ -39,6 +41,7 @@ const i18n: Record<Locale, Record<string, string>> = {
     systemTheme: 'Tizim',
   },
   en: {
+    profile: 'Profile',
     appearance: 'Appearance',
     language: 'Language',
     logout: 'Logout',
@@ -149,6 +152,11 @@ onUnmounted(() => {
   document.removeEventListener('keydown', onKeydown)
 })
 
+const openProfile = () => {
+  if (props.profileUrl) window.open(props.profileUrl, '_blank')
+  close()
+}
+
 const onMenuItemClick = (item: DtProfileMenuItem) => {
   if (item.href) {
     window.open(item.href, '_blank')
@@ -186,12 +194,12 @@ const onMenuItemClick = (item: DtProfileMenuItem) => {
           <div class="dt-profile-modal__menu">
             <!-- Profile link -->
             <ul class="dt-profile-modal__list">
-              <li v-if="profileUrl" class="dt-profile-modal__item" @click="window.open(profileUrl, '_blank'); close()">
+              <li v-if="profileUrl" class="dt-profile-modal__item" @click="openProfile">
                 <svg class="dt-profile-modal__icon" width="22" height="22" viewBox="0 0 22 22" fill="none">
                   <circle cx="11" cy="8" r="3.5" stroke="currentColor" stroke-width="1.5"/>
                   <path d="M4.5 18.5C4.5 15 7.36 13 11 13C14.64 13 17.5 15 17.5 18.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                 </svg>
-                <span>{{ t('profile') || (locale === 'ru' ? 'Профиль' : locale === 'uz' ? 'Profil' : 'Profile') }}</span>
+                <span>{{ t('profile') }}</span>
               </li>
             </ul>
 

@@ -123,6 +123,7 @@ Fully self-contained profile dropdown with user info, theme switcher, language p
 | `menuItems` | `DtProfileMenuItem[]` | `[]` | Optional extra menu items specific to the module. |
 | `isOrganization` | `boolean` | `false` | If true, displays `user.organization_name` instead of personal name. |
 | `profileUrl` | `string` | `undefined` | URL for the "Profile" link (opens in new tab). If not set, profile link is hidden. |
+| `resourceUrl` | `string` | `undefined` | Base URL for file resources (e.g., `https://resource.dthub.uz/api/file/view-image`). Prepended to `user.logo_url` to build the full avatar URL. |
 
 #### DtUser Interface
 
@@ -255,6 +256,7 @@ const navItems: DtNavItem[] = [
             :theme="theme"
             :is-organization="store.isOrganization"
             profile-url="https://id.dthub.uz/cabinet"
+            resource-url="https://resource.dthub.uz/api/file/view-image"
             @theme-change="setTheme"
             @locale-change="setLang"
             @logout="store.logout()"

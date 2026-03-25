@@ -8,6 +8,7 @@ import {
 } from '../utils/config.js'
 import {
   getStylesContent,
+  getTableCellsContent,
   getLibContent,
   getComponentFiles,
   loadRegistry,
@@ -36,6 +37,18 @@ export async function updateCommand() {
     'utf-8',
   )
   s.stop('base.css updated')
+
+  // Update table-cells.css
+  const tableCellsContent = getTableCellsContent()
+  if (tableCellsContent) {
+    s.start('Updating table-cells.css...')
+    fs.writeFileSync(
+      path.join(stylesPath, 'table-cells.css'),
+      tableCellsContent,
+      'utf-8',
+    )
+    s.stop('table-cells.css updated')
+  }
 
   // Update lib/utils.ts
   s.start('Updating lib/utils.ts...')
@@ -86,18 +99,16 @@ export async function updateCommand() {
   }
 
   // Rebuild AGENT.md
-  if (config.agent) {
-    s.start('Rebuilding AGENT.md...')
-    rebuildAgentMd(config)
-    s.stop('AGENT.md rebuilt')
-  }
+  s.start('Rebuilding AGENT.md...')
+  rebuildAgentMd(config)
+  s.stop('AGENT.md rebuilt')
 
   p.note(
     [
       `${pc.green('✓')} base.css — latest design tokens`,
       `${pc.green('✓')} lib/utils.ts — latest helpers`,
-      config.agent ? `${pc.green('✓')} AGENT.md — rebuilt with current components` : '',
-    ].filter(Boolean).join('\n'),
+      `${pc.green('✓')} AGENT.md — rebuilt with current components`,
+    ].join('\n'),
     'Updated files',
   )
 

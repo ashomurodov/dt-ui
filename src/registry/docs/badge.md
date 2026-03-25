@@ -38,8 +38,8 @@ type BadgeSize = 'sm' | 'default'
 
 | Size | Padding | Font Size |
 |------|---------|-----------|
-| `sm` | 0.125rem 0.5rem | `--dt-text-xs` |
-| `default` | 0.25rem 0.625rem | `--dt-text-sm` |
+| `sm` | 0.125rem 0.375rem | `--dt-text-xs` |
+| `default` | 0.25rem 0.5rem | `--dt-text-xs` |
 
 ## Slots
 
