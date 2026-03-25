@@ -29,6 +29,7 @@
   position: sticky;
   top: 0;
   z-index: 30;
+  background-color: var(--dt-color-background);
 }
 
 .dt-layout__main {
@@ -39,6 +40,7 @@
 
 .dt-layout__sidebar {
   grid-area: sidebar;
+  position: relative;
 }
 
 .dt-layout__content {

@@ -1,6 +1,6 @@
 # DtPagination
 
-A page navigation component with previous/next arrows and numbered page buttons. Shows a sliding window of up to 3 page numbers centered on the current page. Automatically hides when there is only one page.
+Page navigation with prev/next arrows and numbered page buttons. Supports two visual hierarchies (primary/secondary) and 3 sizes from the Figma design system. Shows a sliding window of up to 3 page numbers. Automatically hides on single page.
 
 ## Import
 
@@ -14,7 +14,9 @@ import { DtPagination } from '@/components/ui/pagination'
 |------|------|---------|-------------|
 | `page` | `number` | **required** | Current active page (1-based). Use with `v-model:page`. |
 | `totalCount` | `number` | **required** | Total number of items across all pages. |
-| `pageSize` | `number` | `10` | Number of items per page. Used to calculate total pages. |
+| `pageSize` | `number` | `10` | Number of items per page. |
+| `variant` | `'primary' \| 'secondary'` | `'secondary'` | Visual hierarchy. |
+| `size` | `'lg' \| 'md' \| 'sm'` | `'md'` | Button size. |
 
 ## Events
 
@@ -22,63 +24,56 @@ import { DtPagination } from '@/components/ui/pagination'
 |-------|---------|-------------|
 | `update:page` | `number` | Emitted when a page button or arrow is clicked. |
 
-## Usage Examples
+## Variants (Figma)
 
-### Basic Pagination
+### Secondary (default)
+- Bordered buttons (`--dt-color-border`)
+- Active: dark fill (`--dt-gray-800`), white text
+- Hover: gray background (`--dt-gray-100`)
+- Disabled: gray fill, muted text
+
+### Primary
+- No border
+- Active: accent fill (`--dt-color-accent`), white text
+- Hover: gray background
+- Disabled: gray fill, muted text
+
+## Sizes (Figma)
+
+| Size | Height | Border Radius |
+|------|--------|---------------|
+| `lg` | 40px | 8px |
+| `md` | 36px | 8px |
+| `sm` | 32px | 4px |
+
+## Usage
 
 ```vue
-<script setup lang="ts">
-import { ref } from 'vue'
-import { DtPagination } from '@/components/ui/pagination'
+<!-- Secondary (bordered, dark active) — default -->
+<DtPagination v-model:page="page" :total-count="totalCount" />
 
-const page = ref(1)
-const totalCount = ref(85)
-</script>
+<!-- Primary (accent active) -->
+<DtPagination v-model:page="page" :total-count="totalCount" variant="primary" />
 
-<template>
-  <DtPagination v-model:page="page" :total-count="totalCount" :page-size="10" />
-</template>
-```
+<!-- Small size -->
+<DtPagination v-model:page="page" :total-count="totalCount" size="sm" />
 
-### With Data Fetch
-
-```vue
-<script setup lang="ts">
-import { ref, watch } from 'vue'
-import { DtPagination } from '@/components/ui/pagination'
-
-const page = ref(1)
-const totalCount = ref(0)
-
-watch(page, () => fetchData())
-
-async function fetchData() {
-  const { data } = await api.getItems({ page: page.value, pageSize: 10 })
-  totalCount.value = data.total_count
-}
-</script>
-
-<template>
-  <DtPagination v-model:page="page" :total-count="totalCount" />
-</template>
+<!-- Large, primary -->
+<DtPagination v-model:page="page" :total-count="totalCount" variant="primary" size="lg" />
 ```
 
 ## CSS Custom Properties
 
 | Property | Usage |
 |----------|-------|
-| `--dt-color-text` | Page number text color. |
-| `--dt-color-accent` | Active page button background. |
-| `--dt-color-accent-hover` | Active page button hover background. |
-| `--dt-color-background-secondary` | Inactive page button hover background. |
-| `--dt-radius-md` | Button border-radius (9px). |
-| `--dt-text-base` | Page number font size. |
-| `--dt-space-6` | Top margin (24px). |
-| `--dt-transition-fast` | Hover transition. |
-
-## Behavior
-
-- Automatically hides when `totalCount <= pageSize` (1 page).
-- Previous/next arrows are disabled at boundaries.
-- Shows a maximum of 3 page numbers at a time, centered on the current page.
-- Arrows use inline SVG (no external icon dependencies).
+| `--dt-gray-100` | Hover and disabled background. |
+| `--dt-gray-300` | Disabled text color. |
+| `--dt-gray-500` | Default text/icon color. |
+| `--dt-gray-800` | Hover text, secondary active fill. |
+| `--dt-color-accent` | Primary active fill. |
+| `--dt-color-background` | Button default background. |
+| `--dt-color-border` | Secondary button border. |
+| `--dt-radius-md` | LG/MD button radius (8px). |
+| `--dt-radius-xs` | SM button radius (4px). |
+| `--dt-text-sm` | Page number font size. |
+| `--dt-space-6` | Top margin. |

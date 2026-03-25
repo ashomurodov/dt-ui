@@ -240,6 +240,7 @@ const { theme, setTheme } = useTheme()
 const { locale, setLang } = useLangStorage()
 
 const showProfile = ref(false)
+const envMode = import.meta.env.DEV ? 'dev' as const : 'prod' as const
 
 const navItems: DtNavItem[] = [
   { to: '/services', icon: ServicesIcon, label: 'Services' },
@@ -256,7 +257,7 @@ const navItems: DtNavItem[] = [
         :profile-name="store.user?.first_name + ' ' + store.user?.last_name"
         :profile-avatar="store.user?.logo_url"
         active-module="cabinet"
-        :env-mode="import.meta.env.DEV ? 'dev' : 'prod'"
+        :env-mode="envMode"
         @toggle-profile="showProfile = !showProfile"
       >
         <template #logo>

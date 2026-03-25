@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-export type ButtonVariant = 'default' | 'secondary' | 'outline' | 'ghost' | 'destructive' | 'link'
-export type ButtonSize = 'sm' | 'default' | 'lg' | 'icon'
+export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost'
+export type ButtonSize = 'xl' | 'lg' | 'md' | 'sm' | 'xs'
 
 const props = withDefaults(defineProps<{
   variant?: ButtonVariant
@@ -10,14 +10,14 @@ const props = withDefaults(defineProps<{
   disabled?: boolean
   loading?: boolean
 }>(), {
-  variant: 'default',
-  size: 'default',
+  variant: 'primary',
+  size: 'md',
 })
 
 const classes = computed(() => [
   'dt-button',
   `dt-button--${props.variant}`,
-  `dt-button--${props.size}`,
+  `dt-button--size-${props.size}`,
   props.disabled && 'dt-button--disabled',
   props.loading && 'dt-button--loading',
 ].filter(Boolean))
@@ -30,11 +30,11 @@ const classes = computed(() => [
     v-bind="$attrs"
   >
     <span v-if="loading" class="dt-button__spinner" aria-hidden="true" />
-    <span v-if="$slots['icon-left']" class="dt-button__icon dt-button__icon--left">
+    <span v-if="$slots['icon-left']" class="dt-button__icon">
       <slot name="icon-left" />
     </span>
     <slot />
-    <span v-if="$slots['icon-right']" class="dt-button__icon dt-button__icon--right">
+    <span v-if="$slots['icon-right']" class="dt-button__icon">
       <slot name="icon-right" />
     </span>
   </button>
@@ -46,103 +46,110 @@ const classes = computed(() => [
   align-items: center;
   justify-content: center;
   gap: var(--dt-space-2);
-  font-weight: 500;
-  border-radius: var(--dt-radius-base);
-  transition: background-color var(--dt-transition-base),
-    border-color var(--dt-transition-base),
-    color var(--dt-transition-base),
-    box-shadow var(--dt-transition-base);
+  font-weight: var(--dt-font-medium);
   cursor: pointer;
   border: 1px solid transparent;
   font-family: inherit;
   line-height: 1;
   white-space: nowrap;
   user-select: none;
+  transition: background-color var(--dt-transition-base),
+    border-color var(--dt-transition-base),
+    color var(--dt-transition-base);
 }
 
-/* Variants */
-.dt-button--default {
-  background-color: var(--dt-color-accent);
+/* ── Variants ───────────────────────────── */
+.dt-button--primary {
+  background: var(--dt-color-accent);
   color: var(--dt-color-accent-foreground);
 }
-.dt-button--default:hover {
-  background-color: var(--dt-color-accent-hover);
+.dt-button--primary:hover:not(:disabled) {
+  background: var(--dt-color-accent-hover);
+}
+.dt-button--primary:active:not(:disabled) {
+  background: var(--dt-color-accent-active);
 }
 
 .dt-button--secondary {
-  background-color: var(--dt-color-secondary);
+  background: var(--dt-color-secondary);
   color: var(--dt-color-secondary-foreground);
 }
-.dt-button--secondary:hover {
-  background-color: var(--dt-color-secondary-hover);
+.dt-button--secondary:hover:not(:disabled) {
+  background: var(--dt-color-secondary-hover);
+}
+.dt-button--secondary:active:not(:disabled) {
+  background: var(--dt-color-secondary-active);
 }
 
 .dt-button--outline {
+  background: var(--dt-color-background);
+  color: var(--dt-gray-800);
   border-color: var(--dt-color-border);
-  background-color: transparent;
-  color: var(--dt-color-text);
 }
-.dt-button--outline:hover {
-  background-color: var(--dt-color-surface-hover);
-  border-color: var(--dt-color-border-hover);
+.dt-button--outline:hover:not(:disabled) {
+  color: var(--dt-color-accent);
+  border-color: var(--dt-color-accent);
+}
+.dt-button--outline:active:not(:disabled) {
+  background: var(--dt-brand-100);
+  color: var(--dt-color-accent);
+  border-color: var(--dt-color-accent);
 }
 
 .dt-button--ghost {
-  background-color: transparent;
-  color: var(--dt-color-text);
+  background: transparent;
+  color: var(--dt-gray-800);
 }
-.dt-button--ghost:hover {
-  background-color: var(--dt-color-surface-hover);
-}
-
-.dt-button--destructive {
-  background-color: var(--dt-color-error);
-  color: var(--dt-color-error-foreground);
-}
-.dt-button--destructive:hover {
-  background-color: var(--dt-color-error-hover);
-}
-
-.dt-button--link {
-  background-color: transparent;
+.dt-button--ghost:hover:not(:disabled) {
+  background: var(--dt-brand-100);
   color: var(--dt-color-accent);
-  text-decoration: underline;
-  text-underline-offset: 4px;
 }
-.dt-button--link:hover {
-  color: var(--dt-color-accent-hover);
+.dt-button--ghost:active:not(:disabled) {
+  background: transparent;
+  color: var(--dt-color-accent);
 }
 
-/* Sizes */
-.dt-button--sm {
-  height: 2rem;
-  padding: 0 0.75rem;
-  font-size: var(--dt-text-sm);
-}
-.dt-button--default {
-  height: 2.5rem;
-  padding: 0 1rem;
-  font-size: var(--dt-text-sm);
-}
-.dt-button--lg {
-  height: 2.75rem;
-  padding: 0 1.5rem;
+/* ── Sizes (Figma: xl/lg/md/sm/xs) ──────── */
+.dt-button--size-xl {
+  height: 56px;
+  padding: 18px 24px;
+  border-radius: var(--dt-radius-xl);
   font-size: var(--dt-text-base);
 }
-.dt-button--icon {
-  height: 2.5rem;
-  width: 2.5rem;
-  padding: 0;
+.dt-button--size-lg {
+  height: 48px;
+  padding: 16px 24px;
+  border-radius: var(--dt-radius-lg);
+  font-size: var(--dt-text-sm);
+}
+.dt-button--size-md {
+  height: 40px;
+  padding: 12px 18px;
+  border-radius: var(--dt-radius-base);
+  font-size: var(--dt-text-sm);
+}
+.dt-button--size-sm {
+  height: 32px;
+  padding: 8px 16px;
+  border-radius: var(--dt-radius-md);
+  font-size: var(--dt-text-xs);
+}
+.dt-button--size-xs {
+  height: 24px;
+  padding: 4px 8px;
+  border-radius: var(--dt-radius-sm);
+  font-size: var(--dt-text-xs);
 }
 
-/* States */
+/* ── States ──────────────────────────────── */
 .dt-button--disabled {
-  opacity: 0.5;
-  pointer-events: none;
+  background: var(--dt-color-disabled-bg);
+  color: var(--dt-color-disabled-text);
+  border-color: transparent;
+  cursor: not-allowed;
 }
 
 .dt-button--loading {
-  position: relative;
   pointer-events: none;
 }
 
@@ -151,7 +158,7 @@ const classes = computed(() => [
   outline-offset: 2px;
 }
 
-/* Spinner */
+/* ── Spinner ─────────────────────────────── */
 .dt-button__spinner {
   width: 1em;
   height: 1em;
@@ -169,8 +176,6 @@ const classes = computed(() => [
 }
 
 @keyframes dt-spin {
-  to {
-    transform: rotate(360deg);
-  }
+  to { transform: rotate(360deg); }
 }
 </style>

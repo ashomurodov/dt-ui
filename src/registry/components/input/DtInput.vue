@@ -2,17 +2,21 @@
 import { computed, useAttrs } from 'vue'
 
 export type InputType = 'text' | 'email' | 'password' | 'number' | 'search' | 'tel' | 'url'
+export type InputSize = 'xl' | 'lg' | 'md' | 'sm'
 
 const props = withDefaults(defineProps<{
   modelValue?: string | number
   type?: InputType
+  size?: InputSize
   placeholder?: string
   disabled?: boolean
   error?: string
+  success?: boolean
   hint?: string
   id?: string
 }>(), {
   type: 'text',
+  size: 'md',
 })
 
 const emit = defineEmits<{
@@ -20,18 +24,19 @@ const emit = defineEmits<{
 }>()
 
 const attrs = useAttrs()
-
 const inputId = computed(() => props.id || `dt-input-${Math.random().toString(36).slice(2, 9)}`)
 
 const wrapperClasses = computed(() => [
   'dt-input-wrapper',
-  props.error && 'dt-input-wrapper--error',
   props.disabled && 'dt-input-wrapper--disabled',
 ].filter(Boolean))
 
 const inputClasses = computed(() => [
   'dt-input',
+  `dt-input--${props.size}`,
   props.error && 'dt-input--error',
+  props.success && 'dt-input--success',
+  props.modelValue && 'dt-input--filled',
 ].filter(Boolean))
 
 function onInput(event: Event) {
@@ -46,18 +51,26 @@ function onInput(event: Event) {
     <label v-if="$slots.label" :for="inputId" class="dt-input__label">
       <slot name="label" />
     </label>
-    <input
-      :id="inputId"
-      :class="inputClasses"
-      :type="type"
-      :value="modelValue"
-      :placeholder="placeholder"
-      :disabled="disabled"
-      :aria-invalid="!!error"
-      :aria-describedby="error ? `${inputId}-error` : hint ? `${inputId}-hint` : undefined"
-      v-bind="attrs"
-      @input="onInput"
-    />
+    <div class="dt-input__container">
+      <span v-if="$slots['icon-left']" class="dt-input__icon dt-input__icon--left">
+        <slot name="icon-left" />
+      </span>
+      <input
+        :id="inputId"
+        :class="inputClasses"
+        :type="type"
+        :value="modelValue"
+        :placeholder="placeholder"
+        :disabled="disabled"
+        :aria-invalid="!!error"
+        :aria-describedby="error ? `${inputId}-error` : hint ? `${inputId}-hint` : undefined"
+        v-bind="attrs"
+        @input="onInput"
+      />
+      <span v-if="$slots['icon-right']" class="dt-input__icon dt-input__icon--right">
+        <slot name="icon-right" />
+      </span>
+    </div>
     <p v-if="error" :id="`${inputId}-error`" class="dt-input__error" role="alert">
       {{ error }}
     </p>
@@ -77,36 +90,69 @@ function onInput(event: Event) {
 
 .dt-input__label {
   font-size: var(--dt-text-sm);
-  font-weight: 500;
+  font-weight: var(--dt-font-medium);
   color: var(--dt-color-text);
+}
+
+.dt-input__container {
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .dt-input {
-  height: 2.75rem;
   width: 100%;
-  padding: 0 var(--dt-space-4);
-  font-size: var(--dt-text-sm);
   font-family: inherit;
-  color: var(--dt-color-text);
-  background-color: var(--dt-color-background);
+  color: var(--dt-gray-800);
+  background: transparent;
   border: 1px solid var(--dt-color-border);
-  border-radius: var(--dt-radius-base);
-  transition: border-color var(--dt-transition-base),
-    box-shadow var(--dt-transition-base);
   outline: none;
+  transition: border-color var(--dt-transition-base),
+    background-color var(--dt-transition-base);
 }
 
 .dt-input::placeholder {
-  color: var(--dt-color-text-secondary);
+  color: var(--dt-gray-400);
 }
 
-.dt-input:hover:not(:disabled) {
-  border-color: var(--dt-color-border-hover);
+/* Sizes */
+.dt-input--xl {
+  height: 64px;
+  padding: 22px 24px;
+  border-radius: var(--dt-radius-xl);
+  font-size: var(--dt-text-base);
+}
+.dt-input--lg {
+  height: 60px;
+  padding: 22px 20px;
+  border-radius: var(--dt-radius-xl);
+  font-size: var(--dt-text-base);
+}
+.dt-input--md {
+  height: 48px;
+  padding: 16px 16px;
+  border-radius: var(--dt-radius-lg);
+  font-size: var(--dt-text-sm);
+}
+.dt-input--sm {
+  height: 36px;
+  padding: 12px 12px;
+  border-radius: var(--dt-radius-base);
+  font-size: var(--dt-text-xs);
+}
+
+/* States */
+.dt-input--filled {
+  background: var(--dt-gray-100);
+}
+
+.dt-input:hover:not(:disabled):not(:focus) {
+  background: var(--dt-gray-100);
 }
 
 .dt-input:focus {
+  background: var(--dt-color-background);
   border-color: var(--dt-color-ring);
-  box-shadow: 0 0 0 2px color-mix(in srgb, var(--dt-color-ring) 25%, transparent);
 }
 
 .dt-input--error {
@@ -114,15 +160,49 @@ function onInput(event: Event) {
 }
 .dt-input--error:focus {
   border-color: var(--dt-color-error);
-  box-shadow: 0 0 0 2px color-mix(in srgb, var(--dt-color-error) 25%, transparent);
+}
+
+.dt-input--success {
+  border-color: var(--dt-color-success);
+}
+.dt-input--success:focus {
+  border-color: var(--dt-color-success);
 }
 
 .dt-input:disabled {
-  opacity: 0.5;
+  background: var(--dt-gray-100);
+  border-color: var(--dt-gray-100);
+  color: var(--dt-color-disabled-text);
   cursor: not-allowed;
-  background-color: var(--dt-color-background-tertiary);
 }
 
+.dt-input:disabled::placeholder {
+  color: var(--dt-color-disabled-text);
+}
+
+/* Icons */
+.dt-input__icon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  color: var(--dt-color-icon);
+  pointer-events: none;
+}
+.dt-input__icon--left {
+  left: 16px;
+}
+.dt-input__icon--right {
+  right: 16px;
+}
+
+.dt-input__container:has(.dt-input__icon--left) .dt-input {
+  padding-left: 44px;
+}
+.dt-input__container:has(.dt-input__icon--right) .dt-input {
+  padding-right: 44px;
+}
+
+/* Messages */
 .dt-input__error {
   font-size: var(--dt-text-xs);
   color: var(--dt-color-error);
@@ -134,7 +214,7 @@ function onInput(event: Event) {
 }
 
 .dt-input-wrapper--disabled {
-  opacity: 0.5;
+  opacity: 0.7;
   pointer-events: none;
 }
 </style>

@@ -1,22 +1,22 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-export type BadgeVariant = 'default' | 'secondary' | 'outline' | 'destructive' | 'success' | 'warning'
-export type BadgeSize = 'sm' | 'default'
+export type BadgeVariant = 'gray' | 'green' | 'red' | 'blue' | 'orange' | 'yellow'
+export type BadgeSize = 'sm' | 'md' | 'lg'
 
 const props = withDefaults(defineProps<{
   variant?: BadgeVariant
   size?: BadgeSize
   dot?: boolean
 }>(), {
-  variant: 'default',
-  size: 'default',
+  variant: 'gray',
+  size: 'md',
 })
 
 const classes = computed(() => [
   'dt-badge',
   `dt-badge--${props.variant}`,
-  `dt-badge--${props.size}`,
+  `dt-badge--size-${props.size}`,
   props.dot && 'dt-badge--dot',
 ].filter(Boolean))
 </script>
@@ -33,62 +33,63 @@ const classes = computed(() => [
   display: inline-flex;
   align-items: center;
   gap: var(--dt-space-1);
-  font-weight: 500;
+  font-weight: var(--dt-font-medium);
   border-radius: var(--dt-radius-sm);
   white-space: nowrap;
-  transition: background-color var(--dt-transition-base), color var(--dt-transition-base);
-  border: 1px solid transparent;
   line-height: 1;
 }
 
-/* Sizes */
-.dt-badge--sm {
-  padding: 0.125rem 0.375rem;
+/* Sizes (Figma: SM/MD/LG) */
+.dt-badge--size-sm {
+  padding: 4px 6px;
   font-size: var(--dt-text-xs);
 }
-.dt-badge--default {
-  padding: 0.25rem 0.5rem;
-  font-size: var(--dt-text-xs);
+.dt-badge--size-md {
+  padding: 4px 8px;
+  font-size: var(--dt-text-sm);
+}
+.dt-badge--size-lg {
+  padding: 4px 10px;
+  font-size: var(--dt-text-sm);
 }
 
-/* Variants */
-.dt-badge--default {
-  background-color: var(--dt-color-accent-light);
-  color: var(--dt-color-accent);
+/* Variants (Figma colors) */
+.dt-badge--gray {
+  background: var(--dt-gray-100);
+  color: var(--dt-gray-800);
 }
 
-.dt-badge--secondary {
-  background-color: var(--dt-color-background-tertiary);
-  color: var(--dt-color-text-secondary);
+.dt-badge--green {
+  background: var(--dt-success-100);
+  color: var(--dt-success-600);
 }
 
-.dt-badge--outline {
-  border-color: var(--dt-color-border);
-  background-color: transparent;
-  color: var(--dt-color-text);
+.dt-badge--red {
+  background: var(--dt-error-100);
+  color: var(--dt-error-500);
 }
 
-.dt-badge--destructive {
-  background-color: var(--dt-color-error-light);
-  color: var(--dt-color-error);
+.dt-badge--blue {
+  background: var(--dt-blue-100);
+  color: var(--dt-blue-500);
 }
 
-.dt-badge--success {
-  background-color: var(--dt-color-success-light);
-  color: var(--dt-color-success);
+.dt-badge--orange {
+  background: var(--dt-warning-100);
+  color: var(--dt-warning-600);
 }
 
-.dt-badge--warning {
-  background-color: var(--dt-color-warning-light);
-  color: var(--dt-color-warning);
+.dt-badge--yellow {
+  background: var(--dt-yellow-100);
+  color: var(--dt-yellow-600);
 }
 
 /* Dot */
 .dt-badge__dot {
-  width: 0.375rem;
-  height: 0.375rem;
-  border-radius: var(--dt-radius-full);
-  background-color: currentColor;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
   flex-shrink: 0;
 }
 </style>

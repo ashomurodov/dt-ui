@@ -111,10 +111,10 @@ const mobileVisibleItems = computed(() => props.items.slice(0, props.mobileItems
   max-width: calc(222px + 24px);
   background-color: var(--dt-color-background);
   position: sticky;
-  top: var(--dt-space-2);
+  top: 8px;
   align-self: start;
   padding-left: 24px;
-  max-height: calc(100vh - 84px - 8px);
+  max-height: calc(100vh - 8px);
   overflow-x: hidden;
   overflow-y: auto;
   scrollbar-width: none;

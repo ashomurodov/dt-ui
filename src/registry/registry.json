@@ -48,6 +48,30 @@
       "peerDeps": [],
       "docs": "docs/select.md"
     },
+    "toggle": {
+      "name": "DtToggle",
+      "description": "Switch toggle with 3 sizes and active/disabled states",
+      "files": ["DtToggle.vue", "index.ts"],
+      "internalDeps": [],
+      "peerDeps": [],
+      "docs": "docs/toggle.md"
+    },
+    "checkbox": {
+      "name": "DtCheckbox",
+      "description": "Checkbox with label, 3 sizes, and checked/disabled states",
+      "files": ["DtCheckbox.vue", "index.ts"],
+      "internalDeps": [],
+      "peerDeps": [],
+      "docs": "docs/checkbox.md"
+    },
+    "radio": {
+      "name": "DtRadio",
+      "description": "Radio button with label, 3 sizes, and animated selection dot",
+      "files": ["DtRadio.vue", "index.ts"],
+      "internalDeps": [],
+      "peerDeps": [],
+      "docs": "docs/radio.md"
+    },
     "data-table": {
       "name": "DtDataTable",
       "description": "Data table with column config, slot-based cells, loading and empty states",
