@@ -22,14 +22,42 @@ const emit = defineEmits<{
 
 const totalPages = computed(() => Math.ceil(props.totalCount / props.pageSize))
 
-const visiblePages = computed(() => {
+// Build page items: numbers and ellipsis markers
+// Shows: 1 ... [current-2] [current-1] [current] [current+1] [current+2] ... last
+const pageItems = computed(() => {
   const total = totalPages.value
   const current = props.page
-  const pages: number[] = []
-  const start = Math.max(1, current - 1)
-  const end = Math.min(total, start + 2)
-  for (let i = start; i <= end; i++) pages.push(i)
-  return pages
+  const items: (number | 'ellipsis')[] = []
+
+  if (total <= 7) {
+    // Show all pages
+    for (let i = 1; i <= total; i++) items.push(i)
+    return items
+  }
+
+  // Always show first page
+  items.push(1)
+
+  if (current > 4) {
+    items.push('ellipsis')
+  }
+
+  // Window of 5 around current
+  const start = Math.max(2, current - 2)
+  const end = Math.min(total - 1, current + 2)
+
+  for (let i = start; i <= end; i++) {
+    items.push(i)
+  }
+
+  if (current < total - 3) {
+    items.push('ellipsis')
+  }
+
+  // Always show last page
+  items.push(total)
+
+  return items
 })
 
 const changePage = (p: number) => {
@@ -55,15 +83,17 @@ const classes = computed(() => [
         <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </button>
-    <button
-      v-for="p in visiblePages"
-      :key="p"
-      class="dt-pagination__btn"
-      :class="{ 'dt-pagination__btn--active': p === page }"
-      @click="changePage(p)"
-    >
-      {{ p }}
-    </button>
+    <template v-for="(item, idx) in pageItems" :key="idx">
+      <span v-if="item === 'ellipsis'" class="dt-pagination__ellipsis">...</span>
+      <button
+        v-else
+        class="dt-pagination__btn"
+        :class="{ 'dt-pagination__btn--active': item === page }"
+        @click="changePage(item)"
+      >
+        {{ item }}
+      </button>
+    </template>
     <button
       class="dt-pagination__btn"
       :disabled="page === totalPages"
@@ -77,6 +107,17 @@ const classes = computed(() => [
 </template>
 
 <style scoped>
+.dt-pagination__ellipsis {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  color: var(--dt-gray-400);
+  font-size: var(--dt-text-sm);
+  user-select: none;
+  letter-spacing: 2px;
+}
+
 .dt-pagination {
   display: flex;
   align-items: center;
