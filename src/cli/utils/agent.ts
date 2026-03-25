@@ -11,30 +11,30 @@ This project uses dt-ui components. Below is the complete API reference for all 
 
 All components use CSS custom properties prefixed with \`--dt-\` defined in \`base.css\`. Override them in your project's CSS to customize the look.
 
-### Available Tokens
+### Key Tokens
 
 | Token | Default (Light) | Description |
 |-------|-----------------|-------------|
-| \`--dt-primary\` | \`hsl(190 100% 35%)\` | Brand/primary color (RGB 0, 150, 178) |
-| \`--dt-primary-hover\` | \`hsl(190 100% 28%)\` | Primary hover state |
-| \`--dt-primary-foreground\` | \`hsl(0 0% 100%)\` | Text on primary bg |
-| \`--dt-secondary\` | \`hsl(220 13% 46%)\` | Secondary color (RGB 102, 112, 133) |
-| \`--dt-secondary-foreground\` | \`hsl(0 0% 100%)\` | Text on secondary bg |
-| \`--dt-destructive\` | \`hsl(0 72% 51%)\` | Destructive/danger color |
-| \`--dt-success\` | \`hsl(142 72% 40%)\` | Success color |
-| \`--dt-warning\` | \`hsl(38 92% 50%)\` | Warning color |
-| \`--dt-border\` | \`hsl(190 13% 88%)\` | Border color |
-| \`--dt-ring\` | \`hsl(190 100% 35%)\` | Focus ring color |
-| \`--dt-radius-sm\` | \`0.25rem\` | Small border radius |
-| \`--dt-radius-md\` | \`0.375rem\` | Medium border radius |
-| \`--dt-radius-lg\` | \`0.5rem\` | Large border radius |
-| \`--dt-shadow-sm\` | \`0 1px 2px...\` | Small shadow |
-| \`--dt-shadow-md\` | \`0 4px 6px...\` | Medium shadow |
-| \`--dt-shadow-lg\` | \`0 10px 15px...\` | Large shadow |
+| \`--dt-color-accent\` | \`#0096b2\` | Brand/primary color |
+| \`--dt-color-accent-hover\` | \`#007a94\` | Primary hover state |
+| \`--dt-color-accent-foreground\` | \`#ffffff\` | Text on primary bg |
+| \`--dt-color-text\` | \`#101828\` | Main text color |
+| \`--dt-color-text-secondary\` | \`#667085\` | Secondary text |
+| \`--dt-color-background\` | \`#ffffff\` | Page background |
+| \`--dt-color-background-tertiary\` | \`#f2f5f7\` | Tertiary surface |
+| \`--dt-color-border\` | \`#dfe2e9\` | Border color |
+| \`--dt-color-error\` | \`#ed5151\` | Error/destructive color |
+| \`--dt-color-success\` | \`#12b76a\` | Success color |
+| \`--dt-color-warning\` | \`#f79009\` | Warning color |
+| \`--dt-color-ring\` | \`#0096b2\` | Focus ring color |
+| \`--dt-radius-sm\` | \`6px\` | Small radius (badges) |
+| \`--dt-radius-base\` | \`12px\` | Base radius (inputs, buttons) |
+| \`--dt-radius-lg\` | \`16px\` | Large radius (cards, rows) |
+| \`--dt-font-family\` | \`'Lab Grotesque', system-ui\` | Font family |
 
 ### Dark Mode
 
-Add the \`dark\` class to your \`<html>\` or \`<body>\` element. All tokens automatically adjust.
+Set \`data-theme="dark"\` on \`<html>\`. All tokens automatically adjust.
 
 ---
 
@@ -66,7 +66,7 @@ export function appendComponentDoc(componentName: string): void {
   const existing = fs.readFileSync(agentPath, 'utf-8')
 
   // Check if already documented
-  if (existing.includes(`### ${component.name}`)) return
+  if (existing.includes(`# ${component.name}`)) return
 
   const separator = '\n---\n\n'
   fs.appendFileSync(agentPath, docContent + separator, 'utf-8')

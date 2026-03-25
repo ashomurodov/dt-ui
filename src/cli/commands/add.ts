@@ -148,10 +148,8 @@ export async function addCommand(componentNames: string[]) {
       config.installedComponents.push(componentName)
     }
 
-    // Append to AGENT.md
-    if (config.agent) {
-      appendComponentDoc(componentName)
-    }
+    // Append docs to AGENT.md
+    appendComponentDoc(componentName)
 
     installed.push(componentName)
     s.stop(`${pc.green('✓')} ${comp.name} installed`)

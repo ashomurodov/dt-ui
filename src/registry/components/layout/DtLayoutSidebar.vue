@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { ref, computed, type Component } from 'vue'
+import { ref, computed } from 'vue'
 
 export interface DtNavItem {
   to: string
-  icon?: Component
+  icon?: object
   label: string
 }
 
