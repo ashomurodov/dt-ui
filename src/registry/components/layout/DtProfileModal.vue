@@ -68,6 +68,7 @@ const props = withDefaults(defineProps<{
   menuItems?: DtProfileMenuItem[]
   isOrganization?: boolean
   profileUrl?: string
+  resourceUrl?: string
 }>(), {
   locale: 'uz',
   theme: 'light',
@@ -101,6 +102,12 @@ const displayName = computed(() => {
 
 const displayDetails = computed(() => {
   return props.user.phone_numbers?.[0]?.number || ''
+})
+
+const avatarUrl = computed(() => {
+  if (!props.user.logo_url) return null
+  if (props.resourceUrl) return `${props.resourceUrl}/${props.user.logo_url}`
+  return props.user.logo_url
 })
 
 const profileInitials = computed(() => {
@@ -168,8 +175,8 @@ const onMenuItemClick = (item: DtProfileMenuItem) => {
           </div>
 
           <div class="dt-profile-modal__user">
-            <div class="dt-profile-modal__avatar" :class="{ 'dt-profile-modal__avatar--initials': !user.logo_url }">
-              <img v-if="user.logo_url" :src="user.logo_url" :alt="displayName" />
+            <div class="dt-profile-modal__avatar" :class="{ 'dt-profile-modal__avatar--initials': !avatarUrl }">
+              <img v-if="avatarUrl" :src="avatarUrl" :alt="displayName" />
               <span v-else>{{ profileInitials }}</span>
             </div>
             <h3 class="dt-profile-modal__name">{{ displayName }}</h3>
