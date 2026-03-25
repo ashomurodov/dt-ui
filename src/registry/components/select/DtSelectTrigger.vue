@@ -79,14 +79,14 @@ function onKeydown(event: KeyboardEvent) {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  height: 2.5rem;
-  padding: 0 0.75rem;
-  font-size: var(--dt-font-size-base);
+  height: 2.75rem;
+  padding: 0 var(--dt-space-4);
+  font-size: var(--dt-text-sm);
   font-family: inherit;
-  color: var(--dt-foreground);
-  background-color: var(--dt-background);
-  border: 1px solid var(--dt-border);
-  border-radius: var(--dt-radius-md);
+  color: var(--dt-color-text);
+  background-color: var(--dt-color-background);
+  border: 1px solid var(--dt-color-border);
+  border-radius: var(--dt-radius-base);
   cursor: pointer;
   transition: border-color var(--dt-transition-base),
     box-shadow var(--dt-transition-base);
@@ -95,16 +95,16 @@ function onKeydown(event: KeyboardEvent) {
 }
 
 .dt-select-trigger:hover {
-  border-color: var(--dt-border-hover);
+  border-color: var(--dt-color-border-hover);
 }
 
 .dt-select-trigger:focus-visible {
-  border-color: var(--dt-ring);
-  box-shadow: 0 0 0 2px color-mix(in srgb, var(--dt-ring) 25%, transparent);
+  border-color: var(--dt-color-ring);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--dt-color-ring) 25%, transparent);
 }
 
 .dt-select-trigger--open {
-  border-color: var(--dt-ring);
+  border-color: var(--dt-color-ring);
 }
 
 .dt-select-trigger__value {
@@ -118,7 +118,7 @@ function onKeydown(event: KeyboardEvent) {
   display: inline-flex;
   align-items: center;
   margin-left: var(--dt-space-2);
-  color: var(--dt-muted-foreground);
+  color: var(--dt-color-icon-secondary);
   transition: transform var(--dt-transition-base);
 }
 

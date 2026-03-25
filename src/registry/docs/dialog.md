@@ -243,8 +243,8 @@ import { DtButton } from '@/components/ui/button'
 | Property | Usage |
 |----------|-------|
 | `--dt-z-modal` | z-index for the dialog content panel (above the overlay). |
-| `--dt-background` | Panel background color. |
-| `--dt-border` | Panel border color. |
+| `--dt-color-background` | Panel background color. |
+| `--dt-color-border` | Panel border color. |
 | `--dt-radius-lg` | Panel border-radius. |
 | `--dt-shadow-lg` | Panel box-shadow. |
 | `--dt-space-6` | Panel inner padding. |
@@ -255,10 +255,10 @@ import { DtButton } from '@/components/ui/button'
 |----------|-------|
 | `--dt-space-1` | Gap between heading and description. |
 | `--dt-space-4` | Bottom padding below the header. |
-| `--dt-foreground` | Heading text color. |
-| `--dt-muted-foreground` | Description paragraph color. |
-| `--dt-font-size-lg` | Heading font size. |
-| `--dt-font-size-sm` | Description font size. |
+| `--dt-color-text` | Heading text color. |
+| `--dt-color-text-secondary` | Description paragraph color. |
+| `--dt-text-lg` | Heading font size. |
+| `--dt-text-sm` | Description font size. |
 
 ### DtDialogFooter
 

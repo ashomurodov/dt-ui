@@ -21,11 +21,11 @@
 .dt-card-header :deep(h4) {
   font-weight: 600;
   line-height: 1.25;
-  color: var(--dt-foreground);
+  color: var(--dt-color-text);
 }
 
 .dt-card-header :deep(p) {
-  font-size: var(--dt-font-size-sm);
-  color: var(--dt-muted-foreground);
+  font-size: var(--dt-text-sm);
+  color: var(--dt-color-text-secondary);
 }
 </style>

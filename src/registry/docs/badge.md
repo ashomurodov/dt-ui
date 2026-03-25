@@ -27,19 +27,19 @@ type BadgeSize = 'sm' | 'default'
 
 | Variant | Background | Text Color | Border |
 |---------|-----------|------------|--------|
-| `default` | `--dt-primary` | `--dt-primary-foreground` | transparent |
-| `secondary` | `--dt-secondary` | `--dt-secondary-foreground` | transparent |
-| `outline` | transparent | `--dt-foreground` | `--dt-border` |
-| `destructive` | `--dt-destructive` | `--dt-destructive-foreground` | transparent |
-| `success` | `--dt-success` | `--dt-success-foreground` | transparent |
-| `warning` | `--dt-warning` | `--dt-warning-foreground` | transparent |
+| `default` | `--dt-color-accent` | `--dt-color-accent-foreground` | transparent |
+| `secondary` | `--dt-color-secondary` | `--dt-color-secondary-foreground` | transparent |
+| `outline` | transparent | `--dt-color-text` | `--dt-color-border` |
+| `destructive` | `--dt-color-error` | `--dt-color-error-foreground` | transparent |
+| `success` | `--dt-color-success` | `--dt-color-success-foreground` | transparent |
+| `warning` | `--dt-color-warning` | `--dt-color-warning-foreground` | transparent |
 
 ### Size Reference
 
 | Size | Padding | Font Size |
 |------|---------|-----------|
-| `sm` | 0.125rem 0.5rem | `--dt-font-size-xs` |
-| `default` | 0.25rem 0.625rem | `--dt-font-size-sm` |
+| `sm` | 0.125rem 0.5rem | `--dt-text-xs` |
+| `default` | 0.25rem 0.625rem | `--dt-text-sm` |
 
 ## Slots
 
@@ -139,18 +139,18 @@ const services = [
 
 | Property | Usage |
 |----------|-------|
-| `--dt-primary` | Default variant background. |
-| `--dt-primary-foreground` | Default variant text. |
-| `--dt-secondary` | Secondary variant background. |
-| `--dt-secondary-foreground` | Secondary variant text. |
-| `--dt-foreground` | Outline variant text. |
-| `--dt-border` | Outline variant border. |
-| `--dt-destructive` | Destructive variant background. |
-| `--dt-destructive-foreground` | Destructive variant text. |
-| `--dt-success` | Success variant background. |
-| `--dt-success-foreground` | Success variant text. |
-| `--dt-warning` | Warning variant background. |
-| `--dt-warning-foreground` | Warning variant text. |
+| `--dt-color-accent` | Default variant background. |
+| `--dt-color-accent-foreground` | Default variant text. |
+| `--dt-color-secondary` | Secondary variant background. |
+| `--dt-color-secondary-foreground` | Secondary variant text. |
+| `--dt-color-text` | Outline variant text. |
+| `--dt-color-border` | Outline variant border. |
+| `--dt-color-error` | Destructive variant background. |
+| `--dt-color-error-foreground` | Destructive variant text. |
+| `--dt-color-success` | Success variant background. |
+| `--dt-color-success-foreground` | Success variant text. |
+| `--dt-color-warning` | Warning variant background. |
+| `--dt-color-warning-foreground` | Warning variant text. |
 
 ### Layout & Typography
 
@@ -158,8 +158,8 @@ const services = [
 |----------|-------|
 | `--dt-space-1` | Gap between the dot and the text. |
 | `--dt-radius-full` | Pill-shaped border-radius (9999px). Also used for the dot circle. |
-| `--dt-font-size-xs` | Font size at `sm` size. |
-| `--dt-font-size-sm` | Font size at `default` size. |
+| `--dt-text-xs` | Font size at `sm` size. |
+| `--dt-text-sm` | Font size at `default` size. |
 | `--dt-transition-base` | Duration/easing for background-color and color transitions. |
 
 ## Accessibility

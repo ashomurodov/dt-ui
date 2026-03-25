@@ -27,13 +27,13 @@ const classes = computed(() => [
 
 <style scoped>
 .dt-card {
-  background-color: var(--dt-background);
+  background-color: var(--dt-color-background);
   border-radius: var(--dt-radius-lg);
   overflow: hidden;
 }
 
 .dt-card--bordered {
-  border: 1px solid var(--dt-border);
+  border: 1px solid var(--dt-color-border);
 }
 
 .dt-card--shadow {

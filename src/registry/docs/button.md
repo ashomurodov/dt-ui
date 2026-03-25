@@ -28,20 +28,20 @@ type ButtonSize = 'sm' | 'default' | 'lg' | 'icon'
 
 | Variant | Background | Text Color | Border | Notes |
 |---------|-----------|------------|--------|-------|
-| `default` | `--dt-primary` | `--dt-primary-foreground` | transparent | Primary call-to-action. |
-| `secondary` | `--dt-secondary` | `--dt-secondary-foreground` | transparent | Lower emphasis. |
-| `outline` | transparent | `--dt-foreground` | `--dt-border` | Bordered, no fill. |
-| `ghost` | transparent | `--dt-foreground` | none | No background until hover. |
-| `destructive` | `--dt-destructive` | `--dt-destructive-foreground` | transparent | Dangerous actions (delete, remove). |
-| `link` | transparent | `--dt-primary` | none | Underlined text, link-like appearance. |
+| `default` | `--dt-color-accent` | `--dt-color-accent-foreground` | transparent | Primary call-to-action. |
+| `secondary` | `--dt-color-secondary` | `--dt-color-secondary-foreground` | transparent | Lower emphasis. |
+| `outline` | transparent | `--dt-color-text` | `--dt-color-border` | Bordered, no fill. |
+| `ghost` | transparent | `--dt-color-text` | none | No background until hover. |
+| `destructive` | `--dt-color-error` | `--dt-color-error-foreground` | transparent | Dangerous actions (delete, remove). |
+| `link` | transparent | `--dt-color-accent` | none | Underlined text, link-like appearance. |
 
 ### Size Reference
 
 | Size | Height | Padding | Font Size |
 |------|--------|---------|-----------|
-| `sm` | 2rem (32px) | 0 0.75rem | `--dt-font-size-sm` |
-| `default` | 2.5rem (40px) | 0 1rem | `--dt-font-size-base` |
-| `lg` | 2.75rem (44px) | 0 1.5rem | `--dt-font-size-lg` |
+| `sm` | 2rem (32px) | 0 0.75rem | `--dt-text-sm` |
+| `default` | 2.5rem (40px) | 0 1rem | `--dt-text-base` |
+| `lg` | 2.75rem (44px) | 0 1.5rem | `--dt-text-lg` |
 | `icon` | 2.5rem (40px) | 0 (square) | inherited |
 
 ## Slots
@@ -147,20 +147,20 @@ The following design tokens are used by DtButton and can be overridden to theme 
 
 | Property | Usage |
 |----------|-------|
-| `--dt-primary` | Default variant background. |
-| `--dt-primary-hover` | Default variant hover background. |
-| `--dt-primary-foreground` | Default variant text. |
-| `--dt-secondary` | Secondary variant background. |
-| `--dt-secondary-hover` | Secondary variant hover background. |
-| `--dt-secondary-foreground` | Secondary variant text. |
-| `--dt-foreground` | Text for outline and ghost variants. |
-| `--dt-accent` | Hover background for outline and ghost variants. |
-| `--dt-border` | Outline variant border. |
-| `--dt-border-hover` | Outline variant hover border. |
-| `--dt-destructive` | Destructive variant background. |
-| `--dt-destructive-hover` | Destructive variant hover background. |
-| `--dt-destructive-foreground` | Destructive variant text. |
-| `--dt-ring` | Focus-visible outline color. |
+| `--dt-color-accent` | Default variant background. |
+| `--dt-color-accent-hover` | Default variant hover background. |
+| `--dt-color-accent-foreground` | Default variant text. |
+| `--dt-color-secondary` | Secondary variant background. |
+| `--dt-color-secondary-hover` | Secondary variant hover background. |
+| `--dt-color-secondary-foreground` | Secondary variant text. |
+| `--dt-color-text` | Text for outline and ghost variants. |
+| `--dt-color-surface-hover` | Hover background for outline and ghost variants. |
+| `--dt-color-border` | Outline variant border. |
+| `--dt-color-border-hover` | Outline variant hover border. |
+| `--dt-color-error` | Destructive variant background. |
+| `--dt-color-error-hover` | Destructive variant hover background. |
+| `--dt-color-error-foreground` | Destructive variant text. |
+| `--dt-color-ring` | Focus-visible outline color. |
 
 ### Layout & Typography
 
@@ -169,16 +169,16 @@ The following design tokens are used by DtButton and can be overridden to theme 
 | `--dt-space-2` | Gap between icon slots and label. |
 | `--dt-radius-md` | Button border-radius. |
 | `--dt-radius-full` | Spinner border-radius. |
-| `--dt-font-size-sm` | Font size at `sm` size. |
-| `--dt-font-size-base` | Font size at `default` size. |
-| `--dt-font-size-lg` | Font size at `lg` size. |
+| `--dt-text-sm` | Font size at `sm` size. |
+| `--dt-text-base` | Font size at `default` size. |
+| `--dt-text-lg` | Font size at `lg` size. |
 | `--dt-transition-base` | Duration/easing for background, border, color, and box-shadow transitions. |
 
 ## Accessibility
 
 - Uses a native `<button>` element, so it is keyboard-focusable and activatable with Enter/Space by default.
 - The `disabled` attribute is set natively when `disabled` or `loading` is true, which removes the button from the tab order and prevents activation.
-- A visible `:focus-visible` ring (2px solid `--dt-ring`, 2px offset) is applied for keyboard focus, with no outline on mouse click.
+- A visible `:focus-visible` ring (2px solid `--dt-color-ring`, 2px offset) is applied for keyboard focus, with no outline on mouse click.
 - The loading spinner is marked `aria-hidden="true"` to avoid screen readers announcing decorative content.
 - When using `size="icon"` (no visible text label), you must provide an `aria-label` attribute to give the button an accessible name.
 - Color contrast for all variant/foreground combinations should be verified against WCAG 2.1 AA (4.5:1 for text, 3:1 for UI components).

@@ -34,7 +34,7 @@ const classes = computed(() => [
   align-items: center;
   gap: var(--dt-space-1);
   font-weight: 500;
-  border-radius: var(--dt-radius-full);
+  border-radius: var(--dt-radius-sm);
   white-space: nowrap;
   transition: background-color var(--dt-transition-base), color var(--dt-transition-base);
   border: 1px solid transparent;
@@ -43,44 +43,44 @@ const classes = computed(() => [
 
 /* Sizes */
 .dt-badge--sm {
-  padding: 0.125rem 0.5rem;
-  font-size: var(--dt-font-size-xs);
+  padding: 0.125rem 0.375rem;
+  font-size: var(--dt-text-xs);
 }
 .dt-badge--default {
-  padding: 0.25rem 0.625rem;
-  font-size: var(--dt-font-size-sm);
+  padding: 0.25rem 0.5rem;
+  font-size: var(--dt-text-xs);
 }
 
 /* Variants */
 .dt-badge--default {
-  background-color: var(--dt-primary);
-  color: var(--dt-primary-foreground);
+  background-color: var(--dt-color-accent-light);
+  color: var(--dt-color-accent);
 }
 
 .dt-badge--secondary {
-  background-color: var(--dt-secondary);
-  color: var(--dt-secondary-foreground);
+  background-color: var(--dt-color-background-tertiary);
+  color: var(--dt-color-text-secondary);
 }
 
 .dt-badge--outline {
-  border-color: var(--dt-border);
+  border-color: var(--dt-color-border);
   background-color: transparent;
-  color: var(--dt-foreground);
+  color: var(--dt-color-text);
 }
 
 .dt-badge--destructive {
-  background-color: var(--dt-destructive);
-  color: var(--dt-destructive-foreground);
+  background-color: var(--dt-color-error-light);
+  color: var(--dt-color-error);
 }
 
 .dt-badge--success {
-  background-color: var(--dt-success);
-  color: var(--dt-success-foreground);
+  background-color: var(--dt-color-success-light);
+  color: var(--dt-color-success);
 }
 
 .dt-badge--warning {
-  background-color: var(--dt-warning);
-  color: var(--dt-warning-foreground);
+  background-color: var(--dt-color-warning-light);
+  color: var(--dt-color-warning);
 }
 
 /* Dot */

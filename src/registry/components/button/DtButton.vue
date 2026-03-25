@@ -47,7 +47,7 @@ const classes = computed(() => [
   justify-content: center;
   gap: var(--dt-space-2);
   font-weight: 500;
-  border-radius: var(--dt-radius-md);
+  border-radius: var(--dt-radius-base);
   transition: background-color var(--dt-transition-base),
     border-color var(--dt-transition-base),
     color var(--dt-transition-base),
@@ -62,72 +62,72 @@ const classes = computed(() => [
 
 /* Variants */
 .dt-button--default {
-  background-color: var(--dt-primary);
-  color: var(--dt-primary-foreground);
+  background-color: var(--dt-color-accent);
+  color: var(--dt-color-accent-foreground);
 }
 .dt-button--default:hover {
-  background-color: var(--dt-primary-hover);
+  background-color: var(--dt-color-accent-hover);
 }
 
 .dt-button--secondary {
-  background-color: var(--dt-secondary);
-  color: var(--dt-secondary-foreground);
+  background-color: var(--dt-color-secondary);
+  color: var(--dt-color-secondary-foreground);
 }
 .dt-button--secondary:hover {
-  background-color: var(--dt-secondary-hover);
+  background-color: var(--dt-color-secondary-hover);
 }
 
 .dt-button--outline {
-  border-color: var(--dt-border);
+  border-color: var(--dt-color-border);
   background-color: transparent;
-  color: var(--dt-foreground);
+  color: var(--dt-color-text);
 }
 .dt-button--outline:hover {
-  background-color: var(--dt-accent);
-  border-color: var(--dt-border-hover);
+  background-color: var(--dt-color-surface-hover);
+  border-color: var(--dt-color-border-hover);
 }
 
 .dt-button--ghost {
   background-color: transparent;
-  color: var(--dt-foreground);
+  color: var(--dt-color-text);
 }
 .dt-button--ghost:hover {
-  background-color: var(--dt-accent);
+  background-color: var(--dt-color-surface-hover);
 }
 
 .dt-button--destructive {
-  background-color: var(--dt-destructive);
-  color: var(--dt-destructive-foreground);
+  background-color: var(--dt-color-error);
+  color: var(--dt-color-error-foreground);
 }
 .dt-button--destructive:hover {
-  background-color: var(--dt-destructive-hover);
+  background-color: var(--dt-color-error-hover);
 }
 
 .dt-button--link {
   background-color: transparent;
-  color: var(--dt-primary);
+  color: var(--dt-color-accent);
   text-decoration: underline;
   text-underline-offset: 4px;
 }
 .dt-button--link:hover {
-  color: var(--dt-primary-hover);
+  color: var(--dt-color-accent-hover);
 }
 
 /* Sizes */
 .dt-button--sm {
   height: 2rem;
   padding: 0 0.75rem;
-  font-size: var(--dt-font-size-sm);
+  font-size: var(--dt-text-sm);
 }
 .dt-button--default {
   height: 2.5rem;
   padding: 0 1rem;
-  font-size: var(--dt-font-size-base);
+  font-size: var(--dt-text-sm);
 }
 .dt-button--lg {
   height: 2.75rem;
   padding: 0 1.5rem;
-  font-size: var(--dt-font-size-lg);
+  font-size: var(--dt-text-base);
 }
 .dt-button--icon {
   height: 2.5rem;
@@ -147,7 +147,7 @@ const classes = computed(() => [
 }
 
 .dt-button:focus-visible {
-  outline: 2px solid var(--dt-ring);
+  outline: 2px solid var(--dt-color-ring);
   outline-offset: 2px;
 }
 

@@ -1,131 +1,209 @@
+/* ─────────────────────────────────────────────────────────────
+   DT Design System Tokens
+   Source of truth for all DT platform modules.
+   ───────────────────────────────────────────────────────────── */
+
 :root {
-  /* Base */
-  --dt-background: hsl(0 0% 100%);
-  --dt-foreground: hsl(240 10% 10%);
+  /* ── COLORS: Text ─────────────────────────────────────────── */
+  --dt-color-text: #101828;
+  --dt-color-text-secondary: #667085;
+  --dt-color-text-tertiary: #738699;
+  --dt-color-black: #000000;
 
-  /* Primary — brand color (RGB 0, 150, 178) */
-  --dt-primary: hsl(190 100% 35%);
-  --dt-primary-hover: hsl(190 100% 28%);
-  --dt-primary-foreground: hsl(0 0% 100%);
+  /* ── COLORS: Backgrounds ──────────────────────────────────── */
+  --dt-color-background: #ffffff;
+  --dt-color-background-secondary: #f9fafb;
+  --dt-color-background-tertiary: #f2f5f7;
+  --dt-color-background-additional: #f4f6f9;
+  --dt-color-surface: #ffffff;
+  --dt-color-surface-hover: #f9fafb;
+  --dt-color-link-background: #f4f5f6;
+  --dt-color-gray-background: #9eabbe;
 
-  /* Secondary — (RGB 102, 112, 133) */
-  --dt-secondary: hsl(220 13% 46%);
-  --dt-secondary-hover: hsl(220 13% 38%);
-  --dt-secondary-foreground: hsl(0 0% 100%);
+  /* ── COLORS: Overlay ──────────────────────────────────────── */
+  --dt-color-overlay: rgba(0, 0, 0, 0.5);
 
-  /* Muted */
-  --dt-muted: hsl(190 14% 96%);
-  --dt-muted-foreground: hsl(190 8% 46%);
+  /* ── COLORS: Borders ──────────────────────────────────────── */
+  --dt-color-border: #dfe2e9;
+  --dt-color-border-light: #f2f4f7;
+  --dt-color-border-hover: #c4cdcf;
+  --dt-color-divider: #dde8ed;
 
-  /* Accent */
-  --dt-accent: hsl(190 14% 94%);
-  --dt-accent-foreground: hsl(190 10% 20%);
+  /* ── COLORS: Icons ────────────────────────────────────────── */
+  --dt-color-icon: #364654;
+  --dt-color-icon-secondary: #98a2b3;
+  --dt-color-icon-tertiary: #c4cdcf;
+  --dt-color-icon-light: #93a0ac;
+  --dt-color-icon-dark: #3f4c5d;
 
-  /* Destructive */
-  --dt-destructive: hsl(0 72% 51%);
-  --dt-destructive-hover: hsl(0 72% 43%);
-  --dt-destructive-foreground: hsl(0 0% 100%);
+  /* ── COLORS: Accent / Primary ─────────────────────────────── */
+  --dt-color-accent: #0096b2;
+  --dt-color-accent-hover: #007a94;
+  --dt-color-accent-light: #e6f7fa;
+  --dt-color-accent-foreground: #ffffff;
 
-  /* Success */
-  --dt-success: hsl(142 72% 40%);
-  --dt-success-hover: hsl(142 72% 34%);
-  --dt-success-foreground: hsl(0 0% 100%);
+  /* ── COLORS: Status ───────────────────────────────────────── */
+  --dt-color-success: #12b76a;
+  --dt-color-success-light: #ecfdf3;
+  --dt-color-success-foreground: #ffffff;
+  --dt-color-warning: #f79009;
+  --dt-color-warning-light: #fffaeb;
+  --dt-color-warning-foreground: #ffffff;
+  --dt-color-error: #ed5151;
+  --dt-color-error-light: #fef3f2;
+  --dt-color-error-foreground: #ffffff;
 
-  /* Warning */
-  --dt-warning: hsl(38 92% 50%);
-  --dt-warning-hover: hsl(38 92% 42%);
-  --dt-warning-foreground: hsl(0 0% 100%);
+  /* ── COLORS: Secondary (dark gray buttons) ─────────────── */
+  --dt-color-secondary: #364654;
+  --dt-color-secondary-hover: #2a3847;
+  --dt-color-secondary-foreground: #ffffff;
 
-  /* Borders & Rings */
-  --dt-border: hsl(190 13% 88%);
-  --dt-border-hover: hsl(190 13% 78%);
-  --dt-ring: hsl(190 100% 35%);
+  /* ── COLORS: Error hover ──────────────────────────────────── */
+  --dt-color-error-hover: #d63f3f;
 
-  /* Radii */
-  --dt-radius-sm: 0.25rem;
-  --dt-radius-md: 0.375rem;
-  --dt-radius-lg: 0.5rem;
-  --dt-radius-xl: 0.75rem;
-  --dt-radius-full: 9999px;
+  /* ── COLORS: Ring (focus) ─────────────────────────────────── */
+  --dt-color-ring: #0096b2;
 
-  /* Shadows */
-  --dt-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --dt-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --dt-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-
-  /* Spacing scale */
-  --dt-space-1: 0.25rem;
-  --dt-space-2: 0.5rem;
-  --dt-space-3: 0.75rem;
-  --dt-space-4: 1rem;
-  --dt-space-5: 1.25rem;
-  --dt-space-6: 1.5rem;
-  --dt-space-8: 2rem;
-  --dt-space-10: 2.5rem;
-  --dt-space-12: 3rem;
-
-  /* Typography */
-  --dt-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* ── TYPOGRAPHY ───────────────────────────────────────────── */
+  --dt-font-family: 'Lab Grotesque', system-ui, -apple-system, sans-serif;
   --dt-font-mono: 'JetBrains Mono', 'Fira Code', monospace;
-  --dt-font-size-xs: 0.75rem;
-  --dt-font-size-sm: 0.8125rem;
-  --dt-font-size-base: 0.875rem;
-  --dt-font-size-lg: 1rem;
-  --dt-font-size-xl: 1.125rem;
 
-  /* Z-index layers */
+  /* Font sizes */
+  --dt-text-xs: 0.75rem;     /* 12px */
+  --dt-text-sm: 0.875rem;    /* 14px */
+  --dt-text-base: 1rem;      /* 16px */
+  --dt-text-lg: 1.125rem;    /* 18px */
+  --dt-text-xl: 1.25rem;     /* 20px */
+  --dt-text-2xl: 1.5rem;     /* 24px */
+  --dt-text-3xl: 2rem;       /* 32px */
+
+  /* Font weights */
+  --dt-font-light: 200;
+  --dt-font-thin: 300;
+  --dt-font-regular: 400;
+  --dt-font-medium: 500;
+  --dt-font-semibold: 600;
+  --dt-font-bold: 700;
+
+  /* Line heights */
+  --dt-leading-thin: 1.1;
+  --dt-leading-tight: 1.25;
+  --dt-leading-normal: 1.5;
+  --dt-leading-relaxed: 1.625;
+
+  /* ── SPACING ──────────────────────────────────────────────── */
+  --dt-space-0-5: 0.125rem;  /* 2px  */
+  --dt-space-1: 0.25rem;     /* 4px  */
+  --dt-space-1-5: 0.375rem;  /* 6px  */
+  --dt-space-2: 0.5rem;      /* 8px  */
+  --dt-space-2-5: 0.625rem;  /* 10px */
+  --dt-space-3: 0.75rem;     /* 12px */
+  --dt-space-3-5: 0.875rem;  /* 14px */
+  --dt-space-4: 1rem;        /* 16px */
+  --dt-space-5: 1.25rem;     /* 20px */
+  --dt-space-6: 1.5rem;      /* 24px */
+  --dt-space-8: 2rem;        /* 32px */
+  --dt-space-10: 2.5rem;     /* 40px */
+  --dt-space-12: 3rem;       /* 48px */
+  --dt-space-16: 4rem;       /* 64px */
+
+  /* ── BORDER RADIUS ────────────────────────────────────────── */
+  --dt-radius-sm: 6px;       /* Small badges, tags */
+  --dt-radius-md: 9px;       /* Cards, buttons */
+  --dt-radius-base: 12px;    /* Inputs, modals */
+  --dt-radius-button: 14px;  /* Large buttons */
+  --dt-radius-lg: 16px;      /* Modals, large cards */
+  --dt-radius-input: 18px;   /* Large inputs */
+  --dt-radius-xl: 24px;      /* Large modals, dialogs */
+  --dt-radius-full: 50%;     /* Pills, avatars */
+
+  /* ── SHADOWS ──────────────────────────────────────────────── */
+  --dt-shadow-xs: 0 1px 2px rgba(16, 24, 40, 0.05);
+  --dt-shadow-sm: 0 1px 3px rgba(16, 24, 40, 0.1), 0 1px 2px rgba(16, 24, 40, 0.06);
+  --dt-shadow-md: 0 4px 8px -2px rgba(16, 24, 40, 0.1), 0 2px 4px -2px rgba(16, 24, 40, 0.06);
+  --dt-shadow-lg: 0 12px 16px -4px rgba(16, 24, 40, 0.08), 0 4px 6px -2px rgba(16, 24, 40, 0.03);
+
+  /* ── Z-INDEX LAYERS ───────────────────────────────────────── */
   --dt-z-dropdown: 50;
   --dt-z-overlay: 100;
   --dt-z-modal: 200;
   --dt-z-toast: 300;
 
-  /* Transitions */
-  --dt-transition-fast: 0.1s ease;
-  --dt-transition-base: 0.15s ease;
-  --dt-transition-slow: 0.3s ease;
+  /* ── TRANSITIONS ──────────────────────────────────────────── */
+  --dt-transition-fast: 150ms ease;
+  --dt-transition-base: 200ms ease;
+  --dt-transition-slow: 300ms ease;
+
+  /* ── LAYOUT ───────────────────────────────────────────────── */
+  --dt-sidebar-width: 240px;
+  --dt-sidebar-collapsed: 72px;
+  --dt-max-content-width: 1100px;
 }
 
-/* Dark mode */
-.dark {
-  --dt-background: hsl(240 10% 8%);
-  --dt-foreground: hsl(0 0% 95%);
+/* ─────────────────────────────────────────────────────────────
+   DARK THEME OVERRIDES
+   ───────────────────────────────────────────────────────────── */
 
-  --dt-primary: hsl(190 100% 45%);
-  --dt-primary-hover: hsl(190 100% 52%);
-  --dt-primary-foreground: hsl(0 0% 100%);
+html[data-theme='dark'] {
+  /* Text */
+  --dt-color-text: #f5f5f6;
+  --dt-color-text-secondary: #94969c;
+  --dt-color-text-tertiary: #85888e;
+  --dt-color-black: #ffffff;
 
-  --dt-secondary: hsl(220 13% 54%);
-  --dt-secondary-hover: hsl(220 13% 62%);
-  --dt-secondary-foreground: hsl(0 0% 100%);
+  /* Backgrounds */
+  --dt-color-background: #0c111d;
+  --dt-color-background-secondary: #161b26;
+  --dt-color-background-tertiary: #1f242f;
+  --dt-color-background-additional: #1f242f;
+  --dt-color-surface: #0c111d;
+  --dt-color-surface-hover: #1f242f;
+  --dt-color-link-background: #1f242f;
+  --dt-color-gray-background: #333741;
 
-  --dt-muted: hsl(190 14% 14%);
-  --dt-muted-foreground: hsl(190 8% 55%);
+  /* Overlay */
+  --dt-color-overlay: rgba(0, 0, 0, 0.75);
 
-  --dt-accent: hsl(190 14% 18%);
-  --dt-accent-foreground: hsl(0 0% 90%);
+  /* Borders */
+  --dt-color-border: #333741;
+  --dt-color-border-light: #1f242f;
+  --dt-color-border-hover: #4a4f5a;
+  --dt-color-divider: #333741;
 
-  --dt-destructive: hsl(0 62% 55%);
-  --dt-destructive-hover: hsl(0 62% 63%);
-  --dt-destructive-foreground: hsl(0 0% 100%);
+  /* Icons */
+  --dt-color-icon: #cecfd2;
+  --dt-color-icon-secondary: #85888e;
+  --dt-color-icon-tertiary: #61646c;
+  --dt-color-icon-light: #85888e;
+  --dt-color-icon-dark: #cecfd2;
 
-  --dt-success: hsl(142 72% 48%);
-  --dt-success-hover: hsl(142 72% 56%);
-  --dt-success-foreground: hsl(0 0% 100%);
+  /* Accent / Primary */
+  --dt-color-accent: #22b8d6;
+  --dt-color-accent-hover: #2dd4f0;
+  --dt-color-accent-light: #0c2a33;
 
-  --dt-warning: hsl(38 92% 55%);
-  --dt-warning-hover: hsl(38 92% 63%);
-  --dt-warning-foreground: hsl(0 0% 100%);
+  /* Status */
+  --dt-color-success: #47cd89;
+  --dt-color-success-light: #0d2b1a;
+  --dt-color-warning: #fdb022;
+  --dt-color-warning-light: #2b1c08;
+  --dt-color-error: #f97066;
+  --dt-color-error-light: #2d1314;
 
-  --dt-border: hsl(190 13% 20%);
-  --dt-border-hover: hsl(190 13% 30%);
-  --dt-ring: hsl(190 100% 45%);
+  /* Ring */
+  --dt-color-ring: #22b8d6;
 
-  --dt-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
-  --dt-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.3);
-  --dt-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+  /* Shadows */
+  --dt-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --dt-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
+  --dt-shadow-md: 0 4px 8px -2px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+  --dt-shadow-lg: 0 12px 16px -4px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
 }
 
-/* Base reset applied when base.css is imported */
+/* ─────────────────────────────────────────────────────────────
+   BASE RESET
+   ───────────────────────────────────────────────────────────── */
+
 *,
 *::before,
 *::after {
@@ -134,10 +212,10 @@
 }
 
 body {
-  font-family: var(--dt-font-sans);
-  font-size: var(--dt-font-size-base);
-  color: var(--dt-foreground);
-  background-color: var(--dt-background);
+  font-family: var(--dt-font-family);
+  font-size: var(--dt-text-base);
+  color: var(--dt-color-text);
+  background-color: var(--dt-color-background);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

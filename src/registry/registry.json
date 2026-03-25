@@ -47,6 +47,54 @@
       "internalDeps": [],
       "peerDeps": [],
       "docs": "docs/select.md"
+    },
+    "data-table": {
+      "name": "DtDataTable",
+      "description": "Data table with column config, slot-based cells, loading and empty states",
+      "files": ["DtDataTable.vue", "index.ts"],
+      "internalDeps": [],
+      "peerDeps": [],
+      "docs": "docs/data-table.md"
+    },
+    "pagination": {
+      "name": "DtPagination",
+      "description": "Page navigation with prev/next arrows and numbered buttons",
+      "files": ["DtPagination.vue", "index.ts"],
+      "internalDeps": [],
+      "peerDeps": [],
+      "docs": "docs/pagination.md"
+    },
+    "tab-switcher": {
+      "name": "DtTabSwitcher",
+      "description": "Animated tab bar with FLIP indicator for status filtering",
+      "files": ["DtTabSwitcher.vue", "index.ts"],
+      "internalDeps": [],
+      "peerDeps": [],
+      "docs": "docs/tab-switcher.md"
+    },
+    "search-toolbar": {
+      "name": "DtSearchToolbar",
+      "description": "Search input with optional action button for list pages",
+      "files": ["DtSearchToolbar.vue", "index.ts"],
+      "internalDeps": [],
+      "peerDeps": [],
+      "docs": "docs/search-toolbar.md"
+    },
+    "status-badge": {
+      "name": "DtStatusBadge",
+      "description": "Color-coded status pill for active/inactive/moderation states",
+      "files": ["DtStatusBadge.vue", "index.ts"],
+      "internalDeps": [],
+      "peerDeps": [],
+      "docs": "docs/status-badge.md"
+    },
+    "layout": {
+      "name": "DtLayout",
+      "description": "App shell layout with sidebar, header, page view, and divider",
+      "files": ["DtLayout.vue", "DtLayoutHeader.vue", "DtLayoutSidebar.vue", "DtProfileModal.vue", "DtPageView.vue", "DtDivider.vue", "index.ts"],
+      "internalDeps": [],
+      "peerDeps": [],
+      "docs": "docs/layout.md"
     }
   }
 }

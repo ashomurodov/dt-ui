@@ -18,7 +18,7 @@ The root container. Renders a `<div>` with background, border-radius, and option
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `bordered` | `boolean` | `true` | Adds a 1px solid border using `--dt-border`. |
+| `bordered` | `boolean` | `true` | Adds a 1px solid border using `--dt-color-border`. |
 | `shadow` | `boolean` | `false` | Applies a medium box-shadow (`--dt-shadow-md`). |
 | `padding` | `boolean` | `true` | Applies `--dt-space-6` (1.5rem) padding to the card. |
 
@@ -160,8 +160,8 @@ import { DtBadge } from '@/components/ui/badge'
 
 | Property | Usage |
 |----------|-------|
-| `--dt-background` | Card background color. |
-| `--dt-border` | Border color (when `bordered` is true). |
+| `--dt-color-background` | Card background color. |
+| `--dt-color-border` | Border color (when `bordered` is true). |
 | `--dt-radius-lg` | Card border-radius. |
 | `--dt-shadow-md` | Box-shadow (when `shadow` is true). |
 | `--dt-space-6` | Padding (when `padding` is true). |
@@ -172,16 +172,16 @@ import { DtBadge } from '@/components/ui/badge'
 |----------|-------|
 | `--dt-space-1` | Vertical gap between heading and description. |
 | `--dt-space-4` | Bottom padding separating the header from subsequent content. |
-| `--dt-foreground` | Heading text color. |
-| `--dt-muted-foreground` | Description paragraph text color. |
-| `--dt-font-size-sm` | Description paragraph font size. |
+| `--dt-color-text` | Heading text color. |
+| `--dt-color-text-secondary` | Description paragraph text color. |
+| `--dt-text-sm` | Description paragraph font size. |
 
 ### DtCardContent
 
 | Property | Usage |
 |----------|-------|
-| `--dt-foreground` | Text color. |
-| `--dt-font-size-base` | Font size. |
+| `--dt-color-text` | Text color. |
+| `--dt-text-base` | Font size. |
 
 ### DtCardFooter
 

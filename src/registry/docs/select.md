@@ -293,15 +293,15 @@ No visual custom properties. The root is a positioned container.
 
 | Property | Usage |
 |----------|-------|
-| `--dt-foreground` | Trigger text color. |
-| `--dt-background` | Trigger background color. |
-| `--dt-border` | Default border color. |
-| `--dt-border-hover` | Border color on hover. |
-| `--dt-ring` | Border color on focus and when open. Focus also applies a 2px box-shadow ring. |
-| `--dt-muted-foreground` | Chevron icon color. |
+| `--dt-color-text` | Trigger text color. |
+| `--dt-color-background` | Trigger background color. |
+| `--dt-color-border` | Default border color. |
+| `--dt-color-border-hover` | Border color on hover. |
+| `--dt-color-ring` | Border color on focus and when open. Focus also applies a 2px box-shadow ring. |
+| `--dt-color-text-secondary` | Chevron icon color. |
 | `--dt-space-2` | Margin between value text and chevron. |
 | `--dt-radius-md` | Trigger border-radius. |
-| `--dt-font-size-base` | Trigger font size. |
+| `--dt-text-base` | Trigger font size. |
 | `--dt-transition-base` | Duration/easing for border-color, box-shadow, and chevron rotation transitions. |
 
 ### DtSelectContent
@@ -309,26 +309,26 @@ No visual custom properties. The root is a positioned container.
 | Property | Usage |
 |----------|-------|
 | `--dt-z-dropdown` | z-index for the dropdown panel. |
-| `--dt-background` | Dropdown background color. |
-| `--dt-border` | Dropdown border color. Also used for the search section bottom border. |
+| `--dt-color-background` | Dropdown background color. |
+| `--dt-color-border` | Dropdown border color. Also used for the search section bottom border. |
 | `--dt-radius-md` | Dropdown border-radius. |
 | `--dt-shadow-md` | Dropdown box-shadow. |
 | `--dt-space-1` | Vertical padding inside the dropdown list. |
 | `--dt-space-2` | Padding inside the search section. |
 | `--dt-space-4` | Padding inside the empty state section. |
-| `--dt-font-size-sm` | Empty state font size. |
-| `--dt-muted-foreground` | Empty state text color. |
+| `--dt-text-sm` | Empty state font size. |
+| `--dt-color-text-secondary` | Empty state text color. |
 
 ### DtSelectItem
 
 | Property | Usage |
 |----------|-------|
-| `--dt-foreground` | Item text color. |
-| `--dt-accent` | Item background on hover/highlight. |
-| `--dt-primary` | Checkmark icon color for selected items. |
+| `--dt-color-text` | Item text color. |
+| `--dt-color-surface-hover` | Item background on hover/highlight. |
+| `--dt-color-accent` | Checkmark icon color for selected items. |
 | `--dt-space-2` | Gap between checkmark and label. |
 | `--dt-space-3` | Horizontal padding. |
-| `--dt-font-size-base` | Item font size. |
+| `--dt-text-base` | Item font size. |
 | `--dt-transition-fast` | Duration/easing for background-color transitions on hover. |
 
 ## Accessibility

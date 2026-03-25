@@ -84,8 +84,8 @@ function onClick() {
   align-items: center;
   gap: var(--dt-space-2);
   padding: var(--dt-space-2) var(--dt-space-3);
-  font-size: var(--dt-font-size-base);
-  color: var(--dt-foreground);
+  font-size: var(--dt-text-sm);
+  color: var(--dt-color-text);
   cursor: pointer;
   transition: background-color var(--dt-transition-fast);
   user-select: none;
@@ -93,7 +93,7 @@ function onClick() {
 
 .dt-select-item:hover,
 .dt-select-item--highlighted {
-  background-color: var(--dt-accent);
+  background-color: var(--dt-color-surface-hover);
 }
 
 .dt-select-item--selected {
@@ -111,7 +111,7 @@ function onClick() {
   justify-content: center;
   width: 1rem;
   flex-shrink: 0;
-  color: var(--dt-primary);
+  color: var(--dt-color-accent);
 }
 
 .dt-select-item__label {

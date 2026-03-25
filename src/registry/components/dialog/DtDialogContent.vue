@@ -107,9 +107,9 @@ onBeforeUnmount(() => {
   align-items: center;
   justify-content: center;
   padding: var(--dt-space-4);
-  background-color: rgb(0 0 0 / 0.4);
+  background-color: var(--dt-color-overlay);
   opacity: 0;
-  transition: opacity 0.2s ease;
+  transition: opacity var(--dt-transition-base);
 }
 
 .dt-dialog-overlay--open {
@@ -123,14 +123,14 @@ onBeforeUnmount(() => {
   max-width: 28rem;
   max-height: calc(100vh - 2rem);
   overflow-y: auto;
-  background-color: var(--dt-background);
-  border: 1px solid var(--dt-border);
+  background-color: var(--dt-color-background);
+  border: 1px solid var(--dt-color-border);
   border-radius: var(--dt-radius-lg);
   box-shadow: var(--dt-shadow-lg);
   padding: var(--dt-space-6);
   transform: scale(0.95) translateY(0.5rem);
   opacity: 0;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition: transform var(--dt-transition-base), opacity var(--dt-transition-base);
 }
 
 .dt-dialog-content--open {

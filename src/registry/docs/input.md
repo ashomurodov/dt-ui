@@ -15,7 +15,7 @@ import { DtInput } from '@/components/ui/input'
 | `modelValue` | `string \| number` | `undefined` | The bound value. Use with `v-model`. |
 | `type` | `InputType` | `'text'` | The native input type. |
 | `placeholder` | `string` | `undefined` | Placeholder text shown when the input is empty. |
-| `disabled` | `boolean` | `false` | Disables the input (reduces opacity, sets `cursor: not-allowed`, and applies `--dt-muted` background). |
+| `disabled` | `boolean` | `false` | Disables the input (reduces opacity, sets `cursor: not-allowed`, and applies `--dt-color-background-tertiary` background). |
 | `error` | `string` | `undefined` | Error message text. When set, the input border turns red and the error message is displayed below the input. |
 | `hint` | `string` | `undefined` | Hint text displayed below the input. Only shown when `error` is not set. |
 | `id` | `string` | auto-generated | HTML `id` for the input element. If not provided, a random id (`dt-input-*`) is generated. Used to associate the label and describedby elements. |
@@ -138,14 +138,14 @@ async function submit() {
 
 | Property | Usage |
 |----------|-------|
-| `--dt-foreground` | Input text color and label color. |
-| `--dt-background` | Input background color. |
-| `--dt-muted` | Disabled input background color. |
-| `--dt-muted-foreground` | Placeholder text color and hint text color. |
-| `--dt-border` | Default border color. |
-| `--dt-border-hover` | Border color on hover. |
-| `--dt-ring` | Border and box-shadow color on focus. |
-| `--dt-destructive` | Border and box-shadow color when `error` is set. Also used for error text color. |
+| `--dt-color-text` | Input text color and label color. |
+| `--dt-color-background` | Input background color. |
+| `--dt-color-background-tertiary` | Disabled input background color. |
+| `--dt-color-text-secondary` | Placeholder text color and hint text color. |
+| `--dt-color-border` | Default border color. |
+| `--dt-color-border-hover` | Border color on hover. |
+| `--dt-color-ring` | Border and box-shadow color on focus. |
+| `--dt-color-error` | Border and box-shadow color when `error` is set. Also used for error text color. |
 
 ### Layout & Typography
 
@@ -153,9 +153,9 @@ async function submit() {
 |----------|-------|
 | `--dt-space-1` | Gap between label, input, and error/hint elements. |
 | `--dt-radius-md` | Input border-radius. |
-| `--dt-font-size-xs` | Error and hint text font size. |
-| `--dt-font-size-sm` | Label font size. |
-| `--dt-font-size-base` | Input text font size. |
+| `--dt-text-xs` | Error and hint text font size. |
+| `--dt-text-sm` | Label font size. |
+| `--dt-text-base` | Input text font size. |
 | `--dt-transition-base` | Duration/easing for border-color and box-shadow transitions. |
 
 ## Accessibility

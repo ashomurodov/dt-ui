@@ -63,9 +63,9 @@ onBeforeUnmount(() => {
   left: 0;
   right: 0;
   z-index: var(--dt-z-dropdown);
-  background-color: var(--dt-background);
-  border: 1px solid var(--dt-border);
-  border-radius: var(--dt-radius-md);
+  background-color: var(--dt-color-background);
+  border: 1px solid var(--dt-color-border);
+  border-radius: var(--dt-radius-base);
   box-shadow: var(--dt-shadow-md);
   max-height: 15rem;
   overflow-y: auto;
@@ -74,7 +74,7 @@ onBeforeUnmount(() => {
 
 .dt-select-content__search {
   padding: var(--dt-space-2);
-  border-bottom: 1px solid var(--dt-border);
+  border-bottom: 1px solid var(--dt-color-border);
 }
 
 .dt-select-content__list {
@@ -85,14 +85,14 @@ onBeforeUnmount(() => {
 .dt-select-content__empty {
   padding: var(--dt-space-4);
   text-align: center;
-  font-size: var(--dt-font-size-sm);
-  color: var(--dt-muted-foreground);
+  font-size: var(--dt-text-sm);
+  color: var(--dt-color-text-secondary);
 }
 
 /* Transition */
 .dt-select-content-enter-active,
 .dt-select-content-leave-active {
-  transition: opacity 0.15s ease, transform 0.15s ease;
+  transition: opacity var(--dt-transition-fast), transform var(--dt-transition-fast);
 }
 
 .dt-select-content-enter-from,

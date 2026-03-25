@@ -76,61 +76,61 @@ function onInput(event: Event) {
 }
 
 .dt-input__label {
-  font-size: var(--dt-font-size-sm);
+  font-size: var(--dt-text-sm);
   font-weight: 500;
-  color: var(--dt-foreground);
+  color: var(--dt-color-text);
 }
 
 .dt-input {
-  height: 2.5rem;
+  height: 2.75rem;
   width: 100%;
-  padding: 0 0.75rem;
-  font-size: var(--dt-font-size-base);
+  padding: 0 var(--dt-space-4);
+  font-size: var(--dt-text-sm);
   font-family: inherit;
-  color: var(--dt-foreground);
-  background-color: var(--dt-background);
-  border: 1px solid var(--dt-border);
-  border-radius: var(--dt-radius-md);
+  color: var(--dt-color-text);
+  background-color: var(--dt-color-background);
+  border: 1px solid var(--dt-color-border);
+  border-radius: var(--dt-radius-base);
   transition: border-color var(--dt-transition-base),
     box-shadow var(--dt-transition-base);
   outline: none;
 }
 
 .dt-input::placeholder {
-  color: var(--dt-muted-foreground);
+  color: var(--dt-color-text-secondary);
 }
 
 .dt-input:hover:not(:disabled) {
-  border-color: var(--dt-border-hover);
+  border-color: var(--dt-color-border-hover);
 }
 
 .dt-input:focus {
-  border-color: var(--dt-ring);
-  box-shadow: 0 0 0 2px color-mix(in srgb, var(--dt-ring) 25%, transparent);
+  border-color: var(--dt-color-ring);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--dt-color-ring) 25%, transparent);
 }
 
 .dt-input--error {
-  border-color: var(--dt-destructive);
+  border-color: var(--dt-color-error);
 }
 .dt-input--error:focus {
-  border-color: var(--dt-destructive);
-  box-shadow: 0 0 0 2px color-mix(in srgb, var(--dt-destructive) 25%, transparent);
+  border-color: var(--dt-color-error);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--dt-color-error) 25%, transparent);
 }
 
 .dt-input:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-  background-color: var(--dt-muted);
+  background-color: var(--dt-color-background-tertiary);
 }
 
 .dt-input__error {
-  font-size: var(--dt-font-size-xs);
-  color: var(--dt-destructive);
+  font-size: var(--dt-text-xs);
+  color: var(--dt-color-error);
 }
 
 .dt-input__hint {
-  font-size: var(--dt-font-size-xs);
-  color: var(--dt-muted-foreground);
+  font-size: var(--dt-text-xs);
+  color: var(--dt-color-text-secondary);
 }
 
 .dt-input-wrapper--disabled {
