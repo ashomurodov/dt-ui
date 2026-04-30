@@ -120,6 +120,7 @@ const mobileVisibleItems = computed(() => props.items.slice(0, props.mobileItems
   top: 84px;
   align-self: start;
   padding-left: 24px;
+  margin: 0 calc(var(--dt-space-4) * -1);
   max-height: calc(100vh - 84px);
   overflow-x: hidden;
   overflow-y: auto;
@@ -154,7 +155,7 @@ const mobileVisibleItems = computed(() => props.items.slice(0, props.mobileItems
   display: flex;
   align-items: center;
   gap: var(--dt-space-3);
-  padding: 10px var(--dt-space-4) 10px var(--dt-space-2);
+  padding: 10px var(--dt-space-4);
   border-radius: var(--dt-radius-lg);
   color: var(--dt-color-text);
   font-size: 15px;
@@ -179,7 +180,7 @@ const mobileVisibleItems = computed(() => props.items.slice(0, props.mobileItems
 }
 
 .dt-sidebar__link--sub {
-  padding: var(--dt-space-2) var(--dt-space-4) var(--dt-space-2) var(--dt-space-2);
+  padding: var(--dt-space-2) var(--dt-space-4);
   font-size: var(--dt-text-xs);
 }
 
@@ -191,8 +192,6 @@ const mobileVisibleItems = computed(() => props.items.slice(0, props.mobileItems
   align-items: center;
   justify-content: center;
   flex: 0 0 24px;
-  margin-left: calc(var(--dt-space-2) * -1);
-  margin-right: var(--dt-space-2);
 }
 
 .dt-sidebar__icon {
@@ -288,6 +287,7 @@ const mobileVisibleItems = computed(() => props.items.slice(0, props.mobileItems
     background-color: var(--dt-color-background);
     border-top: 1px solid var(--dt-color-border-light);
     padding-left: 0;
+    margin: 0;
   }
 
   .dt-sidebar__nav--desktop {
@@ -313,11 +313,6 @@ const mobileVisibleItems = computed(() => props.items.slice(0, props.mobileItems
     border-radius: var(--dt-radius-sm);
     min-width: 60px;
     font-size: var(--dt-text-xs);
-  }
-
-  .dt-sidebar__nav--mobile .dt-sidebar__icon-slot {
-    margin-left: 0;
-    margin-right: 0;
   }
 
   .dt-sidebar__nav--mobile .dt-sidebar__link span:not(.dt-sidebar__icon-slot) {
