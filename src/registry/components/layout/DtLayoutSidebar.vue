@@ -200,6 +200,11 @@ const mobileVisibleItems = computed(() => props.items.slice(0, props.mobileItems
   color: var(--dt-color-icon);
   flex-shrink: 0;
   display: block;
+  stroke-width: var(--dt-sidebar-icon-stroke-width);
+}
+
+.dt-sidebar__icon :where([stroke]) {
+  stroke-width: var(--dt-sidebar-icon-stroke-width);
 }
 
 /* Collapsible sections */

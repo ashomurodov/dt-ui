@@ -224,6 +224,7 @@
   /* ── LAYOUT ───────────────────────────────────────────────── */
   --dt-sidebar-width: 240px;
   --dt-sidebar-collapsed: 72px;
+  --dt-sidebar-icon-stroke-width: 2;
   --dt-max-content-width: 1100px;
 }
 
