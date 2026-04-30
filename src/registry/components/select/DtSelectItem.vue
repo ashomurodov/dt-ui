@@ -44,11 +44,17 @@ const props = withDefaults(defineProps<{
   cursor: pointer;
   transition: background-color var(--dt-transition-fast);
   user-select: none;
+  outline: none;
 }
 
 .dt-select-item:hover,
 .dt-select-item[data-highlighted] {
   background-color: var(--dt-color-surface-hover);
+}
+
+.dt-select-item:focus,
+.dt-select-item:focus-visible {
+  outline: none;
 }
 
 .dt-select-item[data-state='checked'] {
