@@ -14,6 +14,7 @@
   --dt-gray-400: #98a2b3;
   --dt-gray-500: #667085;
   --dt-gray-600: #475467;
+  --dt-gray-650: #364654;
   --dt-gray-700: #3f4c5d;
   --dt-gray-800: #1d2939;
   --dt-gray-900: #101828;
@@ -110,7 +111,7 @@
   --dt-color-divider: var(--dt-gray-200);
 
   /* Icons */
-  --dt-color-icon: var(--dt-gray-500);
+  --dt-color-icon: var(--dt-gray-650);
   --dt-color-icon-secondary: var(--dt-gray-400);
   --dt-color-icon-dark: var(--dt-gray-700);
 
