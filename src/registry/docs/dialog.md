@@ -1,6 +1,16 @@
 # DtDialog
 
-A modal dialog overlay that interrupts the user flow to display critical information or request input. Uses a compound component pattern with `DtDialogTrigger`, `DtDialogContent`, `DtDialogHeader`, and `DtDialogFooter`. The dialog content is rendered via `<Teleport to="body">` and includes focus trapping, Escape key dismissal, click-outside-to-close, body scroll lock, and open/close animations. State is shared between sub-components through Vue's `provide`/`inject`.
+A Reka UI backed modal dialog with DT styling. It keeps the existing compound API (`DtDialog`, `DtDialogTrigger`, `DtDialogContent`, `DtDialogHeader`, `DtDialogFooter`) while delegating modal behavior, focus trapping, Escape dismissal, outside interaction handling, scroll locking, and screen-reader hiding to `reka-ui`.
+
+## Dependency
+
+This component imports primitives from `reka-ui`. The `dt-ui` CLI installs `reka-ui@2.9.6` when you run:
+
+```bash
+npx dt-ui add dialog
+```
+
+`dialog` still depends on `button` internally for the examples and common usage patterns.
 
 ## Import
 
@@ -14,106 +24,11 @@ import {
 } from '@/components/ui/dialog'
 ```
 
-## Components
-
-### DtDialog
-
-The root wrapper. Manages open/close state and provides it to child components via `provide('dt-dialog', ...)`. Renders only a default slot (no DOM element of its own).
-
-#### Props
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `modelValue` | `boolean` | `undefined` | Controls the open state with `v-model`. When not provided, the component manages state internally. |
-
-#### Slot Props
-
-The default slot receives the following props for advanced control:
-
-| Slot Prop | Type | Description |
-|-----------|------|-------------|
-| `open` | `boolean` | Current open state. |
-| `toggle` | `() => void` | Toggles the dialog open/closed. |
-| `close` | `() => void` | Closes the dialog. |
-
-#### Events
-
-| Event | Payload | Description |
-|-------|---------|-------------|
-| `update:modelValue` | `boolean` | Emitted when the open state changes. Used by `v-model`. |
-
-### DtDialogTrigger
-
-A wrapper element that toggles the dialog when clicked. Renders a `<span>` around its slot content.
-
-#### Props
-
-None. Attributes are forwarded via `$attrs`.
-
-#### Slots
-
-| Slot | Description |
-|------|-------------|
-| `default` | The trigger element (typically a button). |
-
-### DtDialogContent
-
-The modal panel rendered inside the overlay. Teleported to `<body>`. Handles the overlay backdrop, focus trap, keyboard events, click-outside detection, body scroll lock, and open/close animations.
-
-#### Props
-
-None. Attributes are forwarded via `$attrs` onto the inner `role="dialog"` element.
-
-#### Slots
-
-| Slot | Description |
-|------|-------------|
-| `default` | Dialog body. Typically contains `DtDialogHeader`, free-form content, and `DtDialogFooter`. |
-
-#### Behavior
-
-- **Overlay**: Semi-transparent black backdrop (`rgb(0 0 0 / 0.4)`).
-- **Focus trap**: On open, focus moves to the first focusable element inside the dialog. Tab/Shift+Tab cycles within the dialog content.
-- **Escape to close**: Pressing `Escape` triggers `close()`.
-- **Click outside**: Clicking the overlay (not the content panel) triggers `close()`.
-- **Scroll lock**: `document.body.style.overflow` is set to `'hidden'` while open and restored on close.
-- **Animation**: The overlay fades in/out (opacity 0 to 1, 0.2s ease). The content panel scales and translates in (`scale(0.95) translateY(0.5rem)` to `scale(1) translateY(0)`, 0.2s ease).
-- **Restore focus**: On close, focus returns to the element that was focused before the dialog opened.
-
-### DtDialogHeader
-
-A flex-column container for the dialog title and description. Applies heading and paragraph styles via `:deep()` selectors, identical to `DtCardHeader`.
-
-#### Props
-
-None. Attributes are forwarded via `$attrs`.
-
-#### Slots
-
-| Slot | Description |
-|------|-------------|
-| `default` | Header content, typically an `<h2>` and optional `<p>` description. |
-
-### DtDialogFooter
-
-A flex container for dialog actions, right-aligned by default with `justify-content: flex-end`.
-
-#### Props
-
-None. Attributes are forwarded via `$attrs`.
-
-#### Slots
-
-| Slot | Description |
-|------|-------------|
-| `default` | Action elements, typically buttons. |
-
-## Usage Examples
-
-### Basic Confirmation Dialog
+## Usage
 
 ```vue
 <script setup lang="ts">
+import { ref } from 'vue'
 import {
   DtDialog,
   DtDialogTrigger,
@@ -122,161 +37,72 @@ import {
   DtDialogFooter,
 } from '@/components/ui/dialog'
 import { DtButton } from '@/components/ui/button'
+
+const open = ref(false)
 </script>
 
 <template>
-  <DtDialog>
+  <DtDialog v-model="open">
     <DtDialogTrigger>
-      <DtButton variant="destructive">Delete Account</DtButton>
+      <DtButton>Open Dialog</DtButton>
     </DtDialogTrigger>
 
     <DtDialogContent>
       <DtDialogHeader>
-        <h2>Are you sure?</h2>
-        <p>This action cannot be undone. Your account and all associated data will be permanently deleted.</p>
+        <h2>Confirm Action</h2>
+        <p>Are you sure you want to continue?</p>
       </DtDialogHeader>
+
       <DtDialogFooter>
-        <DtButton variant="outline">Cancel</DtButton>
-        <DtButton variant="destructive">Yes, Delete</DtButton>
+        <DtButton variant="outline" @click="open = false">Cancel</DtButton>
+        <DtButton @click="open = false">Confirm</DtButton>
       </DtDialogFooter>
     </DtDialogContent>
   </DtDialog>
 </template>
 ```
 
-### Controlled with v-model
+## DtDialog Props
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue'
-import {
-  DtDialog,
-  DtDialogContent,
-  DtDialogHeader,
-  DtDialogFooter,
-} from '@/components/ui/dialog'
-import { DtButton } from '@/components/ui/button'
-import { DtInput } from '@/components/ui/input'
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `modelValue` | `boolean` | `undefined` | Controlled open state. Use with `v-model`. |
+| `defaultOpen` | `boolean` | `false` | Initial uncontrolled open state. |
+| `modal` | `boolean` | `true` | Whether outside content should be inert while open. |
 
-const dialogOpen = ref(false)
-const feedback = ref('')
+## Slot Props
 
-function submit() {
-  console.log('Feedback:', feedback.value)
-  dialogOpen.value = false
-}
-</script>
+The default slot receives helpers for custom triggers or programmatic control.
 
-<template>
-  <DtButton @click="dialogOpen = true">Give Feedback</DtButton>
+| Slot Prop | Type | Description |
+|-----------|------|-------------|
+| `open` | `boolean` | Current open state. |
+| `toggle` | `() => void` | Toggles the dialog. |
+| `close` | `() => void` | Closes the dialog. |
+| `openDialog` | `() => void` | Opens the dialog. |
 
-  <DtDialog v-model="dialogOpen">
-    <DtDialogContent>
-      <DtDialogHeader>
-        <h2>Send Feedback</h2>
-        <p>Let us know how we can improve.</p>
-      </DtDialogHeader>
+## DtDialogTrigger
 
-      <DtInput
-        v-model="feedback"
-        placeholder="Type your feedback..."
-      >
-        <template #label>Your Message</template>
-      </DtInput>
+Wraps Reka `DialogTrigger`. By default `asChild` is `true`, which lets common usage like `<DtDialogTrigger><DtButton>Open</DtButton></DtDialogTrigger>` merge trigger behavior directly onto the button and avoid nested buttons.
 
-      <DtDialogFooter>
-        <DtButton variant="outline" @click="dialogOpen = false">Cancel</DtButton>
-        <DtButton @click="submit">Submit</DtButton>
-      </DtDialogFooter>
-    </DtDialogContent>
-  </DtDialog>
-</template>
-```
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `asChild` | `boolean` | `true` | Merge trigger behavior into the slotted child. Set to `false` to render a native trigger button. |
 
-### Using Slot Props for Programmatic Control
+## DtDialogContent
 
-```vue
-<script setup lang="ts">
-import {
-  DtDialog,
-  DtDialogContent,
-  DtDialogHeader,
-  DtDialogFooter,
-} from '@/components/ui/dialog'
-import { DtButton } from '@/components/ui/button'
-</script>
+Renders a Reka `DialogPortal`, `DialogOverlay`, and `DialogContent`. The content is centered with DT styling and animated using Reka's `data-state` attributes.
 
-<template>
-  <DtDialog v-slot="{ open, toggle, close }">
-    <DtButton @click="toggle">
-      {{ open ? 'Close' : 'Open' }} Settings
-    </DtButton>
+## DtDialogHeader and DtDialogFooter
 
-    <DtDialogContent>
-      <DtDialogHeader>
-        <h2>Settings</h2>
-        <p>Manage your preferences.</p>
-      </DtDialogHeader>
+These remain visual layout helpers. Use heading and paragraph content in the header, and action buttons in the footer.
 
-      <p>Settings content goes here.</p>
+## Events
 
-      <DtDialogFooter>
-        <DtButton variant="outline" @click="close">Cancel</DtButton>
-        <DtButton @click="close">Save</DtButton>
-      </DtDialogFooter>
-    </DtDialogContent>
-  </DtDialog>
-</template>
-```
-
-## CSS Custom Properties
-
-### Overlay
-
-| Property | Usage |
-|----------|-------|
-| `--dt-z-overlay` | z-index for the overlay backdrop. |
-| `--dt-space-4` | Padding inside the overlay (keeps the dialog panel inset from viewport edges). |
-
-### Dialog Content Panel
-
-| Property | Usage |
-|----------|-------|
-| `--dt-z-modal` | z-index for the dialog content panel (above the overlay). |
-| `--dt-color-background` | Panel background color. |
-| `--dt-color-border` | Panel border color. |
-| `--dt-radius-lg` | Panel border-radius. |
-| `--dt-shadow-lg` | Panel box-shadow. |
-| `--dt-space-6` | Panel inner padding. |
-
-### DtDialogHeader
-
-| Property | Usage |
-|----------|-------|
-| `--dt-space-1` | Gap between heading and description. |
-| `--dt-space-4` | Bottom padding below the header. |
-| `--dt-color-text` | Heading text color. |
-| `--dt-color-text-secondary` | Description paragraph color. |
-| `--dt-text-lg` | Heading font size. |
-| `--dt-text-sm` | Description font size. |
-
-### DtDialogFooter
-
-| Property | Usage |
-|----------|-------|
-| `--dt-space-2` | Gap between footer action buttons. |
-| `--dt-space-4` | Top padding above the footer. |
-
-### DtDialogTrigger
-
-No custom properties. Renders as an `inline-flex` span with `cursor: pointer`.
+| Event | Payload | Description |
+|-------|---------|-------------|
+| `update:modelValue` | `boolean` | Emitted when open state changes. |
 
 ## Accessibility
 
-- The dialog content panel has `role="dialog"` and `aria-modal="true"`, telling assistive technologies that the rest of the page is inert while the dialog is open.
-- **Focus management**: When the dialog opens, focus automatically moves to the first focusable element inside `DtDialogContent`. When it closes, focus returns to the element that triggered the dialog (stored in `previousActiveElement`).
-- **Focus trap**: Tab and Shift+Tab cycling is confined within the dialog. When focus reaches the last focusable element, Tab wraps to the first, and vice versa.
-- **Keyboard dismissal**: Pressing `Escape` closes the dialog.
-- **Body scroll lock**: `document.body.style.overflow` is set to `'hidden'` while the dialog is open, preventing background scroll. The overflow style is cleaned up in `onBeforeUnmount` as a safety net.
-- For best practices, the `DtDialogHeader` should contain a heading element (e.g., `<h2>`) and you should add `aria-labelledby` on the `DtDialogContent` pointing to that heading's `id`. Similarly, if there is a description paragraph, add `aria-describedby` pointing to that paragraph's `id`.
-- Ensure that destructive actions in the dialog footer are not the first focusable element. Place a "Cancel" or neutral action first so keyboard users do not accidentally trigger a destructive action.
+Reka UI provides `role="dialog"`, `aria-modal`, focus trapping, Escape key handling, outside click dismissal, body scroll lock through the overlay, and focus restoration to the trigger. For best screen-reader announcements, provide a clear heading in `DtDialogHeader`; future versions may expose dedicated `DtDialogTitle` and `DtDialogDescription` wrappers if teams need stricter title/description wiring.

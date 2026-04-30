@@ -2,7 +2,7 @@
 
 Vue 3 component library for the DT Ecosystem. Copy-based distribution — components are installed into your project, giving you full ownership and customization.
 
-**15 components** | **Vue 3 + TypeScript** | **No dependencies** | **Dark mode** | **Figma design system**
+**15 components** | **Vue 3 + TypeScript** | **Copy-based registry** | **Dark mode** | **Figma design system**
 
 ## Quick Start
 
@@ -207,7 +207,7 @@ declare module '*.svg' {
 - **Vue 3** Composition API + `<script setup>`
 - **TypeScript** — full type safety
 - **Pure CSS** custom properties — no Tailwind, no preprocessor needed
-- **Zero runtime dependencies** — components are self-contained
+- **Reka UI for primitives** — behavior-heavy components like Dialog and Select use accessible headless primitives
 - **vite-svg-loader** compatible for icons
 
 ## License

@@ -1,10 +1,13 @@
 import fs from 'node:fs'
 import path from 'node:path'
+import { execSync } from 'node:child_process'
 import * as p from '@clack/prompts'
 import pc from 'picocolors'
 import {
   configExists,
   readConfig,
+  detectPackageManager,
+  getInstallCommand,
 } from '../utils/config.js'
 import {
   getStylesContent,
@@ -70,6 +73,7 @@ export async function updateCommand() {
 
     if (!p.isCancel(updateComponents) && updateComponents) {
       const updatedComponents: string[] = []
+      const allPackageDeps = new Set<string>()
 
       for (const componentName of config.installedComponents) {
         const comp = registry.components[componentName]
@@ -88,8 +92,28 @@ export async function updateCommand() {
           fs.writeFileSync(path.join(targetDir, file.name), file.content, 'utf-8')
         }
 
+        for (const dep of comp.dependencies ?? []) {
+          allPackageDeps.add(dep)
+        }
+        for (const dep of comp.peerDeps) {
+          allPackageDeps.add(dep)
+        }
+
         updatedComponents.push(componentName)
         s.stop(`${pc.green('✓')} ${comp.name} updated`)
+      }
+
+      if (allPackageDeps.size > 0) {
+        const pm = detectPackageManager()
+        const cmd = getInstallCommand(pm, [...allPackageDeps])
+        s.start(`Installing package dependencies: ${[...allPackageDeps].join(', ')}...`)
+        try {
+          execSync(cmd, { cwd: process.cwd(), stdio: 'pipe' })
+          s.stop('Package dependencies installed')
+        } catch {
+          s.stop(pc.yellow('Failed to install package dependencies. Please install manually:'))
+          p.log.warn(pc.dim(cmd))
+        }
       }
 
       if (updatedComponents.length > 0) {

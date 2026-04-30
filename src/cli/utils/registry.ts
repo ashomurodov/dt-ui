@@ -7,6 +7,7 @@ export interface ComponentEntry {
   description: string
   files: string[]
   internalDeps: string[]
+  dependencies?: string[]
   peerDeps: string[]
   docs: string
 }

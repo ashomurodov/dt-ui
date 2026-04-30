@@ -1,6 +1,6 @@
 # Dialog
 
-Modal dialog with overlay, header, content, and footer.
+Modal dialog with overlay, header, content, footer, and Reka UI powered accessibility behavior.
 
 ```bash
 npx dt-ui add dialog
@@ -8,6 +8,7 @@ npx dt-ui add dialog
 
 ::: info
 Dialog depends on the **button** component. The CLI will prompt you to install it.
+It also installs `reka-ui@2.9.6` for modal focus management, Escape handling, outside click behavior, and scroll locking.
 :::
 
 ## Usage
@@ -54,6 +55,8 @@ const open = ref(false)
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `modelValue` | `boolean` | `undefined` | Open state (v-model) |
+| `defaultOpen` | `boolean` | `false` | Initial uncontrolled open state |
+| `modal` | `boolean` | `true` | Whether outside content is inert while open |
 
 ## Sub-components
 

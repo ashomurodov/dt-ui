@@ -3,7 +3,7 @@ import { ref, computed } from 'vue'
 
 export interface DtNavItem {
   to: string
-  icon?: object
+  icon?: any
   label: string
 }
 

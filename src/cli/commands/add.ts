@@ -118,7 +118,7 @@ export async function addCommand(componentNames: string[]) {
   }
 
   const s = p.spinner()
-  const allPeerDeps = new Set<string>()
+  const allPackageDeps = new Set<string>()
   const installed: string[] = []
 
   for (const componentName of toInstall) {
@@ -138,9 +138,14 @@ export async function addCommand(componentNames: string[]) {
       fs.writeFileSync(path.join(targetDir, file.name), file.content, 'utf-8')
     }
 
-    // Collect peer deps
+    // Collect package deps declared by registry items
+    for (const dep of comp.dependencies ?? []) {
+      allPackageDeps.add(dep)
+    }
+
+    // Collect legacy peer deps
     for (const dep of comp.peerDeps) {
-      allPeerDeps.add(dep)
+      allPackageDeps.add(dep)
     }
 
     // Update config
@@ -155,16 +160,16 @@ export async function addCommand(componentNames: string[]) {
     s.stop(`${pc.green('✓')} ${comp.name} installed`)
   }
 
-  // Install peer deps if any
-  if (allPeerDeps.size > 0) {
+  // Install package deps if any
+  if (allPackageDeps.size > 0) {
     const pm = detectPackageManager()
-    const cmd = getInstallCommand(pm, [...allPeerDeps])
-    s.start(`Installing peer dependencies: ${[...allPeerDeps].join(', ')}...`)
+    const cmd = getInstallCommand(pm, [...allPackageDeps])
+    s.start(`Installing package dependencies: ${[...allPackageDeps].join(', ')}...`)
     try {
       execSync(cmd, { cwd: process.cwd(), stdio: 'pipe' })
-      s.stop('Peer dependencies installed')
+      s.stop('Package dependencies installed')
     } catch {
-      s.stop(pc.yellow('Failed to install peer dependencies. Please install manually:'))
+      s.stop(pc.yellow('Failed to install package dependencies. Please install manually:'))
       p.log.warn(pc.dim(cmd))
     }
   }

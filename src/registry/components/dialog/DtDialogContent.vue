@@ -1,101 +1,18 @@
 <script setup lang="ts">
-import { inject, ref, watch, onMounted, onBeforeUnmount, nextTick, type Ref, type ComputedRef } from 'vue'
-
-const dialog = inject<{
-  isOpen: ComputedRef<boolean>
-  close: () => void
-}>('dt-dialog')!
-
-const contentRef = ref<HTMLElement | null>(null)
-const visible = ref(false)
-const animating = ref(false)
-
-// Focus trap
-const previousActiveElement = ref<HTMLElement | null>(null)
-
-function focusTrap(event: KeyboardEvent) {
-  if (event.key !== 'Tab' || !contentRef.value) return
-
-  const focusableElements = contentRef.value.querySelectorAll<HTMLElement>(
-    'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
-  )
-
-  if (focusableElements.length === 0) return
-
-  const first = focusableElements[0]
-  const last = focusableElements[focusableElements.length - 1]
-
-  if (event.shiftKey && document.activeElement === first) {
-    event.preventDefault()
-    last.focus()
-  } else if (!event.shiftKey && document.activeElement === last) {
-    event.preventDefault()
-    first.focus()
-  }
-}
-
-function onKeydown(event: KeyboardEvent) {
-  if (event.key === 'Escape') {
-    dialog.close()
-  }
-  focusTrap(event)
-}
-
-function onOverlayClick(event: MouseEvent) {
-  if (event.target === event.currentTarget) {
-    dialog.close()
-  }
-}
-
-watch(() => dialog.isOpen.value, async (open) => {
-  if (open) {
-    previousActiveElement.value = document.activeElement as HTMLElement
-    visible.value = true
-    document.body.style.overflow = 'hidden'
-    await nextTick()
-    animating.value = true
-    // Focus the first focusable element
-    const firstFocusable = contentRef.value?.querySelector<HTMLElement>(
-      'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
-    )
-    firstFocusable?.focus()
-  } else {
-    animating.value = false
-    document.body.style.overflow = ''
-    // Wait for exit animation
-    setTimeout(() => {
-      visible.value = false
-      previousActiveElement.value?.focus()
-    }, 200)
-  }
-})
-
-onBeforeUnmount(() => {
-  document.body.style.overflow = ''
-})
+import {
+  DialogContent,
+  DialogOverlay,
+  DialogPortal,
+} from 'reka-ui'
 </script>
 
 <template>
-  <Teleport to="body">
-    <div
-      v-if="visible"
-      class="dt-dialog-overlay"
-      :class="{ 'dt-dialog-overlay--open': animating }"
-      @click="onOverlayClick"
-      @keydown="onKeydown"
-    >
-      <div
-        ref="contentRef"
-        class="dt-dialog-content"
-        :class="{ 'dt-dialog-content--open': animating }"
-        role="dialog"
-        aria-modal="true"
-        v-bind="$attrs"
-      >
-        <slot />
-      </div>
-    </div>
-  </Teleport>
+  <DialogPortal>
+    <DialogOverlay class="dt-dialog-overlay" />
+    <DialogContent class="dt-dialog-content" v-bind="$attrs">
+      <slot />
+    </DialogContent>
+  </DialogPortal>
 </template>
 
 <style scoped>
@@ -103,23 +20,23 @@ onBeforeUnmount(() => {
   position: fixed;
   inset: 0;
   z-index: var(--dt-z-overlay);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--dt-space-4);
   background-color: var(--dt-color-overlay);
-  opacity: 0;
-  transition: opacity var(--dt-transition-base);
 }
 
-.dt-dialog-overlay--open {
-  opacity: 1;
+.dt-dialog-overlay[data-state='open'] {
+  animation: dt-dialog-overlay-in var(--dt-transition-base);
+}
+
+.dt-dialog-overlay[data-state='closed'] {
+  animation: dt-dialog-overlay-out var(--dt-transition-base);
 }
 
 .dt-dialog-content {
-  position: relative;
+  position: fixed;
+  top: 50%;
+  left: 50%;
   z-index: var(--dt-z-modal);
-  width: 100%;
+  width: calc(100% - (var(--dt-space-4) * 2));
   max-width: 28rem;
   max-height: calc(100vh - 2rem);
   overflow-y: auto;
@@ -128,13 +45,47 @@ onBeforeUnmount(() => {
   border-radius: var(--dt-radius-lg);
   box-shadow: var(--dt-shadow-lg);
   padding: var(--dt-space-6);
-  transform: scale(0.95) translateY(0.5rem);
-  opacity: 0;
-  transition: transform var(--dt-transition-base), opacity var(--dt-transition-base);
+  transform: translate(-50%, -50%);
+  outline: none;
 }
 
-.dt-dialog-content--open {
-  transform: scale(1) translateY(0);
-  opacity: 1;
+.dt-dialog-content[data-state='open'] {
+  animation: dt-dialog-content-in var(--dt-transition-base);
+}
+
+.dt-dialog-content[data-state='closed'] {
+  animation: dt-dialog-content-out var(--dt-transition-base);
+}
+
+@keyframes dt-dialog-overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes dt-dialog-overlay-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes dt-dialog-content-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 0.5rem)) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes dt-dialog-content-out {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 0.5rem)) scale(0.95);
+  }
 }
 </style>

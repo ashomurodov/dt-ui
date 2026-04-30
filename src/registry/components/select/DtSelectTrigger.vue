@@ -1,76 +1,34 @@
 <script setup lang="ts">
-import { inject, type Ref, type ComputedRef } from 'vue'
+import { computed, inject, type ComputedRef } from 'vue'
+import {
+  SelectIcon,
+  SelectTrigger,
+  SelectValue,
+} from 'reka-ui'
 
 const ctx = inject<{
-  isOpen: Ref<boolean>
-  selectedValue: ComputedRef<string | number | null>
-  toggle: () => void
-  triggerRef: Ref<HTMLElement | null>
-  filteredItems: ComputedRef<Array<{ value: string | number; label: string }>>
-  highlightedIndex: Ref<number>
-  select: (value: string | number) => void
-  close: () => void
-}>('dt-select')!
+  placeholder: ComputedRef<string>
+}>('dt-select')
 
-function onKeydown(event: KeyboardEvent) {
-  switch (event.key) {
-    case 'Enter':
-    case ' ':
-      event.preventDefault()
-      if (ctx.isOpen.value && ctx.highlightedIndex.value >= 0) {
-        const item = ctx.filteredItems.value[ctx.highlightedIndex.value]
-        if (item) ctx.select(item.value)
-      } else {
-        ctx.toggle()
-      }
-      break
-    case 'ArrowDown':
-      event.preventDefault()
-      if (!ctx.isOpen.value) {
-        ctx.toggle()
-      } else {
-        ctx.highlightedIndex.value = Math.min(
-          ctx.highlightedIndex.value + 1,
-          ctx.filteredItems.value.length - 1
-        )
-      }
-      break
-    case 'ArrowUp':
-      event.preventDefault()
-      if (ctx.isOpen.value) {
-        ctx.highlightedIndex.value = Math.max(ctx.highlightedIndex.value - 1, 0)
-      }
-      break
-    case 'Escape':
-      event.preventDefault()
-      ctx.close()
-      break
-  }
-}
+const placeholder = computed(() => ctx?.placeholder.value ?? 'Select an option...')
 </script>
 
 <template>
-  <button
-    ref="el => ctx.triggerRef.value = el as HTMLElement"
+  <SelectTrigger
     class="dt-select-trigger"
-    :class="{ 'dt-select-trigger--open': ctx.isOpen.value }"
-    type="button"
-    role="combobox"
-    :aria-expanded="ctx.isOpen.value"
-    aria-haspopup="listbox"
-    @click="ctx.toggle()"
-    @keydown="onKeydown"
     v-bind="$attrs"
   >
     <span class="dt-select-trigger__value">
-      <slot />
+      <slot>
+        <SelectValue :placeholder="placeholder" />
+      </slot>
     </span>
-    <span class="dt-select-trigger__icon" aria-hidden="true">
+    <SelectIcon class="dt-select-trigger__icon" aria-hidden="true">
       <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
         <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
-    </span>
-  </button>
+    </SelectIcon>
+  </SelectTrigger>
 </template>
 
 <style scoped>
@@ -103,7 +61,7 @@ function onKeydown(event: KeyboardEvent) {
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--dt-color-ring) 25%, transparent);
 }
 
-.dt-select-trigger--open {
+.dt-select-trigger[data-state='open'] {
   border-color: var(--dt-color-ring);
 }
 
@@ -122,7 +80,7 @@ function onKeydown(event: KeyboardEvent) {
   transition: transform var(--dt-transition-base);
 }
 
-.dt-select-trigger--open .dt-select-trigger__icon {
+.dt-select-trigger[data-state='open'] .dt-select-trigger__icon {
   transform: rotate(180deg);
 }
 </style>

@@ -1,6 +1,6 @@
 # Select
 
-Custom dropdown select with search and keyboard navigation.
+Custom dropdown select with Reka UI powered keyboard navigation, typeahead, focus management, and ARIA behavior.
 
 ```bash
 npx dt-ui add select
@@ -41,15 +41,18 @@ const fruit = ref(null)
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `modelValue` | `string \| number \| null` | `null` | Selected value (v-model) |
+| `defaultValue` | `string \| number` | — | Initial uncontrolled value |
 | `placeholder` | `string` | `'Select an option...'` | Placeholder text |
 | `disabled` | `boolean` | `false` | Disable the select |
+| `name` | `string` | — | Native form field name |
+| `required` | `boolean` | `false` | Native required state |
 
 ## DtSelectItem Props
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `value` | `string \| number` | **required** | Option value |
-| `label` | `string` | — | Display label (used for search filtering) |
+| `label` | `string` | — | Display label (used for selected text and typeahead) |
 | `disabled` | `boolean` | `false` | Disable this option |
 
 ## Sub-components
@@ -71,3 +74,7 @@ const fruit = ref(null)
 - `role="combobox"` on trigger with `aria-expanded`
 - `role="listbox"` on content
 - `role="option"` with `aria-selected` on items
+
+::: info
+`DtSelect` is built on `reka-ui`. The CLI installs `reka-ui@2.9.6` when this component is added.
+:::

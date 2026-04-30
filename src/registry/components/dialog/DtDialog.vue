@@ -1,17 +1,22 @@
 <script setup lang="ts">
-import { provide, ref, computed, watch } from 'vue'
+import { computed, ref } from 'vue'
+import { DialogRoot } from 'reka-ui'
 
 const props = withDefaults(defineProps<{
   modelValue?: boolean
+  defaultOpen?: boolean
+  modal?: boolean
 }>(), {
   modelValue: undefined,
+  defaultOpen: false,
+  modal: true,
 })
 
 const emit = defineEmits<{
   'update:modelValue': [value: boolean]
 }>()
 
-const internalOpen = ref(false)
+const internalOpen = ref(props.defaultOpen)
 
 const isOpen = computed({
   get: () => props.modelValue !== undefined ? props.modelValue : internalOpen.value,
@@ -32,10 +37,14 @@ function close() {
 function toggle() {
   isOpen.value = !isOpen.value
 }
-
-provide('dt-dialog', { isOpen, open, close, toggle })
 </script>
 
 <template>
-  <slot :open="isOpen" :toggle="toggle" :close="close" />
+  <DialogRoot
+    :open="isOpen"
+    :modal="modal"
+    @update:open="isOpen = $event"
+  >
+    <slot :open="isOpen" :toggle="toggle" :close="close" :open-dialog="open" />
+  </DialogRoot>
 </template>

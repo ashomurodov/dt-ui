@@ -37,6 +37,7 @@
       "description": "Modal dialog with overlay, header, content, and footer",
       "files": ["DtDialog.vue", "DtDialogContent.vue", "DtDialogHeader.vue", "DtDialogFooter.vue", "DtDialogTrigger.vue", "index.ts"],
       "internalDeps": ["button"],
+      "dependencies": ["reka-ui@2.9.6"],
       "peerDeps": [],
       "docs": "docs/dialog.md"
     },
@@ -45,6 +46,7 @@
       "description": "Custom dropdown select with search and keyboard navigation",
       "files": ["DtSelect.vue", "DtSelectTrigger.vue", "DtSelectContent.vue", "DtSelectItem.vue", "index.ts"],
       "internalDeps": [],
+      "dependencies": ["reka-ui@2.9.6"],
       "peerDeps": [],
       "docs": "docs/select.md"
     },

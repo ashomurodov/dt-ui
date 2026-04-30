@@ -1,20 +1,31 @@
 <script setup lang="ts">
-import { inject } from 'vue'
+import { DialogTrigger } from 'reka-ui'
 
-const dialog = inject<{
-  toggle: () => void
-}>('dt-dialog')!
+withDefaults(defineProps<{
+  asChild?: boolean
+}>(), {
+  asChild: true,
+})
 </script>
 
 <template>
-  <span class="dt-dialog-trigger" @click="dialog.toggle()" v-bind="$attrs">
+  <DialogTrigger
+    class="dt-dialog-trigger"
+    :as-child="asChild"
+    v-bind="$attrs"
+  >
     <slot />
-  </span>
+  </DialogTrigger>
 </template>
 
 <style scoped>
 .dt-dialog-trigger {
   display: inline-flex;
   cursor: pointer;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
 }
 </style>

@@ -1,12 +1,15 @@
 <script setup lang="ts">
-import { provide, ref, computed, watch } from 'vue'
+import { computed, provide, ref } from 'vue'
+import { SelectRoot } from 'reka-ui'
 
 const props = withDefaults(defineProps<{
   modelValue?: string | number | null
+  defaultValue?: string | number
   placeholder?: string
   disabled?: boolean
+  name?: string
+  required?: boolean
 }>(), {
-  modelValue: null,
   placeholder: 'Select an option...',
 })
 
@@ -14,76 +17,33 @@ const emit = defineEmits<{
   'update:modelValue': [value: string | number | null]
 }>()
 
-const isOpen = ref(false)
-const search = ref('')
-const highlightedIndex = ref(-1)
-const items = ref<Array<{ value: string | number; label: string; disabled?: boolean }>>([])
-const triggerRef = ref<HTMLElement | null>(null)
-const contentRef = ref<HTMLElement | null>(null)
+const internalValue = ref<string | number | null>(props.defaultValue ?? null)
 
-const selectedLabel = computed(() => {
-  const item = items.value.find(i => i.value === props.modelValue)
-  return item?.label ?? ''
+const value = computed({
+  get: () => props.modelValue !== undefined ? props.modelValue : internalValue.value,
+  set: (next: string | number | null | undefined) => {
+    const value = next ?? null
+    internalValue.value = value
+    emit('update:modelValue', value)
+  },
 })
-
-const filteredItems = computed(() => {
-  if (!search.value) return items.value
-  const q = search.value.toLowerCase()
-  return items.value.filter(i => i.label.toLowerCase().includes(q))
-})
-
-function open() {
-  if (props.disabled) return
-  isOpen.value = true
-  highlightedIndex.value = -1
-  search.value = ''
-}
-
-function close() {
-  isOpen.value = false
-  search.value = ''
-}
-
-function toggle() {
-  isOpen.value ? close() : open()
-}
-
-function select(value: string | number) {
-  emit('update:modelValue', value)
-  close()
-}
-
-function registerItem(item: { value: string | number; label: string; disabled?: boolean }) {
-  const exists = items.value.find(i => i.value === item.value)
-  if (!exists) {
-    items.value.push(item)
-  }
-}
-
-function unregisterItem(value: string | number) {
-  items.value = items.value.filter(i => i.value !== value)
-}
 
 provide('dt-select', {
-  isOpen,
-  selectedValue: computed(() => props.modelValue),
-  highlightedIndex,
-  filteredItems,
-  search,
-  triggerRef,
-  contentRef,
-  open,
-  close,
-  toggle,
-  select,
-  registerItem,
-  unregisterItem,
+  placeholder: computed(() => props.placeholder),
 })
 </script>
 
 <template>
   <div class="dt-select" :class="{ 'dt-select--disabled': disabled }" v-bind="$attrs">
-    <slot />
+    <SelectRoot
+      v-model="value"
+      :default-value="defaultValue"
+      :disabled="disabled"
+      :name="name"
+      :required="required"
+    >
+      <slot />
+    </SelectRoot>
   </div>
 </template>
 
