@@ -191,6 +191,8 @@ const mobileVisibleItems = computed(() => props.items.slice(0, props.mobileItems
   align-items: center;
   justify-content: center;
   flex: 0 0 24px;
+  margin-left: calc(var(--dt-space-2) * -1);
+  margin-right: var(--dt-space-2);
 }
 
 .dt-sidebar__icon {
@@ -311,6 +313,11 @@ const mobileVisibleItems = computed(() => props.items.slice(0, props.mobileItems
     border-radius: var(--dt-radius-sm);
     min-width: 60px;
     font-size: var(--dt-text-xs);
+  }
+
+  .dt-sidebar__nav--mobile .dt-sidebar__icon-slot {
+    margin-left: 0;
+    margin-right: 0;
   }
 
   .dt-sidebar__nav--mobile .dt-sidebar__link span:not(.dt-sidebar__icon-slot) {
