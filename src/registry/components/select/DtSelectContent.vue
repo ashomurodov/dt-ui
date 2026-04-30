@@ -27,7 +27,7 @@ import {
   </SelectPortal>
 </template>
 
-<style scoped>
+<style>
 .dt-select-content {
   z-index: var(--dt-z-dropdown);
   width: var(--reka-select-trigger-width);

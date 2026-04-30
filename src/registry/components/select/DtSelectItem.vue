@@ -33,7 +33,7 @@ const props = withDefaults(defineProps<{
   </SelectItem>
 </template>
 
-<style scoped>
+<style>
 .dt-select-item {
   display: flex;
   align-items: center;
