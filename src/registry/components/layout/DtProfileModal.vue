@@ -131,9 +131,12 @@ watch(isOpen, (opened) => {
 
 const onClickOutside = (e: MouseEvent) => {
   if (modalRef.value && !modalRef.value.contains(e.target as Node)) {
-    const profileBtn = modalRef.value.closest('.dt-header__actions')
+    const profileBtn = modalRef.value.closest('.dt-header__profile-wrapper')
+      ?.querySelector('.dt-header__profile-trigger')
+    const legacyProfileBtn = modalRef.value.closest('.dt-header__actions')
       ?.querySelector('.dt-header__circle-btn:last-of-type')
     if (profileBtn && profileBtn.contains(e.target as Node)) return
+    if (legacyProfileBtn && legacyProfileBtn.contains(e.target as Node)) return
     close()
   }
 }

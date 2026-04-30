@@ -69,7 +69,10 @@ onMounted(() => {
       </button>
 
       <div class="dt-header__profile-wrapper">
-        <button class="dt-header__action-btn" @click="$emit('toggle-profile')">
+        <button
+          class="dt-header__action-btn dt-header__profile-trigger"
+          @click="$emit('toggle-profile')"
+        >
           <img v-if="profileAvatar" class="dt-header__avatar" :src="profileAvatar" alt="" />
           <div v-else class="dt-header__avatar dt-header__avatar--initials">
             {{ profileInitials }}
