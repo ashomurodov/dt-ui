@@ -52,10 +52,10 @@ onMounted(() => {
 
       <button
         v-if="showModulesButton"
-        class="dt-header__circle-btn"
+        class="dt-header__action-btn dt-header__action-btn--modules"
         @click="openModules"
       >
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <svg viewBox="0 0 24 24" fill="none">
           <path d="M17 18C17 18.5523 17.4477 19 18 19C18.5523 19 19 18.5523 19 18C19 17.4477 18.5523 17 18 17C17.4477 17 17 17.4477 17 18Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           <path d="M11 18C11 18.5523 11.4477 19 12 19C12.5523 19 13 18.5523 13 18C13 17.4477 12.5523 17 12 17C11.4477 17 11 17.4477 11 18Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           <path d="M5 18C5 18.5523 5.44772 19 6 19C6.55228 19 7 18.5523 7 18C7 17.4477 6.55228 17 6 17C5.44772 17 5 17.4477 5 18Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -68,14 +68,16 @@ onMounted(() => {
         </svg>
       </button>
 
-      <button class="dt-header__circle-btn" @click="$emit('toggle-profile')">
-        <img v-if="profileAvatar" class="dt-header__avatar" :src="profileAvatar" alt="" />
-        <div v-else class="dt-header__avatar dt-header__avatar--initials">
-          {{ profileInitials }}
-        </div>
-      </button>
+      <div class="dt-header__profile-wrapper">
+        <button class="dt-header__action-btn" @click="$emit('toggle-profile')">
+          <img v-if="profileAvatar" class="dt-header__avatar" :src="profileAvatar" alt="" />
+          <div v-else class="dt-header__avatar dt-header__avatar--initials">
+            {{ profileInitials }}
+          </div>
+        </button>
 
-      <slot name="profile-dropdown" />
+        <slot name="profile-dropdown" />
+      </div>
     </div>
   </div>
 </template>
@@ -112,34 +114,44 @@ onMounted(() => {
 .dt-header__actions {
   display: flex;
   align-items: center;
-  gap: var(--dt-space-3);
+  gap: var(--dt-space-2);
   position: relative;
+  padding: 4px;
+  border: 1px solid var(--dt-color-border-light);
+  border-radius: 999px;
+  background: var(--dt-color-background);
+  box-shadow: 0 2px 8px rgba(16, 24, 40, 0.04);
 }
 
-.dt-header__circle-btn {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
+.dt-header__action-btn {
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid var(--dt-color-border);
+  border: 0;
+  border-radius: 50%;
   background: transparent;
   cursor: pointer;
   transition: all var(--dt-transition-fast);
   padding: 0;
 }
 
-.dt-header__circle-btn svg {
-  width: 24px;
-  height: 24px;
+.dt-header__action-btn svg {
+  width: 22px;
+  height: 22px;
   flex-shrink: 0;
   color: var(--dt-color-icon-dark);
 }
 
-.dt-header__circle-btn:hover {
-  border-color: var(--dt-color-accent);
-  background: var(--dt-color-surface-hover);
+.dt-header__action-btn:hover,
+.dt-header__action-btn:focus-visible {
+  background: var(--dt-color-background-secondary);
+  outline: none;
+}
+
+.dt-header__profile-wrapper {
+  position: relative;
 }
 
 .dt-header__avatar {

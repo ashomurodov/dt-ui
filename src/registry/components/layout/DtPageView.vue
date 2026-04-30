@@ -23,10 +23,10 @@ withDefaults(defineProps<{
 }
 
 .dt-page-view__title {
-  font-size: var(--dt-text-3xl);
+  font-size: 32px;
   font-weight: 700;
   color: var(--dt-color-text);
-  margin: 0 0 var(--dt-space-6) 0;
+  margin: 0 0 24px 0;
 }
 
 @media (max-width: 768px) {
