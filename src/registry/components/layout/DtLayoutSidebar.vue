@@ -44,7 +44,9 @@ const mobileVisibleItems = computed(() => props.items.slice(0, props.mobileItems
         :to="item.to"
         class="dt-sidebar__link"
       >
-        <component v-if="item.icon" :is="item.icon" class="dt-sidebar__icon" />
+        <span v-if="item.icon" class="dt-sidebar__icon-slot" aria-hidden="true">
+          <component :is="item.icon" class="dt-sidebar__icon" />
+        </span>
         <span>{{ item.label }}</span>
       </RouterLink>
 
@@ -78,7 +80,9 @@ const mobileVisibleItems = computed(() => props.items.slice(0, props.mobileItems
                 :to="subItem.to"
                 class="dt-sidebar__link dt-sidebar__link--sub"
               >
-                <component v-if="subItem.icon" :is="subItem.icon" class="dt-sidebar__icon" />
+                <span v-if="subItem.icon" class="dt-sidebar__icon-slot" aria-hidden="true">
+                  <component :is="subItem.icon" class="dt-sidebar__icon" />
+                </span>
                 <span>{{ subItem.label }}</span>
               </RouterLink>
             </div>
@@ -97,7 +101,9 @@ const mobileVisibleItems = computed(() => props.items.slice(0, props.mobileItems
         :to="item.to"
         class="dt-sidebar__link"
       >
-        <component v-if="item.icon" :is="item.icon" class="dt-sidebar__icon" />
+        <span v-if="item.icon" class="dt-sidebar__icon-slot" aria-hidden="true">
+          <component :is="item.icon" class="dt-sidebar__icon" />
+        </span>
         <span class="dt-sidebar__label">{{ item.label }}</span>
       </RouterLink>
       <slot name="mobile-extra" />
@@ -148,7 +154,7 @@ const mobileVisibleItems = computed(() => props.items.slice(0, props.mobileItems
   display: flex;
   align-items: center;
   gap: var(--dt-space-3);
-  padding: 10px var(--dt-space-4);
+  padding: 10px var(--dt-space-4) 10px var(--dt-space-2);
   border-radius: var(--dt-radius-lg);
   color: var(--dt-color-text);
   font-size: 15px;
@@ -158,7 +164,7 @@ const mobileVisibleItems = computed(() => props.items.slice(0, props.mobileItems
   min-width: 0;
 }
 
-.dt-sidebar__link span {
+.dt-sidebar__link span:not(.dt-sidebar__icon-slot) {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -173,16 +179,26 @@ const mobileVisibleItems = computed(() => props.items.slice(0, props.mobileItems
 }
 
 .dt-sidebar__link--sub {
-  padding: var(--dt-space-2) var(--dt-space-4);
+  padding: var(--dt-space-2) var(--dt-space-4) var(--dt-space-2) var(--dt-space-2);
   font-size: var(--dt-text-xs);
 }
 
 /* Icons */
+.dt-sidebar__icon-slot {
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 24px;
+}
+
 .dt-sidebar__icon {
   width: 24px;
   height: 24px;
   color: var(--dt-color-icon);
   flex-shrink: 0;
+  display: block;
 }
 
 /* Collapsible sections */
@@ -297,7 +313,7 @@ const mobileVisibleItems = computed(() => props.items.slice(0, props.mobileItems
     font-size: var(--dt-text-xs);
   }
 
-  .dt-sidebar__nav--mobile .dt-sidebar__link span {
+  .dt-sidebar__nav--mobile .dt-sidebar__link span:not(.dt-sidebar__icon-slot) {
     max-width: 60px;
     text-align: center;
   }
