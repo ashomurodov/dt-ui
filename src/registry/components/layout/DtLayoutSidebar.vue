@@ -392,6 +392,8 @@ const DtSidebarItem = defineComponent({
   --dt-sidebar-icon-size: 24px;
   --dt-sidebar-icon-center: 12px;
   --dt-sidebar-tree-offset: var(--dt-space-5);
+  --dt-sidebar-tree-joint-y: 16px;
+  --dt-sidebar-tree-parent-bridge: var(--dt-space-2);
 
   width: calc(222px + 24px);
   max-width: calc(222px + 24px);
@@ -542,13 +544,24 @@ const DtSidebarItem = defineComponent({
   overflow: visible;
 }
 
+.dt-sidebar__children::before {
+  content: '';
+  position: absolute;
+  top: calc(var(--dt-sidebar-tree-parent-bridge) * -1);
+  left: 0;
+  width: 1px;
+  height: calc(var(--dt-sidebar-tree-joint-y) + var(--dt-sidebar-tree-parent-bridge));
+  background-color: var(--dt-color-border);
+  pointer-events: none;
+}
+
 .dt-sidebar__children > .dt-sidebar__item--nested::before {
   content: '';
   position: absolute;
   top: 0;
   left: calc(var(--dt-sidebar-tree-offset) * -1);
   width: var(--dt-sidebar-tree-offset);
-  height: 17px;
+  height: var(--dt-sidebar-tree-joint-y);
   border-bottom: 1px solid var(--dt-color-border);
   border-left: 1px solid var(--dt-color-border);
   border-bottom-left-radius: 10px;
@@ -558,7 +571,7 @@ const DtSidebarItem = defineComponent({
 .dt-sidebar__children > .dt-sidebar__item--nested::after {
   content: '';
   position: absolute;
-  top: 17px;
+  top: var(--dt-sidebar-tree-joint-y);
   bottom: calc(var(--dt-space-1) * -1);
   left: calc(var(--dt-sidebar-tree-offset) * -1);
   width: 1px;
