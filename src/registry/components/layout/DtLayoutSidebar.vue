@@ -570,6 +570,11 @@ const DtSidebarItem = defineComponent({
   pointer-events: none;
 }
 
+.dt-sidebar__children > .dt-sidebar__item--nested:last-child::before {
+  border-left: 0;
+  border-bottom-left-radius: 0;
+}
+
 /* Icons */
 .dt-sidebar__icon-slot {
   width: var(--dt-sidebar-icon-size);
