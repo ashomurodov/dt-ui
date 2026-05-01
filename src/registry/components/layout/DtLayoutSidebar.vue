@@ -7,6 +7,7 @@ export interface DtNavItem {
   to?: string | Record<string, any>
   icon?: any
   label: string
+  badge?: string | number
   onClick?: (payload: DtSidebarItemClickPayload) => void | Promise<void>
   children?: DtNavItem[]
   active?: boolean
@@ -211,11 +212,24 @@ const DtSidebarItem = defineComponent({
       )
     }
 
+    const renderBadge = () => {
+      const { badge } = itemProps.item
+
+      if (badge === undefined || badge === null || badge === '') return null
+
+      return h('span', { class: 'dt-sidebar__badge' }, String(badge))
+    }
+
     const renderContent = (showChevron: boolean, open: boolean) => {
       const content = [
         renderIcon(),
         h('span', { class: 'dt-sidebar__link-label' }, itemProps.item.label),
       ]
+
+      const badge = renderBadge()
+      if (badge) {
+        content.push(badge)
+      }
 
       if (showChevron) {
         content.push(renderChevron(open))
@@ -439,7 +453,7 @@ const DtSidebarItem = defineComponent({
 }
 
 .dt-sidebar__link-label,
-.dt-sidebar__link span:not(.dt-sidebar__icon-slot) {
+.dt-sidebar__link span:not(.dt-sidebar__icon-slot):not(.dt-sidebar__badge) {
   flex: 1;
   min-width: 0;
   white-space: nowrap;
@@ -475,6 +489,38 @@ const DtSidebarItem = defineComponent({
   min-height: 32px;
   padding: var(--dt-space-2) var(--dt-space-3);
   font-size: var(--dt-text-xs);
+}
+
+.dt-sidebar__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  min-width: 20px;
+  max-width: 56px;
+  height: 20px;
+  padding: 0 var(--dt-space-2);
+  border-radius: var(--dt-radius-full);
+  background-color: var(--dt-color-background-tertiary);
+  color: var(--dt-color-text-secondary);
+  font-size: var(--dt-text-xs);
+  font-weight: var(--dt-font-bold);
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dt-sidebar__link.router-link-active .dt-sidebar__badge,
+.dt-sidebar__link--active .dt-sidebar__badge {
+  background-color: var(--dt-color-accent-light);
+  color: var(--dt-color-accent);
+}
+
+.dt-sidebar__link--disabled .dt-sidebar__badge,
+.dt-sidebar__link:disabled .dt-sidebar__badge {
+  background-color: var(--dt-color-disabled-bg);
+  color: var(--dt-color-disabled-text);
 }
 
 .dt-sidebar__children {
@@ -631,7 +677,7 @@ const DtSidebarItem = defineComponent({
   }
 
   .dt-sidebar__nav--mobile .dt-sidebar__link-label,
-  .dt-sidebar__nav--mobile .dt-sidebar__link span:not(.dt-sidebar__icon-slot) {
+  .dt-sidebar__nav--mobile .dt-sidebar__link span:not(.dt-sidebar__icon-slot):not(.dt-sidebar__badge) {
     max-width: 60px;
     text-align: center;
   }
