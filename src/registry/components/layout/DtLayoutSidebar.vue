@@ -546,17 +546,6 @@ const DtSidebarItem = defineComponent({
   overflow: visible;
 }
 
-.dt-sidebar__children::before {
-  content: '';
-  position: absolute;
-  top: calc(var(--dt-sidebar-tree-parent-bridge) * -1);
-  left: 0;
-  width: 1px;
-  bottom: calc(var(--dt-sidebar-sub-item-height) - var(--dt-sidebar-tree-joint-y));
-  background-color: var(--dt-color-border);
-  pointer-events: none;
-}
-
 .dt-sidebar__children > .dt-sidebar__item--nested::before {
   content: '';
   position: absolute;
@@ -570,9 +559,19 @@ const DtSidebarItem = defineComponent({
   pointer-events: none;
 }
 
-.dt-sidebar__children > .dt-sidebar__item--nested:last-child::before {
-  border-left: 0;
-  border-bottom-left-radius: 0;
+.dt-sidebar__children > .dt-sidebar__item--nested::after {
+  content: '';
+  position: absolute;
+  top: var(--dt-sidebar-tree-joint-y);
+  bottom: calc(var(--dt-space-1) * -1);
+  left: calc(var(--dt-sidebar-tree-offset) * -1);
+  width: 1px;
+  background-color: var(--dt-color-border);
+  pointer-events: none;
+}
+
+.dt-sidebar__children > .dt-sidebar__item--nested:last-child::after {
+  display: none;
 }
 
 /* Icons */
