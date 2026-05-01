@@ -394,6 +394,7 @@ const DtSidebarItem = defineComponent({
   --dt-sidebar-tree-offset: var(--dt-space-5);
   --dt-sidebar-tree-joint-y: 16px;
   --dt-sidebar-tree-parent-bridge: var(--dt-space-2);
+  --dt-sidebar-sub-item-min-height: 32px;
 
   width: calc(222px + 24px);
   max-width: calc(222px + 24px);
@@ -497,7 +498,7 @@ const DtSidebarItem = defineComponent({
 }
 
 .dt-sidebar__link--sub {
-  min-height: 32px;
+  min-height: var(--dt-sidebar-sub-item-min-height);
   padding: var(--dt-space-2) var(--dt-space-3);
   font-size: var(--dt-text-xs);
 }
@@ -550,7 +551,7 @@ const DtSidebarItem = defineComponent({
   top: calc(var(--dt-sidebar-tree-parent-bridge) * -1);
   left: 0;
   width: 1px;
-  height: calc(var(--dt-sidebar-tree-joint-y) + var(--dt-sidebar-tree-parent-bridge));
+  bottom: calc(var(--dt-sidebar-sub-item-min-height) - var(--dt-sidebar-tree-joint-y));
   background-color: var(--dt-color-border);
   pointer-events: none;
 }
@@ -566,21 +567,6 @@ const DtSidebarItem = defineComponent({
   border-left: 1px solid var(--dt-color-border);
   border-bottom-left-radius: 10px;
   pointer-events: none;
-}
-
-.dt-sidebar__children > .dt-sidebar__item--nested::after {
-  content: '';
-  position: absolute;
-  top: var(--dt-sidebar-tree-joint-y);
-  bottom: calc(var(--dt-space-1) * -1);
-  left: calc(var(--dt-sidebar-tree-offset) * -1);
-  width: 1px;
-  background-color: var(--dt-color-border);
-  pointer-events: none;
-}
-
-.dt-sidebar__children > .dt-sidebar__item--nested:last-child::after {
-  display: none;
 }
 
 /* Icons */
