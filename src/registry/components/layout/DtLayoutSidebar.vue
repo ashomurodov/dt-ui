@@ -186,6 +186,10 @@ const DtSidebarItem = defineComponent({
       type: Boolean,
       default: true,
     },
+    showBadge: {
+      type: Boolean,
+      default: true,
+    },
   },
   setup(itemProps) {
     const renderIcon = () => {
@@ -220,6 +224,8 @@ const DtSidebarItem = defineComponent({
     }
 
     const renderBadge = () => {
+      if (!itemProps.showBadge) return null
+
       const { badge } = itemProps.item
 
       if (badge === undefined || badge === null || badge === '') return null
@@ -395,6 +401,7 @@ const DtSidebarItem = defineComponent({
         :item="item"
         :level="0"
         :show-children="false"
+        :show-badge="false"
       />
       <slot name="mobile-extra" />
     </nav>

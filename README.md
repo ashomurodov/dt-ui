@@ -376,6 +376,8 @@ import type {
 | `hidden` | `boolean` | Skips rendering |
 | `defaultOpen` | `boolean` | Opens this parent by default |
 
+Badges render in the desktop sidebar. Mobile bottom navigation intentionally omits badges to keep the compact nav clean.
+
 Typed nav items:
 
 ```ts
