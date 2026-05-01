@@ -348,7 +348,7 @@ const DtSidebarItem = defineComponent({
                 v-for="subItem in section.items"
                 :key="getItemKey(subItem)"
                 :item="subItem"
-                :level="1"
+                :level="0"
               />
             </div>
           </Transition>
@@ -472,7 +472,8 @@ const DtSidebarItem = defineComponent({
 }
 
 .dt-sidebar__link--sub {
-  padding: var(--dt-space-2) var(--dt-space-4);
+  min-height: 32px;
+  padding: var(--dt-space-2) var(--dt-space-3);
   font-size: var(--dt-text-xs);
 }
 
@@ -480,6 +481,9 @@ const DtSidebarItem = defineComponent({
   display: flex;
   flex-direction: column;
   gap: 2px;
+  margin-left: calc(24px + var(--dt-space-3));
+  padding-left: var(--dt-space-2);
+  border-left: 1px solid var(--dt-color-border);
   overflow: hidden;
 }
 
