@@ -388,6 +388,11 @@ const DtSidebarItem = defineComponent({
 
 <style>
 .dt-sidebar {
+  --dt-sidebar-item-padding-x: var(--dt-space-4);
+  --dt-sidebar-icon-size: 24px;
+  --dt-sidebar-icon-center: 12px;
+  --dt-sidebar-tree-offset: var(--dt-space-5);
+
   width: calc(222px + 24px);
   max-width: calc(222px + 24px);
   background-color: var(--dt-color-background);
@@ -440,7 +445,7 @@ const DtSidebarItem = defineComponent({
   display: flex;
   align-items: center;
   gap: var(--dt-space-3);
-  padding: 10px var(--dt-space-4);
+  padding: 10px var(--dt-sidebar-item-padding-x);
   border-radius: var(--dt-radius-lg);
   color: var(--dt-color-text);
   font-size: 15px;
@@ -532,8 +537,8 @@ const DtSidebarItem = defineComponent({
   display: flex;
   flex-direction: column;
   gap: var(--dt-space-1);
-  margin-left: calc(24px + var(--dt-space-3));
-  padding-left: var(--dt-space-5);
+  margin-left: calc(var(--dt-sidebar-item-padding-x) + var(--dt-sidebar-icon-center));
+  padding-left: var(--dt-sidebar-tree-offset);
   overflow: visible;
 }
 
@@ -552,8 +557,8 @@ const DtSidebarItem = defineComponent({
   content: '';
   position: absolute;
   top: 0;
-  left: calc(var(--dt-space-5) * -1);
-  width: var(--dt-space-5);
+  left: calc(var(--dt-sidebar-tree-offset) * -1);
+  width: var(--dt-sidebar-tree-offset);
   height: 17px;
   border-bottom: 1px solid var(--dt-color-border);
   border-left: 1px solid var(--dt-color-border);
@@ -563,17 +568,17 @@ const DtSidebarItem = defineComponent({
 
 /* Icons */
 .dt-sidebar__icon-slot {
-  width: 24px;
-  height: 24px;
+  width: var(--dt-sidebar-icon-size);
+  height: var(--dt-sidebar-icon-size);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  flex: 0 0 24px;
+  flex: 0 0 var(--dt-sidebar-icon-size);
 }
 
 .dt-sidebar__icon {
-  width: 24px;
-  height: 24px;
+  width: var(--dt-sidebar-icon-size);
+  height: var(--dt-sidebar-icon-size);
   color: var(--dt-color-icon);
   flex-shrink: 0;
   display: block;
