@@ -45,6 +45,13 @@ const emit = defineEmits<{
   'item-click': [payload: DtSidebarItemClickPayload]
 }>()
 
+defineSlots<{
+  top?: () => any
+  bottom?: () => any
+  'desktop-extra'?: () => any
+  'mobile-extra'?: () => any
+}>()
+
 const sectionState = ref<Record<string, boolean>>({})
 
 const isSectionOpen = (title: string) => {
@@ -327,6 +334,10 @@ const DtSidebarItem = defineComponent({
   <div class="dt-sidebar">
     <!-- Desktop nav -->
     <nav class="dt-sidebar__nav dt-sidebar__nav--desktop">
+      <div v-if="$slots.top" class="dt-sidebar__slot dt-sidebar__slot--top">
+        <slot name="top" />
+      </div>
+
       <DtSidebarItem
         v-for="item in visibleItems"
         :key="getItemKey(item)"
@@ -368,6 +379,10 @@ const DtSidebarItem = defineComponent({
           </Transition>
         </div>
       </template>
+
+      <div v-if="$slots.bottom" class="dt-sidebar__slot dt-sidebar__slot--bottom">
+        <slot name="bottom" />
+      </div>
 
       <slot name="desktop-extra" />
     </nav>
@@ -425,6 +440,10 @@ const DtSidebarItem = defineComponent({
 
 .dt-sidebar__nav--mobile {
   display: none;
+}
+
+.dt-sidebar__slot {
+  min-width: 0;
 }
 
 .dt-sidebar__item {
