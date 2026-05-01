@@ -394,7 +394,7 @@ const DtSidebarItem = defineComponent({
   --dt-sidebar-tree-offset: var(--dt-space-5);
   --dt-sidebar-tree-joint-y: 16px;
   --dt-sidebar-tree-parent-bridge: var(--dt-space-2);
-  --dt-sidebar-sub-item-min-height: 32px;
+  --dt-sidebar-sub-item-height: 32px;
 
   width: calc(222px + 24px);
   max-width: calc(222px + 24px);
@@ -498,8 +498,9 @@ const DtSidebarItem = defineComponent({
 }
 
 .dt-sidebar__link--sub {
-  min-height: var(--dt-sidebar-sub-item-min-height);
-  padding: var(--dt-space-2) var(--dt-space-3);
+  height: var(--dt-sidebar-sub-item-height);
+  min-height: var(--dt-sidebar-sub-item-height);
+  padding: 0 var(--dt-space-3);
   font-size: var(--dt-text-xs);
 }
 
@@ -551,7 +552,7 @@ const DtSidebarItem = defineComponent({
   top: calc(var(--dt-sidebar-tree-parent-bridge) * -1);
   left: 0;
   width: 1px;
-  bottom: calc(var(--dt-sidebar-sub-item-min-height) - var(--dt-sidebar-tree-joint-y));
+  bottom: calc(var(--dt-sidebar-sub-item-height) - var(--dt-sidebar-tree-joint-y));
   background-color: var(--dt-color-border);
   pointer-events: none;
 }
