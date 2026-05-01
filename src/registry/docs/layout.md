@@ -1,6 +1,6 @@
 # DtLayout
 
-A complete application shell layout system with header, sidebar, page view, profile modal, and divider components. Provides the standard DT platform layout: sticky header, sidebar navigation (desktop) / bottom nav (mobile), and a centered content area.
+A complete application shell layout system with header, sidebar, modules modal, profile modal, page view, and divider components. Provides the standard DT platform layout: sticky header, sidebar navigation (desktop) / bottom nav (mobile), and a centered content area.
 
 ## Import
 
@@ -9,12 +9,20 @@ import {
   DtLayout,
   DtLayoutHeader,
   DtLayoutSidebar,
+  DtModulesModal,
   DtProfileModal,
   DtPageView,
   DtDivider,
 } from '@/components/ui/layout'
 
-import type { DtNavItem, DtNavSection, DtUser, DtProfileMenuItem } from '@/components/ui/layout'
+import type {
+  DtModuleClickPayload,
+  DtModuleItem,
+  DtNavItem,
+  DtNavSection,
+  DtUser,
+  DtProfileMenuItem,
+} from '@/components/ui/layout'
 ```
 
 ## Components
@@ -45,26 +53,46 @@ Pre-styled header with logo area, badge, module switcher button, and profile ava
 | `badge` | `string` | `undefined` | Badge text displayed next to the logo (e.g., "Specialist", "Cabinet"). |
 | `profileName` | `string` | `undefined` | Used to generate avatar initials when no image is provided. |
 | `profileAvatar` | `string` | `undefined` | URL for the profile avatar image. Falls back to initials. |
-| `activeModule` | `string` | `'cabinet'` | The current module's identifier. Passed to the DT modules modal to highlight the active module. |
-| `envMode` | `'dev' \| 'preprod' \| 'prod'` | `'dev'` | Environment mode. Determines which CDN domain the modules modal uses. |
+| `activeModule` | `string` | `'cabinet'` | Current module key. Highlights the matching item in the modules modal. |
+| `envMode` | `'dev' \| 'preprod' \| 'prod'` | `'dev'` | Legacy compatibility prop. The built-in modal does not use it. |
 | `showModulesButton` | `boolean` | `true` | Whether to show the grid modules button. |
+| `modules` | `DtModuleItem[]` | `[]` | Items shown in the built-in modules modal. |
+| `modulesTitle` | `string` | `'Modules'` | Optional modal title. |
+| `modulesDescription` | `string` | `''` | Optional modal description. |
+| `modulesCloseLabel` | `string` | `'Close modules'` | Accessible label for the close button. |
 
 #### Events
 
 | Event | Payload | Description |
 |-------|---------|-------------|
 | `toggle-profile` | — | Emitted when the profile avatar button is clicked. |
+| `modules-click` | `MouseEvent` | Emitted when the modules button is clicked. |
+| `module-click` | `DtModuleClickPayload` | Emitted when a module item is clicked. |
 
 #### Modules Modal (Built-in)
 
-The header automatically initializes the DT modules modal on mount using the external `dt-header.js` script. You must include it in your `index.html`:
+The header opens `DtModulesModal` automatically when `modules` has visible items. No CDN script is required.
 
-```html
-<script src="https://cdn.dthub.uz/dt-header/dist/dt-header.js"></script>
-<link rel="stylesheet" href="https://cdn.dthub.uz/dt-header/dist/style.css">
+```ts
+interface DtModuleItem {
+  key: string
+  label: string
+  href?: string
+  logo?: string
+  icon?: any
+  badge?: string | number
+  description?: string
+  target?: '_self' | '_blank' | '_parent' | '_top'
+  rel?: string
+  active?: boolean
+  disabled?: boolean
+  hidden?: boolean
+  span?: 'default' | 'full'
+  onClick?: (payload: DtModuleClickPayload) => void | Promise<void>
+}
 ```
 
-The `activeModule` prop highlights the current module in the grid. The `envMode` prop controls which API environment the modal uses (dev → `.dthub.uz`, preprod → `.predt.uz`, prod → `.dt.uz`).
+Use `href` for normal navigation, `onClick` for app-owned behavior, `logo` for image URLs, or `icon` for Vue icon components. The app owns module URLs, auth checks, and any custom routing. Call `payload.event.preventDefault()` in `@module-click` when you need to stop a link.
 
 #### Slots
 
@@ -228,7 +256,7 @@ import {
   DtLayout, DtLayoutHeader, DtLayoutSidebar,
   DtProfileModal, DtPageView, DtDivider,
 } from '@/components/ui/layout'
-import type { DtNavItem } from '@/components/ui/layout'
+import type { DtModuleItem, DtNavItem } from '@/components/ui/layout'
 
 import LogoIcon from '@/assets/icons/logo.svg'
 import ServicesIcon from '@/assets/icons/services.svg'
@@ -240,12 +268,18 @@ const { theme, setTheme } = useTheme()
 const { locale, setLang } = useLangStorage()
 
 const showProfile = ref(false)
-const envMode = import.meta.env.DEV ? 'dev' as const : 'prod' as const
 
 const navItems: DtNavItem[] = [
   { to: '/services', icon: ServicesIcon, label: 'Services' },
   { to: '/documents', icon: DocsIcon, label: 'Documents' },
   { to: '/reports', icon: ReportsIcon, label: 'Reports' },
+]
+
+const modules: DtModuleItem[] = [
+  { key: 'cabinet', label: 'Cabinet', icon: LogoIcon, href: 'https://id.dthub.uz/cabinet', span: 'full' },
+  { key: 'services', label: 'Services', icon: ServicesIcon, href: '/services' },
+  { key: 'documents', label: 'Documents', icon: DocsIcon, href: '/documents' },
+  { key: 'reports', label: 'Reports', icon: ReportsIcon, href: '/reports' },
 ]
 </script>
 
@@ -257,7 +291,7 @@ const navItems: DtNavItem[] = [
         :profile-name="store.user?.first_name + ' ' + store.user?.last_name"
         :profile-avatar="store.user?.logo_url"
         active-module="cabinet"
-        :env-mode="envMode"
+        :modules="modules"
         @toggle-profile="showProfile = !showProfile"
       >
         <template #logo>

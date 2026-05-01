@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { computed, onMounted } from 'vue'
+import { computed, ref } from 'vue'
+import DtModulesModal, { type DtModuleClickPayload, type DtModuleItem } from './DtModulesModal.vue'
 
 const props = withDefaults(defineProps<{
   badge?: string
@@ -8,15 +9,27 @@ const props = withDefaults(defineProps<{
   activeModule?: string
   envMode?: 'dev' | 'preprod' | 'prod'
   showModulesButton?: boolean
+  modules?: DtModuleItem[]
+  modulesTitle?: string
+  modulesDescription?: string
+  modulesCloseLabel?: string
 }>(), {
   activeModule: 'cabinet',
   envMode: 'dev',
   showModulesButton: true,
+  modules: () => [],
+  modulesTitle: 'Modules',
+  modulesDescription: '',
+  modulesCloseLabel: 'Close modules',
 })
 
-defineEmits<{
+const emit = defineEmits<{
   'toggle-profile': []
+  'modules-click': [event: MouseEvent]
+  'module-click': [payload: DtModuleClickPayload]
 }>()
+
+const showModulesModal = ref(false)
 
 const profileInitials = computed(() => {
   if (!props.profileName) return ''
@@ -24,20 +37,14 @@ const profileInitials = computed(() => {
   return parts.map((p) => p[0]).join('').toUpperCase().slice(0, 2)
 })
 
-const openModules = () => {
-  if ((window as any).$showModulesModal) {
-    ;(window as any).$showModulesModal()
+const hasModules = computed(() => props.modules.some((item) => !item.hidden))
+
+const openModules = (event: MouseEvent) => {
+  emit('modules-click', event)
+  if (hasModules.value) {
+    showModulesModal.value = true
   }
 }
-
-onMounted(() => {
-  if ((window as any).$loadDtModulesModal) {
-    ;(window as any).$loadDtModulesModal({
-      mode: props.envMode,
-      activeModule: props.activeModule,
-    })
-  }
-})
 </script>
 
 <template>
@@ -53,6 +60,7 @@ onMounted(() => {
       <button
         v-if="showModulesButton"
         class="dt-header__action-btn dt-header__action-btn--modules"
+        type="button"
         @click="openModules"
       >
         <svg viewBox="0 0 24 24" fill="none">
@@ -81,6 +89,17 @@ onMounted(() => {
 
         <slot name="profile-dropdown" />
       </div>
+
+      <DtModulesModal
+        v-if="hasModules"
+        v-model="showModulesModal"
+        :modules="modules"
+        :active-module="activeModule"
+        :title="modulesTitle"
+        :description="modulesDescription"
+        :close-label="modulesCloseLabel"
+        @module-click="emit('module-click', $event)"
+      />
     </div>
   </div>
 </template>

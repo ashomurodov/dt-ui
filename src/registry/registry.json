@@ -116,8 +116,8 @@
     },
     "layout": {
       "name": "DtLayout",
-      "description": "App shell layout with sidebar, header, page view, and divider",
-      "files": ["DtLayout.vue", "DtLayoutHeader.vue", "DtLayoutSidebar.vue", "DtProfileModal.vue", "DtPageView.vue", "DtDivider.vue", "index.ts"],
+      "description": "App shell layout with sidebar, header, modules modal, profile modal, page view, and divider",
+      "files": ["DtLayout.vue", "DtLayoutHeader.vue", "DtLayoutSidebar.vue", "DtModulesModal.vue", "DtProfileModal.vue", "DtPageView.vue", "DtDivider.vue", "index.ts"],
       "internalDeps": [],
       "peerDeps": [],
       "docs": "docs/layout.md"

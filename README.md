@@ -121,7 +121,7 @@ npx dt-ui list
 | `DtPagination` | `add pagination` | Pagination with page window and ellipsis |
 | `DtTabSwitcher` | `add tab-switcher` | Tab switcher with active indicator and badges |
 | `DtSearchToolbar` | `add search-toolbar` | Search input with action button |
-| `DtLayout` | `add layout` | App shell, header, sidebar, profile modal, page view, divider |
+| `DtLayout` | `add layout` | App shell, header, sidebar, modules modal, profile modal, page view, divider |
 
 ## Import Pattern
 
@@ -140,8 +140,11 @@ import {
   DtLayout,
   DtLayoutHeader,
   DtLayoutSidebar,
+  DtModulesModal,
   DtPageView,
   DtProfileModal,
+  type DtModuleClickPayload,
+  type DtModuleItem,
   type DtNavItem,
   type DtNavSection,
   type DtSidebarItemClickPayload,
@@ -271,12 +274,15 @@ Install the full layout system:
 npx dt-ui add layout
 ```
 
-Add the DT modules modal assets to `index.html`:
+`dt-ui` does not require CDN assets. The header modules button can open the built-in `DtModulesModal` when you pass a typed `modules` array.
 
-```html
-<script src="https://cdn.dthub.uz/dt-header/dist/dt-header.js"></script>
-<link rel="stylesheet" href="https://cdn.dthub.uz/dt-header/dist/style.css">
+If your project does not use a modules modal, hide the header modules button:
+
+```vue
+<DtLayoutHeader :show-modules-button="false" />
 ```
+
+If your product has its own modules/app switcher, listen to `@modules-click` or pass custom controls through the header `actions` slot.
 
 Example app shell:
 
@@ -289,6 +295,7 @@ import {
   DtLayoutHeader,
   DtLayoutSidebar,
   DtProfileModal,
+  type DtModuleItem,
   type DtNavItem,
   type DtUser,
 } from '@/components/ui/layout'
@@ -306,6 +313,19 @@ const navItems: DtNavItem[] = [
   { key: 'documents', to: '/documents', icon: FileText, label: 'Documents', badge: 12 },
 ]
 
+const modules: DtModuleItem[] = [
+  { key: 'crm', label: 'CRM', icon: Home, href: '/crm' },
+  { key: 'documents', label: 'Documents', icon: FileText, href: '/documents' },
+  {
+    key: 'settings',
+    label: 'Settings',
+    icon: Home,
+    onClick: () => {
+      // Open your own settings modal or route from the app.
+    },
+  },
+]
+
 function logout() {
   // Clear auth and redirect from your app.
 }
@@ -317,6 +337,7 @@ function logout() {
       <DtLayoutHeader
         badge="CRM"
         active-module="crm"
+        :modules="modules"
         :profile-name="user.first_name + ' ' + user.last_name"
         @toggle-profile="showProfile = !showProfile"
       >
@@ -342,6 +363,35 @@ function logout() {
   </DtLayout>
 </template>
 ```
+
+### Header Modules Modal
+
+`DtLayoutHeader` opens `DtModulesModal` automatically when `modules` has visible items. Consumers own the module list, URLs, icons/logos, and any auth checks.
+
+```ts
+interface DtModuleItem {
+  key: string
+  label: string
+  href?: string
+  logo?: string
+  icon?: any
+  badge?: string | number
+  description?: string
+  target?: '_self' | '_blank' | '_parent' | '_top'
+  rel?: string
+  active?: boolean
+  disabled?: boolean
+  hidden?: boolean
+  span?: 'default' | 'full'
+  onClick?: (payload: DtModuleClickPayload) => void | Promise<void>
+}
+```
+
+- Pass `href` for normal navigation.
+- Pass `onClick` without `href` for custom app-owned behavior.
+- Use `logo` for image URLs or `icon` for Vue icon components.
+- Use `activeModule` on the header or `active: true` per item for active state.
+- Use `@module-click` for analytics, auth guards, or custom routing. Call `payload.event.preventDefault()` if you need to stop a link.
 
 ## Sidebar API
 
