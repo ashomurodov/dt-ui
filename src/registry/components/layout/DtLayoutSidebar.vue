@@ -1,10 +1,25 @@
 <script lang="ts" setup>
-import { ref, computed } from 'vue'
+import { ref, computed, defineComponent, h, resolveComponent, Transition, watch } from 'vue'
+import type { PropType } from 'vue'
 
 export interface DtNavItem {
-  to: string
+  key?: string
+  to?: string | Record<string, any>
   icon?: any
   label: string
+  onClick?: (payload: DtSidebarItemClickPayload) => void | Promise<void>
+  children?: DtNavItem[]
+  active?: boolean
+  disabled?: boolean
+  hidden?: boolean
+  defaultOpen?: boolean
+}
+
+export interface DtSidebarItemClickPayload {
+  item: DtNavItem
+  event: MouseEvent
+  level: number
+  parentKey?: string
 }
 
 export interface DtNavSection {
@@ -17,9 +32,17 @@ const props = withDefaults(defineProps<{
   items: DtNavItem[]
   sections?: DtNavSection[]
   mobileItems?: number
+  openKeys?: string[]
+  defaultOpenKeys?: string[]
 }>(), {
   mobileItems: 5,
+  defaultOpenKeys: () => [],
 })
+
+const emit = defineEmits<{
+  'update:openKeys': [keys: string[]]
+  'item-click': [payload: DtSidebarItemClickPayload]
+}>()
 
 const sectionState = ref<Record<string, boolean>>({})
 
@@ -31,29 +54,276 @@ const toggleSection = (title: string) => {
   sectionState.value[title] = !isSectionOpen(title)
 }
 
-const mobileVisibleItems = computed(() => props.items.slice(0, props.mobileItems))
+const getItemKey = (item: DtNavItem) => {
+  if (item.key) return item.key
+  if (typeof item.to === 'string') return item.to
+  return item.label
+}
+
+const getVisibleItems = (items: DtNavItem[] = []) => {
+  return items.filter((item) => !item.hidden)
+}
+
+const collectDefaultOpenKeys = (items: DtNavItem[] = []): string[] => {
+  return items.flatMap((item) => {
+    if (item.hidden) return []
+
+    const childKeys = collectDefaultOpenKeys(item.children)
+    if (item.defaultOpen && getVisibleItems(item.children).length) {
+      return [getItemKey(item), ...childKeys]
+    }
+
+    return childKeys
+  })
+}
+
+const allSectionItems = computed(() => {
+  return props.sections?.flatMap((section) => section.items) ?? []
+})
+
+const getDefaultOpenKeys = () => {
+  return Array.from(new Set([
+    ...props.defaultOpenKeys,
+    ...collectDefaultOpenKeys(props.items),
+    ...collectDefaultOpenKeys(allSectionItems.value),
+  ]))
+}
+
+const internalOpenKeys = ref<string[]>(getDefaultOpenKeys())
+
+const isOpenControlled = computed(() => props.openKeys !== undefined)
+
+const activeOpenKeys = computed(() => {
+  return isOpenControlled.value ? props.openKeys ?? [] : internalOpenKeys.value
+})
+
+const setOpenKeys = (keys: string[]) => {
+  const nextKeys = Array.from(new Set(keys))
+
+  if (!isOpenControlled.value) {
+    internalOpenKeys.value = nextKeys
+  }
+
+  emit('update:openKeys', nextKeys)
+}
+
+const isItemOpen = (key: string) => {
+  return activeOpenKeys.value.includes(key)
+}
+
+const toggleItem = (key: string) => {
+  if (isItemOpen(key)) {
+    setOpenKeys(activeOpenKeys.value.filter((openKey) => openKey !== key))
+    return
+  }
+
+  setOpenKeys([...activeOpenKeys.value, key])
+}
+
+const handleItemClick = (
+  item: DtNavItem,
+  event: MouseEvent,
+  level: number,
+  parentKey?: string,
+) => {
+  if (item.disabled) {
+    event.preventDefault()
+    return
+  }
+
+  const payload = { item, event, level, parentKey }
+  emit('item-click', payload)
+  void item.onClick?.(payload)
+}
+
+watch(
+  () => [props.items, props.sections, props.defaultOpenKeys],
+  () => {
+    if (isOpenControlled.value) return
+
+    const defaults = getDefaultOpenKeys()
+    const nextKeys = Array.from(new Set([...internalOpenKeys.value, ...defaults]))
+    internalOpenKeys.value = nextKeys
+  },
+  { deep: true },
+)
+
+const visibleItems = computed(() => getVisibleItems(props.items))
+
+const visibleSections = computed(() => {
+  return props.sections
+    ?.map((section) => ({ ...section, items: getVisibleItems(section.items) }))
+    .filter((section) => section.items.length)
+    ?? []
+})
+
+const mobileVisibleItems = computed(() => visibleItems.value.slice(0, props.mobileItems))
+
+const DtSidebarItem = defineComponent({
+  name: 'DtSidebarItem',
+  props: {
+    item: {
+      type: Object as PropType<DtNavItem>,
+      required: true,
+    },
+    level: {
+      type: Number,
+      required: true,
+    },
+    parentKey: {
+      type: String,
+      required: false,
+    },
+    showChildren: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  setup(itemProps) {
+    const renderIcon = () => {
+      if (!itemProps.item.icon) return null
+
+      return h('span', { class: 'dt-sidebar__icon-slot', 'aria-hidden': 'true' }, [
+        h(itemProps.item.icon, { class: 'dt-sidebar__icon' }),
+      ])
+    }
+
+    const renderChevron = (open: boolean) => {
+      return h(
+        'svg',
+        {
+          class: ['dt-sidebar__chevron', open && 'dt-sidebar__chevron--open'],
+          width: '16',
+          height: '16',
+          viewBox: '0 0 16 16',
+          fill: 'none',
+          'aria-hidden': 'true',
+        },
+        [
+          h('path', {
+            d: 'M6 4L10 8L6 12',
+            stroke: 'currentColor',
+            'stroke-width': '1.5',
+            'stroke-linecap': 'round',
+            'stroke-linejoin': 'round',
+          }),
+        ],
+      )
+    }
+
+    const renderContent = (showChevron: boolean, open: boolean) => {
+      const content = [
+        renderIcon(),
+        h('span', { class: 'dt-sidebar__link-label' }, itemProps.item.label),
+      ]
+
+      if (showChevron) {
+        content.push(renderChevron(open))
+      }
+
+      return content
+    }
+
+    const renderControl = (childItems: DtNavItem[], open: boolean) => {
+      const item = itemProps.item
+      const itemKey = getItemKey(item)
+      const hasChildren = itemProps.showChildren && childItems.length > 0
+      const classes = [
+        'dt-sidebar__link',
+        itemProps.level > 0 && 'dt-sidebar__link--sub',
+        hasChildren && 'dt-sidebar__link--parent',
+        open && 'dt-sidebar__link--open',
+        item.active && 'dt-sidebar__link--active',
+        item.disabled && 'dt-sidebar__link--disabled',
+      ]
+
+      const onClick = (event: MouseEvent) => {
+        if (item.disabled) {
+          event.preventDefault()
+          return
+        }
+
+        if (hasChildren) {
+          toggleItem(itemKey)
+        }
+
+        handleItemClick(item, event, itemProps.level, itemProps.parentKey)
+      }
+
+      if (hasChildren || !item.to || item.disabled) {
+        return h(
+          'button',
+          {
+            type: 'button',
+            class: classes,
+            disabled: item.disabled,
+            'aria-expanded': hasChildren ? String(open) : undefined,
+            onClick,
+          },
+          renderContent(hasChildren, open),
+        )
+      }
+
+      return h(
+        resolveComponent('RouterLink'),
+        {
+          to: item.to,
+          class: classes,
+          onClick,
+        },
+        {
+          default: () => renderContent(false, open),
+        },
+      )
+    }
+
+    return () => {
+      const itemKey = getItemKey(itemProps.item)
+      const childItems = getVisibleItems(itemProps.item.children)
+      const hasChildren = itemProps.showChildren && childItems.length > 0
+      const open = hasChildren && isItemOpen(itemKey)
+      const control = renderControl(childItems, open)
+
+      return h('div', { class: ['dt-sidebar__item', itemProps.level > 0 && 'dt-sidebar__item--nested'] }, [
+        control,
+        hasChildren
+          ? h(
+              Transition,
+              { name: 'dt-collapse' },
+              {
+                default: () => open
+                  ? h('div', { class: 'dt-sidebar__children' }, childItems.map((child) => h(DtSidebarItem, {
+                      key: getItemKey(child),
+                      item: child,
+                      level: itemProps.level + 1,
+                      parentKey: itemKey,
+                      showChildren: true,
+                    })))
+                  : null,
+              },
+            )
+          : null,
+      ])
+    }
+  },
+})
 </script>
 
 <template>
   <div class="dt-sidebar">
     <!-- Desktop nav -->
     <nav class="dt-sidebar__nav dt-sidebar__nav--desktop">
-      <RouterLink
-        v-for="item in items"
-        :key="item.to"
-        :to="item.to"
-        class="dt-sidebar__link"
-      >
-        <span v-if="item.icon" class="dt-sidebar__icon-slot" aria-hidden="true">
-          <component :is="item.icon" class="dt-sidebar__icon" />
-        </span>
-        <span>{{ item.label }}</span>
-      </RouterLink>
+      <DtSidebarItem
+        v-for="item in visibleItems"
+        :key="getItemKey(item)"
+        :item="item"
+        :level="0"
+      />
 
-      <template v-if="sections?.length">
+      <template v-if="visibleSections.length">
         <div class="dt-sidebar__divider" />
 
-        <div v-for="section in sections" :key="section.title" class="dt-sidebar__section">
+        <div v-for="section in visibleSections" :key="section.title" class="dt-sidebar__section">
           <button
             v-if="section.collapsible !== false"
             class="dt-sidebar__section-header"
@@ -74,17 +344,12 @@ const mobileVisibleItems = computed(() => props.items.slice(0, props.mobileItems
 
           <Transition name="dt-collapse">
             <div v-show="isSectionOpen(section.title)" class="dt-sidebar__section-items">
-              <RouterLink
+              <DtSidebarItem
                 v-for="subItem in section.items"
-                :key="subItem.to"
-                :to="subItem.to"
-                class="dt-sidebar__link dt-sidebar__link--sub"
-              >
-                <span v-if="subItem.icon" class="dt-sidebar__icon-slot" aria-hidden="true">
-                  <component :is="subItem.icon" class="dt-sidebar__icon" />
-                </span>
-                <span>{{ subItem.label }}</span>
-              </RouterLink>
+                :key="getItemKey(subItem)"
+                :item="subItem"
+                :level="1"
+              />
             </div>
           </Transition>
         </div>
@@ -95,17 +360,13 @@ const mobileVisibleItems = computed(() => props.items.slice(0, props.mobileItems
 
     <!-- Mobile bottom nav -->
     <nav class="dt-sidebar__nav dt-sidebar__nav--mobile">
-      <RouterLink
+      <DtSidebarItem
         v-for="item in mobileVisibleItems"
-        :key="item.to"
-        :to="item.to"
-        class="dt-sidebar__link"
-      >
-        <span v-if="item.icon" class="dt-sidebar__icon-slot" aria-hidden="true">
-          <component :is="item.icon" class="dt-sidebar__icon" />
-        </span>
-        <span class="dt-sidebar__label">{{ item.label }}</span>
-      </RouterLink>
+        :key="getItemKey(item)"
+        :item="item"
+        :level="0"
+        :show-children="false"
+      />
       <slot name="mobile-extra" />
     </nav>
   </div>
@@ -143,6 +404,12 @@ const mobileVisibleItems = computed(() => props.items.slice(0, props.mobileItems
   display: none;
 }
 
+.dt-sidebar__item {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
 /* Divider */
 .dt-sidebar__divider {
   height: 1px;
@@ -163,9 +430,18 @@ const mobileVisibleItems = computed(() => props.items.slice(0, props.mobileItems
   transition: background-color var(--dt-transition-fast);
   text-decoration: none;
   min-width: 0;
+  width: 100%;
+  background: none;
+  border: 0;
+  text-align: left;
+  font-family: inherit;
+  cursor: pointer;
 }
 
+.dt-sidebar__link-label,
 .dt-sidebar__link span:not(.dt-sidebar__icon-slot) {
+  flex: 1;
+  min-width: 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -179,9 +455,32 @@ const mobileVisibleItems = computed(() => props.items.slice(0, props.mobileItems
   background-color: var(--dt-color-background-tertiary);
 }
 
+.dt-sidebar__link--active {
+  background-color: var(--dt-color-background-tertiary);
+}
+
+.dt-sidebar__link--disabled,
+.dt-sidebar__link:disabled {
+  color: var(--dt-color-text-tertiary);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.dt-sidebar__link--disabled:hover,
+.dt-sidebar__link:disabled:hover {
+  background-color: transparent;
+}
+
 .dt-sidebar__link--sub {
   padding: var(--dt-space-2) var(--dt-space-4);
   font-size: var(--dt-text-xs);
+}
+
+.dt-sidebar__children {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow: hidden;
 }
 
 /* Icons */
@@ -251,6 +550,9 @@ const mobileVisibleItems = computed(() => props.items.slice(0, props.mobileItems
 }
 
 .dt-sidebar__chevron {
+  width: 16px;
+  height: 16px;
+  margin-left: auto;
   transition: transform var(--dt-transition-fast);
   flex-shrink: 0;
   color: var(--dt-color-icon-secondary);
@@ -309,6 +611,10 @@ const mobileVisibleItems = computed(() => props.items.slice(0, props.mobileItems
     max-width: 600px;
   }
 
+  .dt-sidebar__nav--mobile .dt-sidebar__item {
+    flex: 0 0 auto;
+  }
+
   .dt-sidebar__nav--mobile .dt-sidebar__link {
     flex-direction: column;
     gap: var(--dt-space-1);
@@ -320,6 +626,7 @@ const mobileVisibleItems = computed(() => props.items.slice(0, props.mobileItems
     font-size: var(--dt-text-xs);
   }
 
+  .dt-sidebar__nav--mobile .dt-sidebar__link-label,
   .dt-sidebar__nav--mobile .dt-sidebar__link span:not(.dt-sidebar__icon-slot) {
     max-width: 60px;
     text-align: center;
