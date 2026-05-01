@@ -424,6 +424,10 @@ const DtSidebarItem = defineComponent({
   min-width: 0;
 }
 
+.dt-sidebar__item--nested {
+  position: relative;
+}
+
 /* Divider */
 .dt-sidebar__divider {
   height: 1px;
@@ -524,13 +528,37 @@ const DtSidebarItem = defineComponent({
 }
 
 .dt-sidebar__children {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: var(--dt-space-1);
   margin-left: calc(24px + var(--dt-space-3));
-  padding-left: var(--dt-space-2);
+  padding-left: var(--dt-space-5);
+  overflow: visible;
+}
+
+.dt-sidebar__children::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 16px;
+  left: 0;
+  width: 1px;
+  border-radius: var(--dt-radius-full);
+  background-color: var(--dt-color-border);
+}
+
+.dt-sidebar__children > .dt-sidebar__item--nested::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: calc(var(--dt-space-5) * -1);
+  width: var(--dt-space-5);
+  height: 17px;
+  border-bottom: 1px solid var(--dt-color-border);
   border-left: 1px solid var(--dt-color-border);
-  overflow: hidden;
+  border-bottom-left-radius: 10px;
+  pointer-events: none;
 }
 
 /* Icons */
