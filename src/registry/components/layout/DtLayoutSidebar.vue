@@ -372,7 +372,7 @@ const DtSidebarItem = defineComponent({
   </div>
 </template>
 
-<style scoped>
+<style>
 .dt-sidebar {
   width: calc(222px + 24px);
   max-width: calc(222px + 24px);
