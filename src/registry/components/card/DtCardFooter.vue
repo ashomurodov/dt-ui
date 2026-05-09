@@ -11,7 +11,7 @@
 .dt-card-footer {
   display: flex;
   align-items: center;
-  gap: var(--dt-space-2);
-  padding-top: var(--dt-space-4);
+  gap: var(--dt-spacing-md);
+  padding-top: var(--dt-spacing-xl);
 }
 </style>

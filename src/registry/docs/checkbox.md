@@ -11,7 +11,7 @@ import { DtCheckbox } from '@/components/ui/checkbox'
 ## Props
 
 | Prop | Type | Default | Description |
-|------|------|---------|-------------|
+| ------ | ------ | --------- | ------------- |
 | `modelValue` | `boolean` | `false` | Checked state. Use with `v-model`. |
 | `size` | `'lg' \| 'md' \| 'sm'` | `'md'` | Checkbox size. |
 | `disabled` | `boolean` | `false` | Disables the checkbox. |
@@ -20,19 +20,19 @@ import { DtCheckbox } from '@/components/ui/checkbox'
 ## Events
 
 | Event | Payload | Description |
-|-------|---------|-------------|
+| ------- | --------- | ------------- |
 | `update:modelValue` | `boolean` | Emitted when toggled. |
 
 ## Slots
 
 | Slot | Description |
-|------|-------------|
+| ------ | ------------- |
 | `default` | Label text next to the checkbox. |
 
 ## Sizes (Figma)
 
 | Size | Box | Check Icon |
-|------|-----|------------|
+| ------ | ----- | ------------ |
 | `lg` | 24x24px | 14px |
 | `md` | 20x20px | 12px |
 | `sm` | 16x16px | 10px |

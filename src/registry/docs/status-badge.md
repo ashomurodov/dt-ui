@@ -12,7 +12,7 @@ import type { StatusVariant } from '@/components/ui/status-badge'
 ## Props
 
 | Prop | Type | Default | Description |
-|------|------|---------|-------------|
+| ------ | ------ | --------- | ------------- |
 | `variant` | `StatusVariant` | **required** | The status type, determining background and text color. |
 
 ### StatusVariant Type
@@ -24,7 +24,7 @@ type StatusVariant = 'active' | 'inactive' | 'moderation' | 'canceled' | 'reject
 ### Variant Colors
 
 | Variant | Background | Text Color | Use Case |
-|---------|-----------|------------|----------|
+| --------- | ----------- | ------------ | ---------- |
 | `active` | `--dt-color-success-light` | `--dt-color-success` | Published, approved, enabled |
 | `inactive` | `--dt-color-background-tertiary` | `--dt-color-text-tertiary` | Draft, disabled, unpublished |
 | `moderation` | `--dt-color-warning-light` | `--dt-color-warning` | Pending review |
@@ -35,7 +35,7 @@ type StatusVariant = 'active' | 'inactive' | 'moderation' | 'canceled' | 'reject
 ## Slots
 
 | Slot | Description |
-|------|-------------|
+| ------ | ------------- |
 | `default` | Status label text. |
 
 ## Usage Examples
@@ -81,7 +81,7 @@ const statusVariantMap: Record<number, StatusVariant> = {
 ## CSS Custom Properties
 
 | Property | Usage |
-|----------|-------|
+| ---------- | ------- |
 | `--dt-color-success-light` | Active variant background. |
 | `--dt-color-success` | Active variant text. |
 | `--dt-color-background-tertiary` | Inactive variant background. |
@@ -90,5 +90,5 @@ const statusVariantMap: Record<number, StatusVariant> = {
 | `--dt-color-warning` | Moderation variant text. |
 | `--dt-color-error-light` | Canceled/rejected/blocked variant background. |
 | `--dt-color-error` | Canceled/rejected/blocked variant text. |
-| `--dt-radius-sm` | Badge border-radius (6px). |
+| `--dt-radius-xs` | Badge border-radius (6px). |
 | `--dt-text-xs` | Badge font size (12px). |

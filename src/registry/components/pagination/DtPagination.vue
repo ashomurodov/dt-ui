@@ -123,7 +123,7 @@ const classes = computed(() => [
   display: flex;
   align-items: center;
   gap: 4px;
-  margin-top: var(--dt-space-6);
+  margin-top: var(--dt-spacing-3xl);
 }
 
 .dt-pagination__btn {
@@ -144,19 +144,19 @@ const classes = computed(() => [
 .dt-pagination--lg .dt-pagination__btn {
   min-width: 40px;
   height: 40px;
-  border-radius: var(--dt-radius-md);
+  border-radius: var(--dt-radius-sm);
 }
 
 .dt-pagination--md .dt-pagination__btn {
   min-width: 36px;
   height: 36px;
-  border-radius: var(--dt-radius-md);
+  border-radius: var(--dt-radius-sm);
 }
 
 .dt-pagination--sm .dt-pagination__btn {
   min-width: 32px;
   height: 32px;
-  border-radius: var(--dt-radius-xs);
+  border-radius: var(--dt-radius-xxs);
 }
 
 /* ── Secondary variant (bordered, dark active) ── */
@@ -173,7 +173,7 @@ const classes = computed(() => [
 .dt-pagination--secondary .dt-pagination__btn--active {
   background: var(--dt-gray-800);
   border-color: var(--dt-gray-800);
-  color: #ffffff;
+  color: var(--dt-color-white);
 }
 
 .dt-pagination--secondary .dt-pagination__btn:disabled {
@@ -196,7 +196,7 @@ const classes = computed(() => [
 
 .dt-pagination--primary .dt-pagination__btn--active {
   background: var(--dt-color-accent);
-  color: #ffffff;
+  color: var(--dt-color-white);
 }
 
 .dt-pagination--primary .dt-pagination__btn:disabled {

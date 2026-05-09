@@ -69,7 +69,7 @@ const classes = computed(() => [
 
 .dt-toggle__thumb {
   display: block;
-  background: #ffffff;
+  background: var(--dt-color-white);
   border-radius: 50%;
   transition: transform var(--dt-transition-base);
 }

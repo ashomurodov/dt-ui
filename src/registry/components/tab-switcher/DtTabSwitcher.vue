@@ -128,7 +128,7 @@ onBeforeUnmount(() => {
   align-items: center;
   position: relative;
   background: var(--dt-color-background-tertiary);
-  border-radius: var(--dt-radius-base);
+  border-radius: var(--dt-radius-md);
   padding: 4px;
 }
 
@@ -137,7 +137,7 @@ onBeforeUnmount(() => {
   top: 4px;
   bottom: 4px;
   background: var(--dt-color-icon-dark);
-  border-radius: var(--dt-radius-md);
+  border-radius: var(--dt-radius-sm);
   z-index: 0;
   transform-origin: left;
   will-change: transform;
@@ -148,7 +148,7 @@ onBeforeUnmount(() => {
   z-index: 1;
   padding: 10px 20px;
   border: none;
-  border-radius: var(--dt-radius-md);
+  border-radius: var(--dt-radius-sm);
   font-size: var(--dt-text-sm);
   font-weight: 500;
   font-family: inherit;
@@ -164,18 +164,18 @@ onBeforeUnmount(() => {
 }
 
 .dt-tab-switcher__btn--active {
-  color: #ffffff;
+  color: var(--dt-color-white);
 }
 
 .dt-tab-switcher__btn--active:hover {
-  color: #ffffff;
+  color: var(--dt-color-white);
 }
 
 .dt-tab-switcher__badge {
   display: inline-flex;
   align-items: center;
   padding: 2px 6px;
-  border-radius: var(--dt-radius-sm);
+  border-radius: var(--dt-radius-xs);
   font-size: 10px;
   font-weight: 700;
   margin-left: 4px;
@@ -186,6 +186,6 @@ onBeforeUnmount(() => {
 
 .dt-tab-switcher__btn--active .dt-tab-switcher__badge {
   background: var(--dt-color-error);
-  color: #ffffff;
+  color: var(--dt-color-white);
 }
 </style>

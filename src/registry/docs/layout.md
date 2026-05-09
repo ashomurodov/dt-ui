@@ -34,7 +34,7 @@ The root shell. Uses CSS Grid to position sidebar and content side-by-side on de
 #### Slots
 
 | Slot | Description |
-|------|-------------|
+| ------ | ------------- |
 | `header` | Place `DtLayoutHeader` here. Renders in a sticky header area. |
 | `sidebar` | Place `DtLayoutSidebar` here. Desktop: sticky sidebar. Mobile: fixed bottom nav. |
 | `default` | Page content (`<router-view />`). |
@@ -49,7 +49,7 @@ Pre-styled header with logo area, badge, module switcher button, and profile ava
 #### Props
 
 | Prop | Type | Default | Description |
-|------|------|---------|-------------|
+| ------ | ------ | --------- | ------------- |
 | `badge` | `string` | `undefined` | Badge text displayed next to the logo (e.g., "Specialist", "Cabinet"). |
 | `profileName` | `string` | `undefined` | Used to generate avatar initials when no image is provided. |
 | `profileAvatar` | `string` | `undefined` | URL for the profile avatar image. Falls back to initials. |
@@ -64,7 +64,7 @@ Pre-styled header with logo area, badge, module switcher button, and profile ava
 #### Events
 
 | Event | Payload | Description |
-|-------|---------|-------------|
+| ------- | --------- | ------------- |
 | `toggle-profile` | — | Emitted when the profile avatar button is clicked. |
 | `modules-click` | `MouseEvent` | Emitted when the modules button is clicked. |
 | `module-click` | `DtModuleClickPayload` | Emitted when a module item is clicked. |
@@ -97,7 +97,7 @@ Use `href` for normal navigation, `onClick` for app-owned behavior, `logo` for i
 #### Slots
 
 | Slot | Description |
-|------|-------------|
+| ------ | ------------- |
 | `logo` | Logo content (e.g., `<RouterLink to="/"><LogoIcon /></RouterLink>`). |
 | `actions` | Extra action buttons between the modules button and profile button. |
 | `profile-dropdown` | Place `DtProfileModal` here for the profile dropdown. |
@@ -111,7 +111,7 @@ Config-driven sidebar navigation. Desktop: sticky scrollable sidebar with collap
 #### Props
 
 | Prop | Type | Default | Description |
-|------|------|---------|-------------|
+| ------ | ------ | --------- | ------------- |
 | `items` | `DtNavItem[]` | **required** | Main navigation items. |
 | `sections` | `DtNavSection[]` | `[]` | Optional collapsible grouped sections below the main items. |
 | `mobileItems` | `number` | `5` | Number of items visible in the mobile bottom nav. |
@@ -135,7 +135,7 @@ interface DtNavSection {
 #### Slots
 
 | Slot | Description |
-|------|-------------|
+| ------ | ------------- |
 | `desktop-extra` | Extra content at the bottom of the desktop sidebar. |
 | `mobile-extra` | Extra items in the mobile bottom nav. |
 
@@ -155,7 +155,7 @@ Fully self-contained profile dropdown with user info, theme switcher, language p
 #### Props
 
 | Prop | Type | Default | Description |
-|------|------|---------|-------------|
+| ------ | ------ | --------- | ------------- |
 | `modelValue` | `boolean` | **required** | Controls visibility. Use with `v-model`. |
 | `user` | `DtUser` | **required** | User object. The component extracts name, initials, phone, and avatar automatically. |
 | `locale` | `'uz' \| 'ru' \| 'en'` | `'uz'` | Current language. Controls which built-in translations are shown. |
@@ -192,7 +192,7 @@ interface DtProfileMenuItem {
 #### Events
 
 | Event | Payload | Description |
-|-------|---------|-------------|
+| ------- | --------- | ------------- |
 | `update:modelValue` | `boolean` | Controls open/close state. |
 | `theme-change` | `'light' \| 'dark' \| 'system'` | Emitted when a theme option is selected. |
 | `locale-change` | `'uz' \| 'ru' \| 'en'` | Emitted when a language option is selected. |
@@ -202,7 +202,7 @@ interface DtProfileMenuItem {
 #### Slots
 
 | Slot | Description |
-|------|-------------|
+| ------ | ------------- |
 | `menu-extra` | Extra `<li>` items injected into the built-in menu (between language and logout). |
 
 #### Built-in Features
@@ -223,14 +223,14 @@ A centered page content container with optional title. Max-width defaults to 110
 #### Props
 
 | Prop | Type | Default | Description |
-|------|------|---------|-------------|
+| ------ | ------ | --------- | ------------- |
 | `title` | `string` | `undefined` | Page heading (32px, bold). |
 | `maxWidth` | `string` | `'1100px'` | CSS max-width for the content area. |
 
 #### Slots
 
 | Slot | Description |
-|------|-------------|
+| ------ | ------------- |
 | `title` | Custom title content (replaces the `title` prop heading). |
 | `default` | Page content. |
 
@@ -243,7 +243,7 @@ A 1px horizontal line separator.
 #### Props
 
 | Prop | Type | Default | Description |
-|------|------|---------|-------------|
+| ------ | ------ | --------- | ------------- |
 | `spacing` | `string` | `'16px'` | Bottom margin. |
 
 ---
@@ -328,7 +328,7 @@ const modules: DtModuleItem[] = [
 All layout components use `--dt-*` tokens from `base.css`. Key tokens:
 
 | Property | Usage |
-|----------|-------|
+| ---------- | ------- |
 | `--dt-sidebar-width` | Sidebar minimum width (240px). |
 | `--dt-color-background` | Sidebar and header background. |
 | `--dt-color-background-secondary` | Nav link hover background. |
@@ -342,13 +342,13 @@ All layout components use `--dt-*` tokens from `base.css`. Key tokens:
 | `--dt-color-surface-hover` | Menu item hover, active theme option. |
 | `--dt-color-divider` | Profile modal section dividers. |
 | `--dt-radius-lg` | Nav link and profile modal border-radius (16px). |
-| `--dt-radius-md` | Menu item and option border-radius (9px). |
+| `--dt-radius-sm` | Menu item and option border-radius (9px). |
 | `--dt-shadow-lg` | Profile modal shadow. |
 
 ## Responsive Breakpoints
 
 | Breakpoint | Behavior |
-|-----------|----------|
+| ----------- | ---------- |
 | > 1024px | Sidebar: sticky left column. Header: 84px. |
 | ≤ 1024px | Sidebar: fixed bottom nav. Header: 76px. Content: 80px bottom padding. |
 | ≤ 768px | DtPageView: reduced padding, smaller title. |

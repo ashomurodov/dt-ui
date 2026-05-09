@@ -12,7 +12,7 @@ import type { DtTab } from '@/components/ui/tab-switcher'
 ## Props
 
 | Prop | Type | Default | Description |
-|------|------|---------|-------------|
+| ------ | ------ | --------- | ------------- |
 | `tabs` | `DtTab[]` | **required** | Array of tab definitions. |
 | `modelValue` | `string` | **required** | The `key` of the currently active tab. Use with `v-model`. |
 
@@ -29,7 +29,7 @@ interface DtTab {
 ## Events
 
 | Event | Payload | Description |
-|-------|---------|-------------|
+| ------- | --------- | ------------- |
 | `update:modelValue` | `string` | Emitted when a tab is clicked. |
 
 ## Usage Examples
@@ -78,16 +78,16 @@ const tabs = [
 ## CSS Custom Properties
 
 | Property | Usage |
-|----------|-------|
+| ---------- | ------- |
 | `--dt-color-background-tertiary` | Tab bar background. |
 | `--dt-color-icon-dark` | Active indicator background (#3f4c5d). |
 | `--dt-color-text-secondary` | Inactive tab text color. |
 | `--dt-color-text` | Inactive tab hover text color. |
 | `--dt-color-error-light` | Badge background (inactive). |
 | `--dt-color-error` | Badge text color (inactive) and badge background (active). |
-| `--dt-radius-base` | Tab bar border-radius (12px). |
-| `--dt-radius-md` | Indicator and tab pill border-radius (9px). |
-| `--dt-radius-sm` | Badge border-radius (6px). |
+| `--dt-radius-md` | Tab bar border-radius (12px). |
+| `--dt-radius-sm` | Indicator and tab pill border-radius (9px). |
+| `--dt-radius-xs` | Badge border-radius (6px). |
 | `--dt-text-sm` | Tab text font size (14px). |
 | `--dt-transition-fast` | Tab text color transition. |
 

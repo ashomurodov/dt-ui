@@ -14,7 +14,7 @@ import { DtButton } from '@/components/ui/button'
 </script>
 
 <template>
-  <DtButton>Default</DtButton>
+  <DtButton>Primary</DtButton>
 </template>
 ```
 
@@ -22,12 +22,10 @@ import { DtButton } from '@/components/ui/button'
 
 ```vue
 <template>
-  <DtButton variant="default">Default</DtButton>
+  <DtButton variant="primary">Primary</DtButton>
   <DtButton variant="secondary">Secondary</DtButton>
   <DtButton variant="outline">Outline</DtButton>
   <DtButton variant="ghost">Ghost</DtButton>
-  <DtButton variant="destructive">Destructive</DtButton>
-  <DtButton variant="link">Link</DtButton>
 </template>
 ```
 
@@ -35,10 +33,11 @@ import { DtButton } from '@/components/ui/button'
 
 ```vue
 <template>
+  <DtButton size="xs">Extra Small</DtButton>
   <DtButton size="sm">Small</DtButton>
-  <DtButton size="default">Default</DtButton>
+  <DtButton size="md">Medium</DtButton>
   <DtButton size="lg">Large</DtButton>
-  <DtButton size="icon">+</DtButton>
+  <DtButton size="xl">Extra Large</DtButton>
 </template>
 ```
 
@@ -66,16 +65,16 @@ import { DtButton } from '@/components/ui/button'
 ## Props
 
 | Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `variant` | `'default' \| 'secondary' \| 'outline' \| 'ghost' \| 'destructive' \| 'link'` | `'default'` | Visual style |
-| `size` | `'sm' \| 'default' \| 'lg' \| 'icon'` | `'default'` | Button size |
+| ------ | ------ | --------- | ------------- |
+| `variant` | `'primary' \| 'secondary' \| 'outline' \| 'ghost'` | `'primary'` | Visual style |
+| `size` | `'xl' \| 'lg' \| 'md' \| 'sm' \| 'xs'` | `'md'` | Button size |
 | `disabled` | `boolean` | `false` | Disable the button |
 | `loading` | `boolean` | `false` | Show loading spinner |
 
 ## Slots
 
 | Slot | Description |
-|------|-------------|
+| ------ | ------------- |
 | `default` | Button content |
 | `icon-left` | Icon before text |
 | `icon-right` | Icon after text |

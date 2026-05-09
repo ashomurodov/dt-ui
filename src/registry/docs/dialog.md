@@ -65,7 +65,7 @@ const open = ref(false)
 ## DtDialog Props
 
 | Prop | Type | Default | Description |
-|------|------|---------|-------------|
+| ------ | ------ | --------- | ------------- |
 | `modelValue` | `boolean` | `undefined` | Controlled open state. Use with `v-model`. |
 | `defaultOpen` | `boolean` | `false` | Initial uncontrolled open state. |
 | `modal` | `boolean` | `true` | Whether outside content should be inert while open. |
@@ -75,7 +75,7 @@ const open = ref(false)
 The default slot receives helpers for custom triggers or programmatic control.
 
 | Slot Prop | Type | Description |
-|-----------|------|-------------|
+| ----------- | ------ | ------------- |
 | `open` | `boolean` | Current open state. |
 | `toggle` | `() => void` | Toggles the dialog. |
 | `close` | `() => void` | Closes the dialog. |
@@ -86,7 +86,7 @@ The default slot receives helpers for custom triggers or programmatic control.
 Wraps Reka `DialogTrigger`. By default `asChild` is `true`, which lets common usage like `<DtDialogTrigger><DtButton>Open</DtButton></DtDialogTrigger>` merge trigger behavior directly onto the button and avoid nested buttons.
 
 | Prop | Type | Default | Description |
-|------|------|---------|-------------|
+| ------ | ------ | --------- | ------------- |
 | `asChild` | `boolean` | `true` | Merge trigger behavior into the slotted child. Set to `false` to render a native trigger button. |
 
 ## DtDialogContent
@@ -100,7 +100,7 @@ These remain visual layout helpers. Use heading and paragraph content in the hea
 ## Events
 
 | Event | Payload | Description |
-|-------|---------|-------------|
+| ------- | --------- | ------------- |
 | `update:modelValue` | `boolean` | Emitted when open state changes. |
 
 ## Accessibility

@@ -11,7 +11,7 @@ import { DtRadio } from '@/components/ui/radio'
 ## Props
 
 | Prop | Type | Default | Description |
-|------|------|---------|-------------|
+| ------ | ------ | --------- | ------------- |
 | `modelValue` | `string \| number` | — | Currently selected value in the group. Use with `v-model`. |
 | `value` | `string \| number` | **required** | This radio's value. |
 | `size` | `'lg' \| 'md' \| 'sm'` | `'md'` | Radio size. |
@@ -21,13 +21,13 @@ import { DtRadio } from '@/components/ui/radio'
 ## Events
 
 | Event | Payload | Description |
-|-------|---------|-------------|
+| ------- | --------- | ------------- |
 | `update:modelValue` | `string \| number` | Emitted when selected. |
 
 ## Sizes (Figma)
 
 | Size | Circle | Inner Dot |
-|------|--------|-----------|
+| ------ | -------- | ----------- |
 | `lg` | 24x24px | 10px |
 | `md` | 20x20px | 8px |
 | `sm` | 16x16px | 6px |

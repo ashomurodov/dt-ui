@@ -12,7 +12,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: var(--dt-space-2);
-  padding-top: var(--dt-space-4);
+  gap: var(--dt-spacing-md);
+  padding-top: var(--dt-spacing-xl);
 }
 </style>

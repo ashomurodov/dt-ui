@@ -45,7 +45,7 @@ const classes = computed(() => [
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--dt-space-2);
+  gap: var(--dt-spacing-md);
   font-weight: var(--dt-font-medium);
   cursor: pointer;
   border: 1px solid transparent;
@@ -125,19 +125,19 @@ const classes = computed(() => [
 .dt-button--size-md {
   height: 40px;
   padding: 12px 18px;
-  border-radius: var(--dt-radius-base);
+  border-radius: var(--dt-radius-md);
   font-size: var(--dt-text-sm);
 }
 .dt-button--size-sm {
   height: 32px;
   padding: 8px 16px;
-  border-radius: var(--dt-radius-md);
+  border-radius: var(--dt-radius-sm);
   font-size: var(--dt-text-xs);
 }
 .dt-button--size-xs {
   height: 24px;
   padding: 4px 8px;
-  border-radius: var(--dt-radius-sm);
+  border-radius: var(--dt-radius-xs);
   font-size: var(--dt-text-xs);
 }
 

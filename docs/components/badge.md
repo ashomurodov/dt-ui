@@ -43,7 +43,7 @@ import { DtBadge } from '@/components/ui/badge'
 ## Props
 
 | Prop | Type | Default | Description |
-|------|------|---------|-------------|
+| ------ | ------ | --------- | ------------- |
 | `variant` | `'default' \| 'secondary' \| 'outline' \| 'destructive' \| 'success' \| 'warning'` | `'default'` | Visual style |
 | `size` | `'sm' \| 'default'` | `'default'` | Badge size |
 | `dot` | `boolean` | `false` | Show status dot |
@@ -51,5 +51,5 @@ import { DtBadge } from '@/components/ui/badge'
 ## Slots
 
 | Slot | Description |
-|------|-------------|
+| ------ | ------------- |
 | `default` | Badge content |

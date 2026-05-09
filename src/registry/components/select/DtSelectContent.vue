@@ -35,10 +35,10 @@ import {
   max-height: min(15rem, var(--reka-select-content-available-height));
   background-color: var(--dt-color-background);
   border: 1px solid var(--dt-color-border);
-  border-radius: var(--dt-radius-base);
+  border-radius: var(--dt-radius-md);
   box-shadow: var(--dt-shadow-md);
   overflow-y: auto;
-  padding: var(--dt-space-1) 0;
+  padding: var(--dt-spacing-xs) 0;
   transform-origin: var(--reka-select-content-transform-origin);
   will-change: transform, opacity;
 }
@@ -52,7 +52,7 @@ import {
 }
 
 .dt-select-content__search {
-  padding: var(--dt-space-2);
+  padding: var(--dt-spacing-md);
   border-bottom: 1px solid var(--dt-color-border);
 }
 
@@ -62,7 +62,7 @@ import {
 }
 
 .dt-select-content__empty {
-  padding: var(--dt-space-4);
+  padding: var(--dt-spacing-xl);
   text-align: center;
   font-size: var(--dt-text-sm);
   color: var(--dt-color-text-secondary);

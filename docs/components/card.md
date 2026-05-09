@@ -45,7 +45,7 @@ import { DtCard, DtCardHeader, DtCardContent, DtCardFooter } from '@/components/
 ## DtCard Props
 
 | Prop | Type | Default | Description |
-|------|------|---------|-------------|
+| ------ | ------ | --------- | ------------- |
 | `bordered` | `boolean` | `true` | Show border |
 | `shadow` | `boolean` | `false` | Show box shadow |
 | `padding` | `boolean` | `true` | Add padding |
@@ -53,7 +53,7 @@ import { DtCard, DtCardHeader, DtCardContent, DtCardFooter } from '@/components/
 ## Sub-components
 
 | Component | Description |
-|-----------|-------------|
+| ----------- | ------------- |
 | `DtCardHeader` | Card header with title/description styling |
 | `DtCardContent` | Main content area |
 | `DtCardFooter` | Footer with flex layout for actions |

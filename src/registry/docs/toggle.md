@@ -11,7 +11,7 @@ import { DtToggle } from '@/components/ui/toggle'
 ## Props
 
 | Prop | Type | Default | Description |
-|------|------|---------|-------------|
+| ------ | ------ | --------- | ------------- |
 | `modelValue` | `boolean` | `false` | Toggle state. Use with `v-model`. |
 | `size` | `'lg' \| 'md' \| 'sm'` | `'md'` | Toggle size. |
 | `disabled` | `boolean` | `false` | Disables the toggle. |
@@ -19,13 +19,13 @@ import { DtToggle } from '@/components/ui/toggle'
 ## Events
 
 | Event | Payload | Description |
-|-------|---------|-------------|
+| ------- | --------- | ------------- |
 | `update:modelValue` | `boolean` | Emitted when toggled. |
 
 ## Sizes (Figma)
 
 | Size | Track | Thumb |
-|------|-------|-------|
+| ------ | ------- | ------- |
 | `lg` | 44x24px | 20px |
 | `md` | 36x20px | 16px |
 | `sm` | 32x18px | 14px |

@@ -5,85 +5,189 @@
    ───────────────────────────────────────────────────────────── */
 
 :root {
-  /* ── COLOR SCALES ─────────────────────────────────────────── */
+  /* ── COLOR SCALES (Figma DT Design System / Foundation > Colors) ─── */
 
-  /* Gray */
-  --dt-gray-100: #f2f4f7;
-  --dt-gray-200: #e4e7ec;
-  --dt-gray-300: #d0d5dd;
-  --dt-gray-400: #98a2b3;
+  /* Neutral / Gray — "Default gray" in Figma */
+  --dt-gray-50:  #f8f9fa;
+  --dt-gray-100: #f0f2f5;
+  --dt-gray-200: #dde1e9;
+  --dt-gray-300: #c4cad6;
+  --dt-gray-400: #9aa3b4;
   --dt-gray-500: #667085;
-  --dt-gray-600: #475467;
-  --dt-gray-650: #364654;
-  --dt-gray-700: #3f4c5d;
-  --dt-gray-800: #1d2939;
-  --dt-gray-900: #101828;
+  --dt-gray-600: #4e5668;
+  --dt-gray-700: #383f4e;
+  --dt-gray-800: #222836;
+  --dt-gray-900: #131720;
+  --dt-gray-950: #0a0c12;
 
-  /* Brand (Teal) */
-  --dt-brand-100: #cceaf0;
-  --dt-brand-200: #99d5e0;
-  --dt-brand-300: #66c0d1;
-  --dt-brand-400: #33abc1;
+  /* Brand (Teal) — "Default brand" in Figma */
+  --dt-brand-50:  #e6f7fa;
+  --dt-brand-100: #cceef5;
+  --dt-brand-200: #99ddeb;
+  --dt-brand-300: #66cce0;
+  --dt-brand-400: #33bbd6;
   --dt-brand-500: #0096b2;
-  --dt-brand-600: #00788e;
-  --dt-brand-700: #005a6b;
-  --dt-brand-800: #003c47;
-  --dt-brand-900: #002d35;
+  --dt-brand-600: #007a91;
+  --dt-brand-700: #005c6d;
+  --dt-brand-800: #003d49;
+  --dt-brand-900: #002730;
+  --dt-brand-950: #001318;
 
-  /* Error (Pink/Red) */
-  --dt-error-100: #ffdee5;
-  --dt-error-200: #ffbdcc;
-  --dt-error-300: #ff9bb2;
-  --dt-error-400: #ff7a99;
-  --dt-error-500: #ff597f;
-  --dt-error-600: #cc4766;
-  --dt-error-700: #99354c;
-  --dt-error-800: #662433;
-  --dt-error-900: #4d1b26;
+  /* Error / Red — "Default error" in Figma */
+  --dt-error-50:  #fef2f2;
+  --dt-error-100: #fee2e2;
+  --dt-error-200: #fecaca;
+  --dt-error-300: #fca5a5;
+  --dt-error-400: #f87171;
+  --dt-error-500: #ef4444;
+  --dt-error-600: #dc2626;
+  --dt-error-700: #b91c1c;
+  --dt-error-800: #991b1b;
+  --dt-error-900: #7f1d1d;
+  --dt-error-950: #450a0a;
 
-  /* Warning (Orange) */
-  --dt-warning-100: #ffeccc;
-  --dt-warning-200: #ffda99;
-  --dt-warning-300: #ffc766;
-  --dt-warning-400: #ffb533;
-  --dt-warning-500: #ffa200;
-  --dt-warning-600: #cc8200;
-  --dt-warning-700: #996100;
-  --dt-warning-800: #664100;
-  --dt-warning-900: #332000;
+  /* Warning / Yellow — "Default warning" in Figma (Yellow row) */
+  --dt-warning-50:  #fefce8;
+  --dt-warning-100: #fef9c3;
+  --dt-warning-200: #fef08a;
+  --dt-warning-300: #fde047;
+  --dt-warning-400: #facc15;
+  --dt-warning-500: #eab308;
+  --dt-warning-600: #ca8a04;
+  --dt-warning-700: #a16207;
+  --dt-warning-800: #854d0e;
+  --dt-warning-900: #713f12;
+  --dt-warning-950: #422006;
 
-  /* Success (Green) */
-  --dt-success-100: #dff6d5;
-  --dt-success-200: #bfecab;
-  --dt-success-300: #9ee381;
-  --dt-success-400: #7ed957;
-  --dt-success-500: #5ed02d;
-  --dt-success-600: #4ba624;
-  --dt-success-700: #387d1b;
-  --dt-success-800: #265312;
-  --dt-success-900: #1c3e0e;
+  /* Success / Green — "Default success" in Figma */
+  --dt-success-50:  #f0fdf4;
+  --dt-success-100: #dcfce7;
+  --dt-success-200: #bbf7d0;
+  --dt-success-300: #86efac;
+  --dt-success-400: #4ade80;
+  --dt-success-500: #22c55e;
+  --dt-success-600: #16a34a;
+  --dt-success-700: #15803d;
+  --dt-success-800: #166534;
+  --dt-success-900: #14532d;
+  --dt-success-950: #052e16;
 
-  /* Blue */
-  --dt-blue-100: #d0d6f2;
-  --dt-blue-200: #a1aee5;
-  --dt-blue-300: #7385d7;
-  --dt-blue-400: #445dca;
-  --dt-blue-500: #1534bd;
-  --dt-blue-600: #112a97;
-  --dt-blue-700: #0d1f71;
-  --dt-blue-800: #08154c;
-  --dt-blue-900: #061039;
+  /* Blue — alternate brand (Figma) */
+  --dt-blue-50:  #eff6ff;
+  --dt-blue-100: #dbeafe;
+  --dt-blue-200: #bfdbfe;
+  --dt-blue-300: #93c5fd;
+  --dt-blue-400: #60a5fa;
+  --dt-blue-500: #3b82f6;
+  --dt-blue-600: #2563eb;
+  --dt-blue-700: #1d4ed8;
+  --dt-blue-800: #1e40af;
+  --dt-blue-900: #1e3a8a;
+  --dt-blue-950: #172554;
 
-  /* Yellow */
-  --dt-yellow-100: #fff5cc;
-  --dt-yellow-200: #ffeb99;
-  --dt-yellow-300: #ffe066;
-  --dt-yellow-400: #ffd633;
-  --dt-yellow-500: #ffcc00;
-  --dt-yellow-600: #cca300;
-  --dt-yellow-700: #997a00;
-  --dt-yellow-800: #665200;
-  --dt-yellow-900: #332900;
+  /* Amber — alternate warning (Figma) */
+  --dt-amber-50:  #fffbeb;
+  --dt-amber-100: #fef3c7;
+  --dt-amber-200: #fde68a;
+  --dt-amber-300: #fcd34d;
+  --dt-amber-400: #fbbf24;
+  --dt-amber-500: #f59e0b;
+  --dt-amber-600: #d97706;
+  --dt-amber-700: #b45309;
+  --dt-amber-800: #92400e;
+  --dt-amber-900: #78350f;
+  --dt-amber-950: #451a03;
+
+  /* Lime — alternate success (Figma) */
+  --dt-lime-50:  #f7fee7;
+  --dt-lime-100: #ecfccb;
+  --dt-lime-200: #d9f99d;
+  --dt-lime-300: #bef264;
+  --dt-lime-400: #a3e635;
+  --dt-lime-500: #84cc16;
+  --dt-lime-600: #65a30d;
+  --dt-lime-700: #4d7c0f;
+  --dt-lime-800: #3f6212;
+  --dt-lime-900: #365314;
+  --dt-lime-950: #1a2e05;
+
+  /* Sky — alternate brand (Figma) */
+  --dt-sky-50:  #f0f9ff;
+  --dt-sky-100: #e0f2fe;
+  --dt-sky-200: #bae6fd;
+  --dt-sky-300: #7dd3fc;
+  --dt-sky-400: #38bdf8;
+  --dt-sky-500: #0ea5e9;
+  --dt-sky-600: #0284c7;
+  --dt-sky-700: #0369a1;
+  --dt-sky-800: #075985;
+  --dt-sky-900: #0c4a6e;
+  --dt-sky-950: #082f49;
+
+  /* Indigo — alternate brand (Figma) */
+  --dt-indigo-50:  #eef2ff;
+  --dt-indigo-100: #e0e7ff;
+  --dt-indigo-200: #c7d2fe;
+  --dt-indigo-300: #a5b4fc;
+  --dt-indigo-400: #818cf8;
+  --dt-indigo-500: #6366f1;
+  --dt-indigo-600: #4f46e5;
+  --dt-indigo-700: #4338ca;
+  --dt-indigo-800: #3730a3;
+  --dt-indigo-900: #312e81;
+  --dt-indigo-950: #1e1b4b;
+
+  /* Violet — alternate brand (Figma) */
+  --dt-violet-50:  #f5f3ff;
+  --dt-violet-100: #ede9fe;
+  --dt-violet-200: #ddd6fe;
+  --dt-violet-300: #c4b5fd;
+  --dt-violet-400: #a78bfa;
+  --dt-violet-500: #8b5cf6;
+  --dt-violet-600: #7c3aed;
+  --dt-violet-700: #6d28d9;
+  --dt-violet-800: #5b21b6;
+  --dt-violet-900: #4c1d95;
+  --dt-violet-950: #2e1065;
+
+  /* Purple — alternate brand (Figma) */
+  --dt-purple-50:  #faf5ff;
+  --dt-purple-100: #f3e8ff;
+  --dt-purple-200: #e9d5ff;
+  --dt-purple-300: #d8b4fe;
+  --dt-purple-400: #c084fc;
+  --dt-purple-500: #a855f7;
+  --dt-purple-600: #9333ea;
+  --dt-purple-700: #7e22ce;
+  --dt-purple-800: #6b21a8;
+  --dt-purple-900: #581c87;
+  --dt-purple-950: #3b0764;
+
+  /* Mist — alternate gray (Figma) */
+  --dt-mist-50:  #f9fbfb;
+  --dt-mist-100: #f1f3f3;
+  --dt-mist-200: #e3e7e8;
+  --dt-mist-300: #d0d6d8;
+  --dt-mist-400: #9ca8ab;
+  --dt-mist-500: #67787c;
+  --dt-mist-600: #4b585b;
+  --dt-mist-700: #394447;
+  --dt-mist-800: #22292b;
+  --dt-mist-900: #161b1d;
+  --dt-mist-950: #090b0c;
+
+  /* Olive — alternate gray (Figma) */
+  --dt-olive-50:  #fbfbf9;
+  --dt-olive-100: #f4f4f0;
+  --dt-olive-200: #e8e8e3;
+  --dt-olive-300: #d8d8d0;
+  --dt-olive-400: #abab9c;
+  --dt-olive-500: #7c7c67;
+  --dt-olive-600: #5b5b4b;
+  --dt-olive-700: #474739;
+  --dt-olive-800: #2b2b22;
+  --dt-olive-900: #1d1d16;
+  --dt-olive-950: #0c0c09;
 
   /* ── SEMANTIC COLORS ──────────────────────────────────────── */
 
@@ -111,9 +215,9 @@
   --dt-color-divider: var(--dt-gray-200);
 
   /* Icons */
-  --dt-color-icon: var(--dt-gray-650);
+  --dt-color-icon: var(--dt-gray-700);
   --dt-color-icon-secondary: var(--dt-gray-400);
-  --dt-color-icon-dark: var(--dt-gray-700);
+  --dt-color-icon-dark: var(--dt-gray-800);
 
   /* Accent / Primary (Brand) */
   --dt-color-accent: var(--dt-brand-500);
@@ -179,30 +283,55 @@
   --dt-font-medium: 500;
   --dt-font-bold: 700;
 
-  /* ── SPACING ──────────────────────────────────────────────── */
-  --dt-space-1: 0.25rem;     /* 4px  */
-  --dt-space-1-5: 0.375rem;  /* 6px  */
-  --dt-space-2: 0.5rem;      /* 8px  */
-  --dt-space-2-5: 0.625rem;  /* 10px */
-  --dt-space-3: 0.75rem;     /* 12px */
-  --dt-space-4: 1rem;        /* 16px */
-  --dt-space-4-5: 1.125rem;  /* 18px */
-  --dt-space-5: 1.25rem;     /* 20px */
-  --dt-space-5-5: 1.375rem;  /* 22px */
-  --dt-space-6: 1.5rem;      /* 24px */
-  --dt-space-8: 2rem;        /* 32px */
-  --dt-space-10: 2.5rem;     /* 40px */
-  --dt-space-12: 3rem;       /* 48px */
-  --dt-space-16: 4rem;       /* 64px */
+  /* ── SPACING (Figma named scale) ──────────────────────────── */
+  --dt-spacing-none: 0;          /* 0px   */
+  --dt-spacing-xxs:  0.125rem;   /* 2px   */
+  --dt-spacing-xs:   0.25rem;    /* 4px   */
+  --dt-spacing-sm:   0.375rem;   /* 6px   */
+  --dt-spacing-md:   0.5rem;     /* 8px   */
+  --dt-spacing-lg:   0.75rem;    /* 12px  */
+  --dt-spacing-xl:   1rem;       /* 16px  */
+  --dt-spacing-2xl:  1.25rem;    /* 20px  */
+  --dt-spacing-3xl:  1.5rem;     /* 24px  */
+  --dt-spacing-4xl:  2rem;       /* 32px  */
+  --dt-spacing-5xl:  2.5rem;     /* 40px  */
+  --dt-spacing-6xl:  3rem;       /* 48px  */
+  --dt-spacing-7xl:  4rem;       /* 64px  */
+  --dt-spacing-8xl:  5rem;       /* 80px  */
+  --dt-spacing-9xl:  6rem;       /* 96px  */
+  --dt-spacing-10xl: 8rem;       /* 128px */
+  --dt-spacing-11xl: 10rem;      /* 160px */
 
-  /* ── BORDER RADIUS (Figma scale) ──────────────────────────── */
-  --dt-radius-xs: 4px;       /* Checkboxes, small pagination */
-  --dt-radius-sm: 6px;       /* Badges, xsm buttons */
-  --dt-radius-md: 8px;       /* sm buttons, pagination */
-  --dt-radius-base: 12px;    /* md buttons, sm inputs */
-  --dt-radius-lg: 16px;      /* lg buttons, md inputs, toggle */
-  --dt-radius-xl: 20px;      /* xl buttons, lg/xl inputs */
+  /* ── BORDER RADIUS (Figma named scale) ────────────────────── */
+  --dt-radius-none: 0;       /* 0px    */
+  --dt-radius-xxs:  4px;     /* Checkboxes, small pagination */
+  --dt-radius-xs:   6px;     /* Badges, xsm buttons */
+  --dt-radius-sm:   8px;     /* sm buttons, pagination */
+  --dt-radius-md:   12px;    /* md buttons, sm inputs */
+  --dt-radius-lg:   16px;    /* lg buttons, md inputs, toggle */
+  --dt-radius-xl:   20px;    /* xl buttons, lg/xl inputs */
+  --dt-radius-2xl:  24px;
+  --dt-radius-3xl:  32px;
+  --dt-radius-4xl:  40px;
   --dt-radius-full: 9999px;  /* Pills, avatars, toggle track */
+
+  /* ── WIDTH (Figma named scale) ────────────────────────────── */
+  --dt-width-xxs: 20rem;     /* 320px  — small modals */
+  --dt-width-xs:  24rem;     /* 384px  — small modals */
+  --dt-width-sm:  30rem;     /* 480px  */
+  --dt-width-md:  35rem;     /* 560px  */
+  --dt-width-lg:  40rem;     /* 640px  */
+  --dt-width-xl:  48rem;     /* 768px  — tablet breakpoint */
+  --dt-width-2xl: 64rem;     /* 1024px — desktop breakpoint */
+  --dt-width-3xl: 80rem;     /* 1280px */
+  --dt-width-4xl: 90rem;     /* 1440px */
+  --dt-width-5xl: 100rem;    /* 1600px */
+  --dt-width-6xl: 120rem;    /* 1920px */
+
+  /* ── CONTAINERS (Figma) ───────────────────────────────────── */
+  --dt-container-padding-mobile:  1rem;    /* 16px */
+  --dt-container-padding-desktop: 2rem;    /* 32px */
+  --dt-container-max-width-desktop: 80rem; /* 1280px */
 
   /* ── SHADOWS ──────────────────────────────────────────────── */
   --dt-shadow-xs: 0 1px 2px rgba(16, 24, 40, 0.05);
@@ -221,11 +350,16 @@
   --dt-transition-base: 200ms ease;
   --dt-transition-slow: 300ms ease;
 
-  /* ── LAYOUT ───────────────────────────────────────────────── */
+  /* ── LAYOUT (project-specific, not in Figma) ──────────────── */
   --dt-sidebar-width: 240px;
   --dt-sidebar-collapsed: 72px;
   --dt-sidebar-icon-stroke-width: 2;
-  --dt-max-content-width: 1100px;
+  --dt-header-height: 84px;
+  --dt-header-height-mobile: 76px;
+  --dt-mobile-nav-height: 80px;
+
+  /* ── BASE COLORS (literal) ────────────────────────────────── */
+  --dt-color-white: #ffffff;
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -272,14 +406,14 @@ html[data-theme='dark'] {
   --dt-color-secondary-hover: #cecfd2;
   --dt-color-secondary-active: #61646c;
 
-  /* Status */
-  --dt-color-success: #7ed957;
-  --dt-color-success-light: #1c3e0e;
-  --dt-color-warning: #ffb533;
-  --dt-color-warning-light: #332000;
-  --dt-color-error: #ff7a99;
-  --dt-color-error-hover: #ff597f;
-  --dt-color-error-light: #4d1b26;
+  /* Status — dark mode uses lighter stops for readability on dark surfaces */
+  --dt-color-success: var(--dt-success-400);
+  --dt-color-success-light: var(--dt-success-900);
+  --dt-color-warning: var(--dt-warning-400);
+  --dt-color-warning-light: var(--dt-warning-900);
+  --dt-color-error: var(--dt-error-400);
+  --dt-color-error-hover: var(--dt-error-500);
+  --dt-color-error-light: var(--dt-error-900);
 
   /* Disabled */
   --dt-color-disabled-bg: #333741;

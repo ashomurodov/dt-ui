@@ -53,7 +53,7 @@ const open = ref(false)
 ## DtDialog Props
 
 | Prop | Type | Default | Description |
-|------|------|---------|-------------|
+| ------ | ------ | --------- | ------------- |
 | `modelValue` | `boolean` | `undefined` | Open state (v-model) |
 | `defaultOpen` | `boolean` | `false` | Initial uncontrolled open state |
 | `modal` | `boolean` | `true` | Whether outside content is inert while open |
@@ -61,7 +61,7 @@ const open = ref(false)
 ## Sub-components
 
 | Component | Description |
-|-----------|-------------|
+| ----------- | ------------- |
 | `DtDialogTrigger` | Wraps the trigger element, toggles dialog on click |
 | `DtDialogContent` | The modal panel (rendered via Teleport) |
 | `DtDialogHeader` | Header section with title/description styling |
@@ -70,7 +70,7 @@ const open = ref(false)
 ## Events
 
 | Event | Payload | Description |
-|-------|---------|-------------|
+| ------- | --------- | ------------- |
 | `update:modelValue` | `boolean` | Emitted when open state changes |
 
 ## Accessibility

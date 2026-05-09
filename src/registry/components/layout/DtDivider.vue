@@ -2,7 +2,7 @@
 withDefaults(defineProps<{
   spacing?: string
 }>(), {
-  spacing: '16px',
+  spacing: 'var(--dt-spacing-xl)',
 })
 </script>
 

@@ -11,7 +11,7 @@ import { DtBadge } from '@/components/ui/badge'
 ## Props
 
 | Prop | Type | Default | Description |
-|------|------|---------|-------------|
+| ------ | ------ | --------- | ------------- |
 | `variant` | `BadgeVariant` | `'default'` | Color variant controlling background, text, and border colors. |
 | `size` | `BadgeSize` | `'default'` | Controls padding and font size. |
 | `dot` | `boolean` | `false` | Renders a small circular dot before the badge text, using `currentColor`. Useful as a status indicator. |
@@ -26,7 +26,7 @@ type BadgeSize = 'sm' | 'default'
 ### Variant Behavior
 
 | Variant | Background | Text Color | Border |
-|---------|-----------|------------|--------|
+| --------- | ----------- | ------------ | -------- |
 | `default` | `--dt-color-accent` | `--dt-color-accent-foreground` | transparent |
 | `secondary` | `--dt-color-secondary` | `--dt-color-secondary-foreground` | transparent |
 | `outline` | transparent | `--dt-color-text` | `--dt-color-border` |
@@ -37,14 +37,14 @@ type BadgeSize = 'sm' | 'default'
 ### Size Reference
 
 | Size | Padding | Font Size |
-|------|---------|-----------|
+| ------ | --------- | ----------- |
 | `sm` | 0.125rem 0.375rem | `--dt-text-xs` |
 | `default` | 0.25rem 0.5rem | `--dt-text-xs` |
 
 ## Slots
 
 | Slot | Description |
-|------|-------------|
+| ------ | ------------- |
 | `default` | Badge text content. |
 
 ## Events
@@ -138,7 +138,7 @@ const services = [
 ### Colors
 
 | Property | Usage |
-|----------|-------|
+| ---------- | ------- |
 | `--dt-color-accent` | Default variant background. |
 | `--dt-color-accent-foreground` | Default variant text. |
 | `--dt-color-secondary` | Secondary variant background. |
@@ -155,8 +155,8 @@ const services = [
 ### Layout & Typography
 
 | Property | Usage |
-|----------|-------|
-| `--dt-space-1` | Gap between the dot and the text. |
+| ---------- | ------- |
+| `--dt-spacing-xs` | Gap between the dot and the text. |
 | `--dt-radius-full` | Pill-shaped border-radius (9999px). Also used for the dot circle. |
 | `--dt-text-xs` | Font size at `sm` size. |
 | `--dt-text-sm` | Font size at `default` size. |

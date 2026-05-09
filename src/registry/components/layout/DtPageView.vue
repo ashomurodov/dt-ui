@@ -3,7 +3,7 @@ withDefaults(defineProps<{
   title?: string
   maxWidth?: string
 }>(), {
-  maxWidth: '1100px',
+  maxWidth: '1280px',
 })
 </script>
 
@@ -17,26 +17,26 @@ withDefaults(defineProps<{
 
 <style scoped>
 .dt-page-view {
-  padding: var(--dt-space-6);
-  padding-bottom: var(--dt-space-12);
+  padding: var(--dt-spacing-3xl);
+  padding-bottom: var(--dt-spacing-6xl);
   margin: 0 auto;
 }
 
 .dt-page-view__title {
-  font-size: 32px;
+  font-size: var(--dt-text-xl);
   font-weight: 700;
   color: var(--dt-color-text);
-  margin: 0 0 24px 0;
+  margin: 0 0 var(--dt-spacing-3xl) 0;
 }
 
 @media (max-width: 768px) {
   .dt-page-view {
-    padding: var(--dt-space-4);
+    padding: var(--dt-spacing-xl);
   }
 
   .dt-page-view__title {
     font-size: var(--dt-text-2xl);
-    margin-bottom: var(--dt-space-4);
+    margin-bottom: var(--dt-spacing-xl);
   }
 }
 </style>

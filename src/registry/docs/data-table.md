@@ -12,7 +12,7 @@ import type { DtColumn } from '@/components/ui/data-table'
 ## Props
 
 | Prop | Type | Default | Description |
-|------|------|---------|-------------|
+| ------ | ------ | --------- | ------------- |
 | `columns` | `DtColumn[]` | **required** | Array of column definitions controlling header labels, widths, alignment, and mobile visibility. |
 | `items` | `unknown[]` | **required** | Array of data objects to render as rows. |
 | `loading` | `boolean` | `false` | Shows a centered spinner instead of rows. |
@@ -38,7 +38,7 @@ interface DtColumn {
 Each column `key` becomes a named slot for custom cell rendering:
 
 | Slot | Props | Description |
-|------|-------|-------------|
+| ------ | ------- | ------------- |
 | `[column.key]` | `{ item: any, index: number, rowIndex: number }` | Custom cell content. `index` is 0-based within the page, `rowIndex` is the absolute row number across all pages. Falls back to `item[column.key]` if slot is not provided. |
 
 ## Usage Examples
@@ -102,7 +102,7 @@ const totalCount = ref(100)
 ## CSS Custom Properties
 
 | Property | Usage |
-|----------|-------|
+| ---------- | ------- |
 | `--dt-color-icon-secondary` | Table header text color. |
 | `--dt-color-text` | Cell text color. |
 | `--dt-color-background` | Default row background. |

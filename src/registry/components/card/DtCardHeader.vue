@@ -11,8 +11,8 @@
 .dt-card-header {
   display: flex;
   flex-direction: column;
-  gap: var(--dt-space-1);
-  padding-bottom: var(--dt-space-4);
+  gap: var(--dt-spacing-xs);
+  padding-bottom: var(--dt-spacing-xl);
 }
 
 .dt-card-header :deep(h1),

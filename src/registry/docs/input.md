@@ -11,7 +11,7 @@ import { DtInput } from '@/components/ui/input'
 ## Props
 
 | Prop | Type | Default | Description |
-|------|------|---------|-------------|
+| ------ | ------ | --------- | ------------- |
 | `modelValue` | `string \| number` | `undefined` | The bound value. Use with `v-model`. |
 | `type` | `InputType` | `'text'` | The native input type. |
 | `placeholder` | `string` | `undefined` | Placeholder text shown when the input is empty. |
@@ -29,13 +29,13 @@ type InputType = 'text' | 'email' | 'password' | 'number' | 'search' | 'tel' | '
 ## Slots
 
 | Slot | Description |
-|------|-------------|
+| ------ | ------------- |
 | `label` | Content for the `<label>` element above the input. The label automatically receives a `for` attribute pointing to the input `id`. If this slot is empty, no label is rendered. |
 
 ## Events
 
 | Event | Payload | Description |
-|-------|---------|-------------|
+| ------- | --------- | ------------- |
 | `update:modelValue` | `string \| number` | Emitted on every input event. When `type="number"`, the value is coerced to `Number` before emitting. |
 
 All other native input events (`focus`, `blur`, `keydown`, etc.) are forwarded through `v-bind="attrs"` on the `<input>` element.
@@ -137,7 +137,7 @@ async function submit() {
 ### Colors
 
 | Property | Usage |
-|----------|-------|
+| ---------- | ------- |
 | `--dt-color-text` | Input text color and label color. |
 | `--dt-color-background` | Input background color. |
 | `--dt-color-background-tertiary` | Disabled input background color. |
@@ -150,9 +150,9 @@ async function submit() {
 ### Layout & Typography
 
 | Property | Usage |
-|----------|-------|
-| `--dt-space-1` | Gap between label, input, and error/hint elements. |
-| `--dt-radius-md` | Input border-radius. |
+| ---------- | ------- |
+| `--dt-spacing-xs` | Gap between label, input, and error/hint elements. |
+| `--dt-radius-sm` | Input border-radius. |
 | `--dt-text-xs` | Error and hint text font size. |
 | `--dt-text-sm` | Label font size. |
 | `--dt-text-base` | Input text font size. |

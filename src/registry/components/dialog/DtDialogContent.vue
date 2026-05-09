@@ -36,7 +36,7 @@ import {
   top: 50%;
   left: 50%;
   z-index: var(--dt-z-modal);
-  width: calc(100% - (var(--dt-space-4) * 2));
+  width: calc(100% - (var(--dt-spacing-xl) * 2));
   max-width: 28rem;
   max-height: calc(100vh - 2rem);
   overflow-y: auto;
@@ -44,7 +44,7 @@ import {
   border: 1px solid var(--dt-color-border);
   border-radius: var(--dt-radius-lg);
   box-shadow: var(--dt-shadow-lg);
-  padding: var(--dt-space-6);
+  padding: var(--dt-spacing-3xl);
   transform: translate(-50%, -50%);
   outline: none;
 }

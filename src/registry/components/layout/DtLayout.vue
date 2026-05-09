@@ -64,7 +64,7 @@
   }
 
   .dt-layout__content {
-    padding-bottom: 80px;
+    padding-bottom: var(--dt-mobile-nav-height);
   }
 }
 </style>

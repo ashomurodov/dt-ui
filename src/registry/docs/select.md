@@ -59,7 +59,7 @@ You can still provide custom trigger content:
 ## DtSelect Props
 
 | Prop | Type | Default | Description |
-|------|------|---------|-------------|
+| ------ | ------ | --------- | ------------- |
 | `modelValue` | `string \| number \| null` | `undefined` | Controlled selected value. Use with `v-model`. |
 | `defaultValue` | `string \| number` | `undefined` | Initial uncontrolled value. |
 | `placeholder` | `string` | `'Select an option...'` | Placeholder used by the default trigger value. |
@@ -76,7 +76,7 @@ Renders a Reka `SelectTrigger` styled as the DT trigger. If no default slot is p
 Renders a teleported Reka `SelectContent` using `position="popper"`, aligned to the trigger width. The default slot should contain `DtSelectItem` components.
 
 | Slot | Description |
-|------|-------------|
+| ------ | ------------- |
 | `default` | Select items. |
 | `search` | Optional custom content above the item list. |
 | `empty` | Optional empty-state content. |
@@ -84,7 +84,7 @@ Renders a teleported Reka `SelectContent` using `position="popper"`, aligned to 
 ## DtSelectItem Props
 
 | Prop | Type | Default | Description |
-|------|------|---------|-------------|
+| ------ | ------ | --------- | ------------- |
 | `value` | `string \| number` | required | Item value. Must not be an empty string. |
 | `label` | `string` | `String(value)` | Text used for typeahead and default selected display. |
 | `disabled` | `boolean` | `false` | Prevents selection. |
@@ -92,7 +92,7 @@ Renders a teleported Reka `SelectContent` using `position="popper"`, aligned to 
 ## Events
 
 | Event | Payload | Description |
-|-------|---------|-------------|
+| ------- | --------- | ------------- |
 | `update:modelValue` | `string \| number \| null` | Emitted when the selected value changes. |
 
 ## Accessibility

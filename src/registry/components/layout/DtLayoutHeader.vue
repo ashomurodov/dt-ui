@@ -109,24 +109,24 @@ const openModules = (event: MouseEvent) => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 84px;
-  padding: 0 var(--dt-space-6);
+  height: var(--dt-header-height);
+  padding: 0 var(--dt-spacing-3xl);
   background-color: transparent;
 }
 
 .dt-header__logo-group {
   display: flex;
   align-items: center;
-  gap: var(--dt-space-2);
+  gap: var(--dt-spacing-md);
 }
 
 .dt-header__badge {
   display: inline-flex;
   align-items: center;
-  padding: var(--dt-space-1) var(--dt-space-2);
+  padding: var(--dt-spacing-xs) var(--dt-spacing-md);
   border-radius: 2px 8px 2px 8px;
-  background: linear-gradient(270deg, #cceaf0 0%, #ccf0e4 100%);
-  color: #005a6b;
+  background: linear-gradient(270deg, var(--dt-brand-100) 0%, var(--dt-success-100) 100%);
+  color: var(--dt-brand-700);
   font-size: var(--dt-text-xs);
   font-weight: 500;
   line-height: 14px;
@@ -136,7 +136,7 @@ const openModules = (event: MouseEvent) => {
 .dt-header__actions {
   display: flex;
   align-items: center;
-  gap: var(--dt-space-2);
+  gap: var(--dt-spacing-md);
   position: relative;
   padding: 4px;
   border: 1px solid var(--dt-color-border-light);
@@ -196,7 +196,7 @@ const openModules = (event: MouseEvent) => {
 
 @media (max-width: 1024px) {
   .dt-header {
-    height: 76px;
+    height: var(--dt-header-height-mobile);
   }
 }
 </style>

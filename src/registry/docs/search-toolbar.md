@@ -11,7 +11,7 @@ import { DtSearchToolbar } from '@/components/ui/search-toolbar'
 ## Props
 
 | Prop | Type | Default | Description |
-|------|------|---------|-------------|
+| ------ | ------ | --------- | ------------- |
 | `search` | `string` | `''` | The search input value. Use with `v-model:search`. |
 | `searchPlaceholder` | `string` | `undefined` | Placeholder text for the search input. |
 | `addLabel` | `string` | `undefined` | Label for the action button. If not provided, the button is hidden. |
@@ -19,7 +19,7 @@ import { DtSearchToolbar } from '@/components/ui/search-toolbar'
 ## Events
 
 | Event | Payload | Description |
-|-------|---------|-------------|
+| ------- | --------- | ------------- |
 | `update:search` | `string` | Emitted on every input keystroke (v-model). |
 | `search` | — | Emitted on each input event. Use this to trigger debounced fetching. |
 | `add` | — | Emitted when the action button is clicked. |
@@ -62,7 +62,7 @@ const handleSearch = () => {
 ## CSS Custom Properties
 
 | Property | Usage |
-|----------|-------|
+| ---------- | ------- |
 | `--dt-color-border` | Search input border. |
 | `--dt-color-background` | Search input background. |
 | `--dt-color-text` | Search input text. |
@@ -70,15 +70,16 @@ const handleSearch = () => {
 | `--dt-color-accent` | Action button background and search input focus border. |
 | `--dt-color-accent-hover` | Action button hover background. |
 | `--dt-radius-lg` | Search input border-radius (16px). |
-| `--dt-radius-base` | Action button border-radius (12px). |
+| `--dt-radius-md` | Action button border-radius (12px). |
 | `--dt-text-sm` | Font size (14px). |
-| `--dt-space-4` | Gap between search and button; input left padding. |
-| `--dt-space-2` | Button icon-to-label gap. |
+| `--dt-spacing-xl` | Gap between search and button; input left padding. |
+| `--dt-spacing-md` | Button icon-to-label gap. |
 | `--dt-transition-fast` | Focus/hover transitions. |
 
 ## Responsive Behavior
 
 Below 768px:
+
 - Toolbar stacks vertically (`flex-direction: column`).
 - Search input becomes full width.
 - Action button centers its content.

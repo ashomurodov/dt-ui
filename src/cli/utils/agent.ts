@@ -16,19 +16,19 @@ All components use CSS custom properties prefixed with \`--dt-\` defined in \`ba
 | Token | Default (Light) | Description |
 |-------|-----------------|-------------|
 | \`--dt-color-accent\` | \`#0096b2\` | Brand/primary color |
-| \`--dt-color-accent-hover\` | \`#007a94\` | Primary hover state |
+| \`--dt-color-accent-hover\` | \`#007a91\` | Primary hover state |
 | \`--dt-color-accent-foreground\` | \`#ffffff\` | Text on primary bg |
-| \`--dt-color-text\` | \`#101828\` | Main text color |
+| \`--dt-color-text\` | \`#131720\` | Main text color |
 | \`--dt-color-text-secondary\` | \`#667085\` | Secondary text |
 | \`--dt-color-background\` | \`#ffffff\` | Page background |
-| \`--dt-color-background-tertiary\` | \`#f2f5f7\` | Tertiary surface |
-| \`--dt-color-border\` | \`#dfe2e9\` | Border color |
-| \`--dt-color-error\` | \`#ed5151\` | Error/destructive color |
-| \`--dt-color-success\` | \`#12b76a\` | Success color |
-| \`--dt-color-warning\` | \`#f79009\` | Warning color |
+| \`--dt-color-background-tertiary\` | \`#f0f2f5\` | Tertiary surface |
+| \`--dt-color-border\` | \`#dde1e9\` | Border color |
+| \`--dt-color-error\` | \`#ef4444\` | Error/destructive color |
+| \`--dt-color-success\` | \`#16a34a\` | Success color |
+| \`--dt-color-warning\` | \`#eab308\` | Warning color (yellow per Figma) |
 | \`--dt-color-ring\` | \`#0096b2\` | Focus ring color |
-| \`--dt-radius-sm\` | \`6px\` | Small radius (badges) |
-| \`--dt-radius-base\` | \`12px\` | Base radius (inputs, buttons) |
+| \`--dt-radius-xs\` | \`6px\` | Small radius (badges) |
+| \`--dt-radius-md\` | \`12px\` | Base radius (inputs, buttons) |
 | \`--dt-radius-lg\` | \`16px\` | Large radius (cards, rows) |
 | \`--dt-font-family\` | \`'Lab Grotesque', system-ui\` | Font family |
 

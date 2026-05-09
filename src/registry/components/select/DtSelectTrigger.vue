@@ -38,13 +38,13 @@ const placeholder = computed(() => ctx?.placeholder.value ?? 'Select an option..
   justify-content: space-between;
   width: 100%;
   height: 2.75rem;
-  padding: 0 var(--dt-space-4);
+  padding: 0 var(--dt-spacing-xl);
   font-size: var(--dt-text-sm);
   font-family: inherit;
   color: var(--dt-color-text);
   background-color: var(--dt-color-background);
   border: 1px solid var(--dt-color-border);
-  border-radius: var(--dt-radius-base);
+  border-radius: var(--dt-radius-md);
   cursor: pointer;
   transition: border-color var(--dt-transition-base),
     box-shadow var(--dt-transition-base);
@@ -75,7 +75,7 @@ const placeholder = computed(() => ctx?.placeholder.value ?? 'Select an option..
 .dt-select-trigger__icon {
   display: inline-flex;
   align-items: center;
-  margin-left: var(--dt-space-2);
+  margin-left: var(--dt-spacing-md);
   color: var(--dt-color-icon-secondary);
   transition: transform var(--dt-transition-base);
 }

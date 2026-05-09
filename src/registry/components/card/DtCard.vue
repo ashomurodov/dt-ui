@@ -41,6 +41,6 @@ const classes = computed(() => [
 }
 
 .dt-card--padding {
-  padding: var(--dt-space-6);
+  padding: var(--dt-spacing-3xl);
 }
 </style>

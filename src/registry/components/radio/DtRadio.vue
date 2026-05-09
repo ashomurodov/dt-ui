@@ -57,7 +57,7 @@ const classes = computed(() => [
 .dt-radio {
   display: inline-flex;
   align-items: center;
-  gap: var(--dt-space-2);
+  gap: var(--dt-spacing-md);
   cursor: pointer;
   user-select: none;
 }
@@ -93,7 +93,7 @@ const classes = computed(() => [
 
 .dt-radio__dot {
   border-radius: 50%;
-  background: #ffffff;
+  background: var(--dt-color-white);
   animation: dt-radio-pop 0.2s ease;
 }
 

@@ -58,7 +58,7 @@ const classes = computed(() => [
 .dt-checkbox {
   display: inline-flex;
   align-items: center;
-  gap: var(--dt-space-2);
+  gap: var(--dt-spacing-md);
   cursor: pointer;
   user-select: none;
 }
@@ -74,7 +74,7 @@ const classes = computed(() => [
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--dt-radius-xs);
+  border-radius: var(--dt-radius-xxs);
   background: var(--dt-gray-200);
   transition: background-color var(--dt-transition-base);
   flex-shrink: 0;
@@ -93,7 +93,7 @@ const classes = computed(() => [
 }
 
 .dt-checkbox__check {
-  color: #ffffff;
+  color: var(--dt-color-white);
 }
 
 /* Sizes */

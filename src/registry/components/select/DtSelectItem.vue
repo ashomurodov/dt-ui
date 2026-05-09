@@ -37,8 +37,8 @@ const props = withDefaults(defineProps<{
 .dt-select-item {
   display: flex;
   align-items: center;
-  gap: var(--dt-space-2);
-  padding: var(--dt-space-2) var(--dt-space-3);
+  gap: var(--dt-spacing-md);
+  padding: var(--dt-spacing-md) var(--dt-spacing-lg);
   font-size: var(--dt-text-sm);
   color: var(--dt-color-text);
   cursor: pointer;

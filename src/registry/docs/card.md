@@ -17,15 +17,15 @@ The root container. Renders a `<div>` with background, border-radius, and option
 #### Props
 
 | Prop | Type | Default | Description |
-|------|------|---------|-------------|
+| ------ | ------ | --------- | ------------- |
 | `bordered` | `boolean` | `true` | Adds a 1px solid border using `--dt-color-border`. |
 | `shadow` | `boolean` | `false` | Applies a medium box-shadow (`--dt-shadow-md`). |
-| `padding` | `boolean` | `true` | Applies `--dt-space-6` (1.5rem) padding to the card. |
+| `padding` | `boolean` | `true` | Applies `--dt-spacing-3xl` (1.5rem) padding to the card. |
 
 #### Slots
 
 | Slot | Description |
-|------|-------------|
+| ------ | ------------- |
 | `default` | Card body content. Typically contains `DtCardHeader`, `DtCardContent`, and `DtCardFooter` sub-components but can hold any content. |
 
 ### DtCardHeader
@@ -39,7 +39,7 @@ None. Attributes are forwarded via `$attrs`.
 #### Slots
 
 | Slot | Description |
-|------|-------------|
+| ------ | ------------- |
 | `default` | Header content. Typically a heading and an optional description paragraph. |
 
 ### DtCardContent
@@ -53,7 +53,7 @@ None. Attributes are forwarded via `$attrs`.
 #### Slots
 
 | Slot | Description |
-|------|-------------|
+| ------ | ------------- |
 | `default` | Main card body content. |
 
 ### DtCardFooter
@@ -67,7 +67,7 @@ None. Attributes are forwarded via `$attrs`.
 #### Slots
 
 | Slot | Description |
-|------|-------------|
+| ------ | ------------- |
 | `default` | Footer content. Typically buttons or links. |
 
 ## Events
@@ -159,19 +159,19 @@ import { DtBadge } from '@/components/ui/badge'
 ### DtCard
 
 | Property | Usage |
-|----------|-------|
+| ---------- | ------- |
 | `--dt-color-background` | Card background color. |
 | `--dt-color-border` | Border color (when `bordered` is true). |
 | `--dt-radius-lg` | Card border-radius. |
 | `--dt-shadow-md` | Box-shadow (when `shadow` is true). |
-| `--dt-space-6` | Padding (when `padding` is true). |
+| `--dt-spacing-3xl` | Padding (when `padding` is true). |
 
 ### DtCardHeader
 
 | Property | Usage |
-|----------|-------|
-| `--dt-space-1` | Vertical gap between heading and description. |
-| `--dt-space-4` | Bottom padding separating the header from subsequent content. |
+| ---------- | ------- |
+| `--dt-spacing-xs` | Vertical gap between heading and description. |
+| `--dt-spacing-xl` | Bottom padding separating the header from subsequent content. |
 | `--dt-color-text` | Heading text color. |
 | `--dt-color-text-secondary` | Description paragraph text color. |
 | `--dt-text-sm` | Description paragraph font size. |
@@ -179,16 +179,16 @@ import { DtBadge } from '@/components/ui/badge'
 ### DtCardContent
 
 | Property | Usage |
-|----------|-------|
+| ---------- | ------- |
 | `--dt-color-text` | Text color. |
 | `--dt-text-base` | Font size. |
 
 ### DtCardFooter
 
 | Property | Usage |
-|----------|-------|
-| `--dt-space-2` | Horizontal gap between footer items. |
-| `--dt-space-4` | Top padding separating the footer from preceding content. |
+| ---------- | ------- |
+| `--dt-spacing-md` | Horizontal gap between footer items. |
+| `--dt-spacing-xl` | Top padding separating the footer from preceding content. |
 
 ## Accessibility
 

@@ -46,7 +46,7 @@ const name = ref('')
 ## Props
 
 | Prop | Type | Default | Description |
-|------|------|---------|-------------|
+| ------ | ------ | --------- | ------------- |
 | `modelValue` | `string \| number` | — | Bound value (v-model) |
 | `type` | `'text' \| 'email' \| 'password' \| 'number' \| 'search' \| 'tel' \| 'url'` | `'text'` | Input type |
 | `placeholder` | `string` | — | Placeholder text |
@@ -58,11 +58,11 @@ const name = ref('')
 ## Slots
 
 | Slot | Description |
-|------|-------------|
+| ------ | ------------- |
 | `label` | Label content above the input |
 
 ## Events
 
 | Event | Payload | Description |
-|-------|---------|-------------|
+| ------- | --------- | ------------- |
 | `update:modelValue` | `string \| number` | Emitted on input |

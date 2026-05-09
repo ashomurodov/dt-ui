@@ -4,13 +4,14 @@ import { initCommand } from './commands/init.js'
 import { addCommand } from './commands/add.js'
 import { listCommand } from './commands/list.js'
 import { updateCommand } from './commands/update.js'
+import pkg from '../../package.json' with { type: 'json' }
 
 const program = new Command()
 
 program
   .name('dt-ui')
   .description('DT UI — Lightweight, customizable Vue components for DT projects')
-  .version('0.1.0')
+  .version(pkg.version)
 
 program
   .command('init')

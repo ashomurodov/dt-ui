@@ -9,7 +9,7 @@ All tokens are prefixed with `--dt-` and defined in `base.css`. Here are the mai
 ### Colors
 
 | Token | Description |
-|-------|-------------|
+| ------- | ------------- |
 | `--dt-primary` | Brand/primary color |
 | `--dt-primary-hover` | Primary hover state |
 | `--dt-primary-foreground` | Text on primary background |
@@ -24,11 +24,11 @@ All tokens are prefixed with `--dt-` and defined in `base.css`. Here are the mai
 
 ### Spacing
 
-Tokens follow a numeric scale: `--dt-space-1` (0.25rem) through `--dt-space-12` (3rem).
+Tokens follow Figma's named scale: `--dt-spacing-none` (0) through `--dt-spacing-11xl` (10rem / 160px). Common stops: `--dt-spacing-xs` (4px), `--dt-spacing-md` (8px), `--dt-spacing-lg` (12px), `--dt-spacing-xl` (16px), `--dt-spacing-3xl` (24px).
 
 ### Radii
 
-`--dt-radius-sm`, `--dt-radius-md`, `--dt-radius-lg`, `--dt-radius-xl`, `--dt-radius-full`.
+`--dt-radius-none`, `--dt-radius-xxs` (4px), `--dt-radius-xs` (6px), `--dt-radius-sm` (8px), `--dt-radius-md` (12px), `--dt-radius-lg` (16px), `--dt-radius-xl` (20px), `--dt-radius-2xl` (24px), `--dt-radius-3xl` (32px), `--dt-radius-4xl` (40px), `--dt-radius-full`.
 
 ### Shadows
 

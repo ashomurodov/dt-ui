@@ -32,9 +32,9 @@ const classes = computed(() => [
 .dt-badge {
   display: inline-flex;
   align-items: center;
-  gap: var(--dt-space-1);
+  gap: var(--dt-spacing-xs);
   font-weight: var(--dt-font-medium);
-  border-radius: var(--dt-radius-sm);
+  border-radius: var(--dt-radius-xs);
   white-space: nowrap;
   line-height: 1;
 }
@@ -71,17 +71,17 @@ const classes = computed(() => [
 
 .dt-badge--blue {
   background: var(--dt-blue-100);
-  color: var(--dt-blue-500);
+  color: var(--dt-blue-600);
 }
 
 .dt-badge--orange {
-  background: var(--dt-warning-100);
-  color: var(--dt-warning-600);
+  background: var(--dt-amber-100);
+  color: var(--dt-amber-700);
 }
 
 .dt-badge--yellow {
-  background: var(--dt-yellow-100);
-  color: var(--dt-yellow-600);
+  background: var(--dt-warning-100);
+  color: var(--dt-warning-700);
 }
 
 /* Dot */

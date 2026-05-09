@@ -183,7 +183,7 @@ onUnmounted(() => {
   z-index: calc(var(--dt-z-modal) + 20);
   display: grid;
   place-items: center;
-  padding: var(--dt-space-5);
+  padding: var(--dt-spacing-2xl);
 }
 
 .dt-modules-modal__overlay {
@@ -197,17 +197,17 @@ onUnmounted(() => {
   position: relative;
   z-index: 1;
   width: min(100%, 360px);
-  padding: var(--dt-space-4);
+  padding: var(--dt-spacing-xl);
   border: 1px solid var(--dt-color-border);
-  border-radius: var(--dt-radius-base);
+  border-radius: var(--dt-radius-md);
   background: var(--dt-color-surface);
   box-shadow: var(--dt-shadow-lg);
 }
 
 .dt-modules-modal__close {
   position: absolute;
-  top: calc(var(--dt-space-2) * -1);
-  right: calc(var(--dt-space-2) * -1);
+  top: calc(var(--dt-spacing-md) * -1);
+  right: calc(var(--dt-spacing-md) * -1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -236,8 +236,8 @@ onUnmounted(() => {
 }
 
 .dt-modules-modal__header {
-  margin-bottom: var(--dt-space-3);
-  padding-right: var(--dt-space-4);
+  margin-bottom: var(--dt-spacing-lg);
+  padding-right: var(--dt-spacing-xl);
 }
 
 .dt-modules-modal__title {
@@ -249,7 +249,7 @@ onUnmounted(() => {
 }
 
 .dt-modules-modal__description {
-  margin: var(--dt-space-1) 0 0;
+  margin: var(--dt-spacing-xs) 0 0;
   color: var(--dt-color-text-secondary);
   font-size: var(--dt-text-sm);
   line-height: var(--dt-leading-base);
@@ -258,7 +258,7 @@ onUnmounted(() => {
 .dt-modules-modal__grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--dt-space-2);
+  gap: var(--dt-spacing-md);
 }
 
 .dt-modules-modal__item {
@@ -269,10 +269,10 @@ onUnmounted(() => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: var(--dt-space-1-5);
-  padding: var(--dt-space-2);
+  gap: var(--dt-spacing-sm);
+  padding: var(--dt-spacing-md);
   border: 1px solid transparent;
-  border-radius: var(--dt-radius-md);
+  border-radius: var(--dt-radius-sm);
   background: transparent;
   color: var(--dt-color-text);
   font: inherit;
@@ -305,8 +305,8 @@ onUnmounted(() => {
   min-height: 64px;
   flex-direction: row;
   justify-content: center;
-  gap: var(--dt-space-2);
-  padding: var(--dt-space-3);
+  gap: var(--dt-spacing-md);
+  padding: var(--dt-spacing-lg);
   border-color: var(--dt-color-border);
 }
 
@@ -333,7 +333,7 @@ onUnmounted(() => {
   justify-content: center;
   width: 100%;
   height: 100%;
-  border-radius: var(--dt-radius-md);
+  border-radius: var(--dt-radius-sm);
   background: var(--dt-color-accent-light);
   color: var(--dt-color-accent);
   font-size: var(--dt-text-lg);
@@ -358,11 +358,11 @@ onUnmounted(() => {
 
 .dt-modules-modal__badge {
   position: absolute;
-  top: var(--dt-space-1);
-  right: var(--dt-space-1);
+  top: var(--dt-spacing-xs);
+  right: var(--dt-spacing-xs);
   min-width: 18px;
   height: 18px;
-  padding: 0 var(--dt-space-1-5);
+  padding: 0 var(--dt-spacing-sm);
   border-radius: var(--dt-radius-full);
   background: var(--dt-color-accent-light);
   color: var(--dt-color-accent);
@@ -391,21 +391,21 @@ onUnmounted(() => {
 
 @media (max-width: 480px) {
   .dt-modules-modal {
-    padding: var(--dt-space-3);
+    padding: var(--dt-spacing-lg);
   }
 
   .dt-modules-modal__panel {
     width: min(100%, 320px);
-    padding: var(--dt-space-3);
+    padding: var(--dt-spacing-lg);
   }
 
   .dt-modules-modal__grid {
-    gap: var(--dt-space-1-5);
+    gap: var(--dt-spacing-sm);
   }
 
   .dt-modules-modal__item {
     min-height: 84px;
-    padding: var(--dt-space-1-5);
+    padding: var(--dt-spacing-sm);
   }
 
   .dt-modules-modal__media {

@@ -345,14 +345,14 @@ const onMenuItemClick = (item: DtProfileMenuItem) => {
 
 .dt-profile-modal__content {
   position: relative;
-  padding: var(--dt-space-4);
+  padding: var(--dt-spacing-xl);
 }
 
 .dt-profile-modal__top-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: var(--dt-space-2);
+  margin-bottom: var(--dt-spacing-md);
 }
 
 .dt-profile-modal__sub-header {
@@ -368,7 +368,7 @@ const onMenuItemClick = (item: DtProfileMenuItem) => {
   justify-content: center;
   background: transparent;
   border: none;
-  border-radius: var(--dt-radius-sm);
+  border-radius: var(--dt-radius-xs);
   color: var(--dt-color-icon-secondary);
   cursor: pointer;
   padding: 2px;
@@ -386,7 +386,7 @@ const onMenuItemClick = (item: DtProfileMenuItem) => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: var(--dt-space-3);
+  padding-bottom: var(--dt-spacing-lg);
 }
 
 .dt-profile-modal__avatar {
@@ -394,7 +394,7 @@ const onMenuItemClick = (item: DtProfileMenuItem) => {
   height: 72px;
   border-radius: 50%;
   overflow: hidden;
-  margin-bottom: var(--dt-space-3);
+  margin-bottom: var(--dt-spacing-lg);
 }
 
 .dt-profile-modal__avatar img {
@@ -418,7 +418,7 @@ const onMenuItemClick = (item: DtProfileMenuItem) => {
   font-size: var(--dt-text-lg);
   font-weight: 600;
   color: var(--dt-color-text);
-  margin: 0 0 var(--dt-space-1) 0;
+  margin: 0 0 var(--dt-spacing-xs) 0;
   text-align: center;
 }
 
@@ -430,7 +430,7 @@ const onMenuItemClick = (item: DtProfileMenuItem) => {
 
 /* Menu */
 .dt-profile-modal__menu {
-  padding-top: var(--dt-space-1);
+  padding-top: var(--dt-spacing-xs);
 }
 
 .dt-profile-modal__list {
@@ -442,9 +442,9 @@ const onMenuItemClick = (item: DtProfileMenuItem) => {
 .dt-profile-modal__item {
   display: flex;
   align-items: center;
-  gap: var(--dt-space-3);
-  padding: 10px var(--dt-space-3);
-  border-radius: var(--dt-radius-md);
+  gap: var(--dt-spacing-lg);
+  padding: 10px var(--dt-spacing-lg);
+  border-radius: var(--dt-radius-sm);
   color: var(--dt-color-text);
   cursor: pointer;
   transition: background var(--dt-transition-fast);
@@ -466,34 +466,34 @@ const onMenuItemClick = (item: DtProfileMenuItem) => {
 .dt-profile-modal__divider {
   height: 1px;
   background: var(--dt-color-divider);
-  margin: var(--dt-space-2) 0;
+  margin: var(--dt-spacing-md) 0;
 }
 
 /* Options (theme / language) */
 .dt-profile-modal__options-section {
-  padding-top: var(--dt-space-4);
+  padding-top: var(--dt-spacing-xl);
 }
 
 .dt-profile-modal__options-title {
   font-size: var(--dt-text-xl);
   font-weight: 600;
   color: var(--dt-color-text);
-  margin: 0 0 var(--dt-space-4) 0;
+  margin: 0 0 var(--dt-spacing-xl) 0;
   line-height: 1.25;
 }
 
 .dt-profile-modal__options {
   display: flex;
   flex-direction: column;
-  gap: var(--dt-space-1);
+  gap: var(--dt-spacing-xs);
 }
 
 .dt-profile-modal__option {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--dt-space-3);
-  border-radius: var(--dt-radius-md);
+  padding: var(--dt-spacing-lg);
+  border-radius: var(--dt-radius-sm);
   cursor: pointer;
   transition: background var(--dt-transition-fast);
   font-size: var(--dt-text-sm);

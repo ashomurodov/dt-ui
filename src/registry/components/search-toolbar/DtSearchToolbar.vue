@@ -40,7 +40,7 @@ defineEmits<{
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--dt-space-4);
+  gap: var(--dt-spacing-xl);
   margin-bottom: 20px;
 }
 
@@ -52,7 +52,7 @@ defineEmits<{
 .dt-search-toolbar__input {
   width: 100%;
   height: 40px;
-  padding: 0 40px 0 var(--dt-space-4);
+  padding: 0 40px 0 var(--dt-spacing-xl);
   border: 1px solid var(--dt-color-border);
   border-radius: var(--dt-radius-lg);
   background: var(--dt-color-background);
@@ -85,13 +85,13 @@ defineEmits<{
 .dt-search-toolbar__add-btn {
   display: flex;
   align-items: center;
-  gap: var(--dt-space-2);
+  gap: var(--dt-spacing-md);
   height: 40px;
   padding: 0 18px;
   border: none;
-  border-radius: var(--dt-radius-base);
+  border-radius: var(--dt-radius-md);
   background: var(--dt-color-accent);
-  color: #ffffff;
+  color: var(--dt-color-white);
   font-size: var(--dt-text-sm);
   font-weight: 500;
   font-family: inherit;

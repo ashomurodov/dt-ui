@@ -39,7 +39,7 @@ const fruit = ref(null)
 ## DtSelect Props
 
 | Prop | Type | Default | Description |
-|------|------|---------|-------------|
+| ------ | ------ | --------- | ------------- |
 | `modelValue` | `string \| number \| null` | `null` | Selected value (v-model) |
 | `defaultValue` | `string \| number` | — | Initial uncontrolled value |
 | `placeholder` | `string` | `'Select an option...'` | Placeholder text |
@@ -50,7 +50,7 @@ const fruit = ref(null)
 ## DtSelectItem Props
 
 | Prop | Type | Default | Description |
-|------|------|---------|-------------|
+| ------ | ------ | --------- | ------------- |
 | `value` | `string \| number` | **required** | Option value |
 | `label` | `string` | — | Display label (used for selected text and typeahead) |
 | `disabled` | `boolean` | `false` | Disable this option |
@@ -58,7 +58,7 @@ const fruit = ref(null)
 ## Sub-components
 
 | Component | Description |
-|-----------|-------------|
+| ----------- | ------------- |
 | `DtSelectTrigger` | The button that opens the dropdown |
 | `DtSelectContent` | The dropdown panel. Has `search` and `empty` slots. |
 | `DtSelectItem` | Individual option in the list |
@@ -66,7 +66,7 @@ const fruit = ref(null)
 ## Events
 
 | Event | Payload | Description |
-|-------|---------|-------------|
+| ------- | --------- | ------------- |
 | `update:modelValue` | `string \| number \| null` | Emitted when selection changes |
 
 ## Accessibility

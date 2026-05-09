@@ -84,7 +84,7 @@ function onInput(event: Event) {
 .dt-input-wrapper {
   display: flex;
   flex-direction: column;
-  gap: var(--dt-space-1);
+  gap: var(--dt-spacing-xs);
   width: 100%;
 }
 
@@ -137,7 +137,7 @@ function onInput(event: Event) {
 .dt-input--sm {
   height: 36px;
   padding: 12px 12px;
-  border-radius: var(--dt-radius-base);
+  border-radius: var(--dt-radius-md);
   font-size: var(--dt-text-xs);
 }
 

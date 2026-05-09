@@ -410,24 +410,24 @@ const DtSidebarItem = defineComponent({
 
 <style>
 .dt-sidebar {
-  --dt-sidebar-item-padding-x: var(--dt-space-4);
+  --dt-sidebar-item-padding-x: var(--dt-spacing-xl);
   --dt-sidebar-icon-size: 24px;
   --dt-sidebar-icon-center: 12px;
-  --dt-sidebar-tree-offset: var(--dt-space-5);
+  --dt-sidebar-tree-offset: var(--dt-spacing-2xl);
   --dt-sidebar-tree-joint-y: 16px;
-  --dt-sidebar-tree-parent-bridge: var(--dt-space-2);
+  --dt-sidebar-tree-parent-bridge: var(--dt-spacing-md);
   --dt-sidebar-tree-tail-trim: 6px;
   --dt-sidebar-sub-item-height: 32px;
 
-  width: calc(222px + 24px);
-  max-width: calc(222px + 24px);
+  width: calc(222px + var(--dt-spacing-3xl));
+  max-width: calc(222px + var(--dt-spacing-3xl));
   background-color: var(--dt-color-background);
   position: sticky;
-  top: 84px;
+  top: var(--dt-header-height);
   align-self: start;
-  padding-left: 24px;
-  margin: 0 calc(var(--dt-space-4) * -1);
-  max-height: calc(100vh - 84px);
+  padding-left: var(--dt-spacing-3xl);
+  margin: 0 calc(var(--dt-spacing-xl) * -1);
+  max-height: calc(100vh - var(--dt-header-height));
   overflow-x: hidden;
   overflow-y: auto;
   scrollbar-width: none;
@@ -442,7 +442,7 @@ const DtSidebarItem = defineComponent({
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: var(--dt-space-1);
+  gap: var(--dt-spacing-xs);
 }
 
 .dt-sidebar__nav--mobile {
@@ -467,14 +467,14 @@ const DtSidebarItem = defineComponent({
 .dt-sidebar__divider {
   height: 1px;
   background-color: var(--dt-color-border-light);
-  margin: var(--dt-space-2) 0;
+  margin: var(--dt-spacing-md) 0;
 }
 
 /* Nav links */
 .dt-sidebar__link {
   display: flex;
   align-items: center;
-  gap: var(--dt-space-3);
+  gap: var(--dt-spacing-lg);
   padding: 10px var(--dt-sidebar-item-padding-x);
   border-radius: var(--dt-radius-lg);
   color: var(--dt-color-text);
@@ -527,7 +527,7 @@ const DtSidebarItem = defineComponent({
 .dt-sidebar__link--sub {
   height: var(--dt-sidebar-sub-item-height);
   min-height: var(--dt-sidebar-sub-item-height);
-  padding: 0 var(--dt-space-3);
+  padding: 0 var(--dt-spacing-lg);
   font-size: var(--dt-text-xs);
 }
 
@@ -539,7 +539,7 @@ const DtSidebarItem = defineComponent({
   min-width: 20px;
   max-width: 56px;
   height: 20px;
-  padding: 0 var(--dt-space-2);
+  padding: 0 var(--dt-spacing-md);
   border-radius: var(--dt-radius-full);
   background-color: var(--dt-color-background-tertiary);
   color: var(--dt-color-text-secondary);
@@ -567,7 +567,7 @@ const DtSidebarItem = defineComponent({
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: var(--dt-space-1);
+  gap: var(--dt-spacing-xs);
   margin-left: calc(var(--dt-sidebar-item-padding-x) + var(--dt-sidebar-icon-center));
   padding-left: var(--dt-sidebar-tree-offset);
   overflow: visible;
@@ -624,14 +624,14 @@ const DtSidebarItem = defineComponent({
 .dt-sidebar__section {
   display: flex;
   flex-direction: column;
-  margin-top: var(--dt-space-2);
+  margin-top: var(--dt-spacing-md);
 }
 
 .dt-sidebar__section-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--dt-space-2) var(--dt-space-4);
+  padding: var(--dt-spacing-md) var(--dt-spacing-xl);
   background: none;
   border: none;
   cursor: pointer;
@@ -719,8 +719,8 @@ const DtSidebarItem = defineComponent({
     display: flex;
     flex-direction: row;
     justify-content: center;
-    gap: var(--dt-space-1-5);
-    padding: var(--dt-space-2) var(--dt-space-2-5);
+    gap: var(--dt-spacing-sm);
+    padding: var(--dt-spacing-md) var(--dt-spacing-lg);
     width: 100%;
     max-width: 600px;
   }
@@ -731,11 +731,11 @@ const DtSidebarItem = defineComponent({
 
   .dt-sidebar__nav--mobile .dt-sidebar__link {
     flex-direction: column;
-    gap: var(--dt-space-1);
-    padding: var(--dt-space-1-5);
+    gap: var(--dt-spacing-xs);
+    padding: var(--dt-spacing-sm);
     justify-content: center;
     align-items: center;
-    border-radius: var(--dt-radius-sm);
+    border-radius: var(--dt-radius-xs);
     min-width: 60px;
     font-size: var(--dt-text-xs);
   }
