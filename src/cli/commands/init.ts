@@ -8,6 +8,8 @@ import {
   detectFramework,
   type DtUiConfig,
 } from '../utils/config.js'
+
+type DetectedFramework = ReturnType<typeof detectFramework>
 import { getStylesContent, getTableCellsContent, getLibContent } from '../utils/registry.js'
 import { createAgentMd } from '../utils/agent.js'
 
@@ -25,20 +27,16 @@ export async function initCommand() {
     }
   }
 
-  const detectedFramework = detectFramework()
+  const detectedFramework: DetectedFramework = detectFramework()
+  const frameworkLabel: Record<DetectedFramework, string> = {
+    nuxt: 'Nuxt',
+    'vue-vite': 'Vue + Vite',
+    vue: 'Vue (plain)',
+  }
+  p.log.info(`Detected framework: ${pc.cyan(frameworkLabel[detectedFramework])}`)
 
   const answers = await p.group(
     {
-      framework: () =>
-        p.select({
-          message: 'Which framework does your project use?',
-          initialValue: detectedFramework,
-          options: [
-            { value: 'nuxt' as const, label: 'Nuxt', hint: detectedFramework === 'nuxt' ? 'detected' : undefined },
-            { value: 'vue-vite' as const, label: 'Vue + Vite', hint: detectedFramework === 'vue-vite' ? 'detected' : undefined },
-            { value: 'vue' as const, label: 'Vue (plain)', hint: detectedFramework === 'vue' ? 'detected' : undefined },
-          ],
-        }),
       componentsDir: () =>
         p.text({
           message: 'Where should components be installed?',
@@ -63,7 +61,6 @@ export async function initCommand() {
   const stylesDir = 'src/styles'
 
   const config: DtUiConfig = {
-    framework: answers.framework,
     componentsDir: answers.componentsDir as string,
     libDir: answers.libDir as string,
     stylesDir,

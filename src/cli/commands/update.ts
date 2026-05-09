@@ -18,6 +18,49 @@ import {
 } from '../utils/registry.js'
 import { rebuildAgentMd } from '../utils/agent.js'
 
+interface ComponentDiff {
+  name: string
+  displayName: string
+  changedFiles: string[]
+  totalFiles: number
+}
+
+/**
+ * Diff a single installed component against the current registry.
+ * Returns the names of files that differ (missing or content mismatch).
+ */
+function diffComponent(
+  componentName: string,
+  componentsDir: string,
+): ComponentDiff | null {
+  const registry = loadRegistry()
+  const comp = registry.components[componentName]
+  if (!comp) return null
+
+  const files = getComponentFiles(componentName)
+  const targetDir = path.resolve(process.cwd(), componentsDir, componentName)
+  const changedFiles: string[] = []
+
+  for (const file of files) {
+    const localPath = path.join(targetDir, file.name)
+    if (!fs.existsSync(localPath)) {
+      changedFiles.push(file.name)
+      continue
+    }
+    const localContent = fs.readFileSync(localPath, 'utf-8')
+    if (localContent !== file.content) {
+      changedFiles.push(file.name)
+    }
+  }
+
+  return {
+    name: componentName,
+    displayName: comp.name,
+    changedFiles,
+    totalFiles: files.length,
+  }
+}
+
 export async function updateCommand() {
   p.intro(pc.bold(pc.cyan('dt-ui update')))
 
@@ -30,7 +73,7 @@ export async function updateCommand() {
   const registry = loadRegistry()
   const s = p.spinner()
 
-  // Update base.css
+  // Refresh shared files (always safe — these are registry-managed, not authored).
   s.start('Updating base.css...')
   const stylesPath = path.resolve(process.cwd(), config.stylesDir)
   fs.mkdirSync(stylesPath, { recursive: true })
@@ -41,7 +84,6 @@ export async function updateCommand() {
   )
   s.stop('base.css updated')
 
-  // Update table-cells.css
   const tableCellsContent = getTableCellsContent()
   if (tableCellsContent) {
     s.start('Updating table-cells.css...')
@@ -53,7 +95,6 @@ export async function updateCommand() {
     s.stop('table-cells.css updated')
   }
 
-  // Update lib/utils.ts
   s.start('Updating lib/utils.ts...')
   const libPath = path.resolve(process.cwd(), config.libDir)
   fs.mkdirSync(libPath, { recursive: true })
@@ -64,77 +105,92 @@ export async function updateCommand() {
   )
   s.stop('lib/utils.ts updated')
 
-  // Offer to update installed components
+  // Diff each installed component against the registry.
   if (config.installedComponents.length > 0) {
-    const updateComponents = await p.confirm({
-      message: `Update ${config.installedComponents.length} installed component(s)? This will overwrite any local changes.`,
-      initialValue: false,
-    })
+    s.start(`Diffing ${config.installedComponents.length} installed component(s) against the registry...`)
+    const diffs: ComponentDiff[] = []
+    for (const name of config.installedComponents) {
+      const diff = diffComponent(name, config.componentsDir)
+      if (diff && diff.changedFiles.length > 0) diffs.push(diff)
+    }
+    s.stop(`${diffs.length} component(s) have updates available`)
 
-    if (!p.isCancel(updateComponents) && updateComponents) {
-      const updatedComponents: string[] = []
-      const allPackageDeps = new Set<string>()
+    if (diffs.length === 0) {
+      p.log.success('All installed components match the registry. Nothing to do.')
+    } else {
+      // Per-component multi-select. User picks which to overwrite.
+      const selected = await p.multiselect({
+        message: pc.yellow(
+          `Pick components to overwrite. ${pc.dim('(Space to toggle, Enter to confirm)')}\n` +
+            `${pc.red('Local edits will be lost.')} Default selection is empty for safety.`,
+        ),
+        options: diffs.map((d) => ({
+          value: d.name,
+          label: `${pc.cyan(d.displayName)} ${pc.dim(`(${d.changedFiles.length}/${d.totalFiles} file(s) differ)`)}`,
+          hint: d.changedFiles.join(', '),
+        })),
+        required: false,
+      })
 
-      for (const componentName of config.installedComponents) {
-        const comp = registry.components[componentName]
-        if (!comp) continue
-
-        s.start(`Updating ${pc.cyan(comp.name)}...`)
-        const files = getComponentFiles(componentName)
-        const targetDir = path.resolve(
-          process.cwd(),
-          config.componentsDir,
-          componentName,
-        )
-        fs.mkdirSync(targetDir, { recursive: true })
-
-        for (const file of files) {
-          fs.writeFileSync(path.join(targetDir, file.name), file.content, 'utf-8')
-        }
-
-        for (const dep of comp.dependencies ?? []) {
-          allPackageDeps.add(dep)
-        }
-        for (const dep of comp.peerDeps) {
-          allPackageDeps.add(dep)
-        }
-
-        updatedComponents.push(componentName)
-        s.stop(`${pc.green('✓')} ${comp.name} updated`)
+      if (p.isCancel(selected)) {
+        p.cancel('Component update cancelled. Shared files were still updated.')
+        process.exit(0)
       }
 
-      if (allPackageDeps.size > 0) {
-        const pm = detectPackageManager()
-        const cmd = getInstallCommand(pm, [...allPackageDeps])
-        s.start(`Installing package dependencies: ${[...allPackageDeps].join(', ')}...`)
-        try {
-          execSync(cmd, { cwd: process.cwd(), stdio: 'pipe' })
-          s.stop('Package dependencies installed')
-        } catch {
-          s.stop(pc.yellow('Failed to install package dependencies. Please install manually:'))
-          p.log.warn(pc.dim(cmd))
-        }
-      }
+      const toUpdate = (selected as string[]) ?? []
 
-      if (updatedComponents.length > 0) {
-        p.log.success(`${updatedComponents.length} component(s) updated`)
+      if (toUpdate.length === 0) {
+        p.log.info('No components selected — skipping component overwrites.')
+      } else {
+        const updated: string[] = []
+        const allPackageDeps = new Set<string>()
+
+        for (const componentName of toUpdate) {
+          const comp = registry.components[componentName]
+          if (!comp) continue
+
+          s.start(`Overwriting ${pc.cyan(comp.name)}...`)
+          const files = getComponentFiles(componentName)
+          const targetDir = path.resolve(
+            process.cwd(),
+            config.componentsDir,
+            componentName,
+          )
+          fs.mkdirSync(targetDir, { recursive: true })
+
+          for (const file of files) {
+            fs.writeFileSync(path.join(targetDir, file.name), file.content, 'utf-8')
+          }
+
+          for (const dep of comp.dependencies ?? []) allPackageDeps.add(dep)
+          for (const dep of comp.peerDeps) allPackageDeps.add(dep)
+
+          updated.push(componentName)
+          s.stop(`${pc.green('✓')} ${comp.name} overwritten`)
+        }
+
+        if (allPackageDeps.size > 0) {
+          const pm = detectPackageManager()
+          const cmd = getInstallCommand(pm, [...allPackageDeps])
+          s.start(`Installing package dependencies: ${[...allPackageDeps].join(', ')}...`)
+          try {
+            execSync(cmd, { cwd: process.cwd(), stdio: 'pipe' })
+            s.stop('Package dependencies installed')
+          } catch {
+            s.stop(pc.yellow('Failed to install package dependencies. Please install manually:'))
+            p.log.warn(pc.dim(cmd))
+          }
+        }
+
+        p.log.success(`${updated.length} component(s) overwritten with the latest registry version.`)
       }
     }
   }
 
-  // Rebuild AGENT.md
+  // Rebuild AGENT.md (cheap, deterministic).
   s.start('Rebuilding AGENT.md...')
   rebuildAgentMd(config)
   s.stop('AGENT.md rebuilt')
 
-  p.note(
-    [
-      `${pc.green('✓')} base.css — latest design tokens`,
-      `${pc.green('✓')} lib/utils.ts — latest helpers`,
-      `${pc.green('✓')} AGENT.md — rebuilt with current components`,
-    ].join('\n'),
-    'Updated files',
-  )
-
-  p.outro(pc.green('dt-ui updated successfully!'))
+  p.outro(pc.green('dt-ui update complete.'))
 }

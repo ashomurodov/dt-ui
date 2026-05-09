@@ -419,8 +419,8 @@ const DtSidebarItem = defineComponent({
   --dt-sidebar-tree-tail-trim: 6px;
   --dt-sidebar-sub-item-height: 32px;
 
-  width: calc(222px + var(--dt-spacing-3xl));
-  max-width: calc(222px + var(--dt-spacing-3xl));
+  width: var(--dt-sidebar-width);
+  max-width: var(--dt-sidebar-width);
   background-color: var(--dt-color-background);
   position: sticky;
   top: var(--dt-header-height);

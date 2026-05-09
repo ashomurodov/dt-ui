@@ -2,12 +2,16 @@ import fs from 'node:fs'
 import path from 'node:path'
 
 export interface DtUiConfig {
-  framework: 'nuxt' | 'vue-vite' | 'vue'
   componentsDir: string
   libDir: string
   stylesDir: string
   installedComponents: string[]
   agent: boolean
+  /**
+   * Legacy field. Captured by older versions of `dt-ui init` but never read.
+   * Tolerated on read for backwards compat; never written by current init.
+   */
+  framework?: 'nuxt' | 'vue-vite' | 'vue'
 }
 
 const CONFIG_FILE = '.dtui.json'
