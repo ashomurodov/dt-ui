@@ -504,7 +504,7 @@ const DtSidebarItem = defineComponent({
   background-color: var(--dt-color-background-secondary);
 }
 
-.dt-sidebar__link.router-link-active {
+.dt-sidebar__link.router-link-exact-active {
   background-color: var(--dt-color-background-tertiary);
 }
 
@@ -551,7 +551,7 @@ const DtSidebarItem = defineComponent({
   text-overflow: ellipsis;
 }
 
-.dt-sidebar__link.router-link-active .dt-sidebar__badge,
+.dt-sidebar__link.router-link-exact-active .dt-sidebar__badge,
 .dt-sidebar__link--active .dt-sidebar__badge {
   background-color: var(--dt-color-accent-light);
   color: var(--dt-color-accent);
