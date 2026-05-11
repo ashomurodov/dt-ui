@@ -126,7 +126,7 @@ const classes = computed(() => [
 }
 
 .dt-radio__label {
-  font-size: var(--dt-text-sm);
+  font-size: var(--dt-text-body-sm);
   color: var(--dt-color-text);
 }
 

@@ -478,7 +478,7 @@ const DtSidebarItem = defineComponent({
   padding: 10px var(--dt-sidebar-item-padding-x);
   border-radius: var(--dt-radius-lg);
   color: var(--dt-color-text);
-  font-size: 15px;
+  font-size: var(--dt-text-body-sm);
   font-weight: 500;
   transition: background-color var(--dt-transition-fast);
   text-decoration: none;
@@ -528,7 +528,7 @@ const DtSidebarItem = defineComponent({
   height: var(--dt-sidebar-sub-item-height);
   min-height: var(--dt-sidebar-sub-item-height);
   padding: 0 var(--dt-spacing-lg);
-  font-size: var(--dt-text-xs);
+  font-size: var(--dt-text-body-xs);
 }
 
 .dt-sidebar__badge {
@@ -543,7 +543,7 @@ const DtSidebarItem = defineComponent({
   border-radius: var(--dt-radius-full);
   background-color: var(--dt-color-background-tertiary);
   color: var(--dt-color-text-secondary);
-  font-size: var(--dt-text-xs);
+  font-size: var(--dt-text-body-xs);
   font-weight: var(--dt-font-bold);
   line-height: 1;
   white-space: nowrap;
@@ -636,7 +636,7 @@ const DtSidebarItem = defineComponent({
   border: none;
   cursor: pointer;
   color: var(--dt-color-text-secondary);
-  font-size: var(--dt-text-sm);
+  font-size: var(--dt-text-body-sm);
   font-weight: 500;
   font-family: inherit;
   transition: color var(--dt-transition-fast);
@@ -651,7 +651,7 @@ const DtSidebarItem = defineComponent({
 }
 
 .dt-sidebar__section-title {
-  font-size: var(--dt-text-xs);
+  font-size: var(--dt-text-body-xs);
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
@@ -737,7 +737,7 @@ const DtSidebarItem = defineComponent({
     align-items: center;
     border-radius: var(--dt-radius-xs);
     min-width: 60px;
-    font-size: var(--dt-text-xs);
+    font-size: var(--dt-text-body-xs);
   }
 
   .dt-sidebar__nav--mobile .dt-sidebar__link-label,

@@ -9,7 +9,7 @@
 
 <style scoped>
 .dt-card-content {
-  font-size: var(--dt-text-base);
+  font-size: var(--dt-text-body-md);
   color: var(--dt-color-text);
 }
 </style>

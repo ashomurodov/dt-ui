@@ -114,31 +114,31 @@ const classes = computed(() => [
   height: 56px;
   padding: 18px 24px;
   border-radius: var(--dt-radius-xl);
-  font-size: var(--dt-text-base);
+  font-size: var(--dt-text-body-md);
 }
 .dt-button--size-lg {
   height: 48px;
   padding: 16px 24px;
   border-radius: var(--dt-radius-lg);
-  font-size: var(--dt-text-sm);
+  font-size: var(--dt-text-body-sm);
 }
 .dt-button--size-md {
   height: 40px;
   padding: 12px 18px;
   border-radius: var(--dt-radius-md);
-  font-size: var(--dt-text-sm);
+  font-size: var(--dt-text-body-sm);
 }
 .dt-button--size-sm {
   height: 32px;
   padding: 8px 16px;
   border-radius: var(--dt-radius-sm);
-  font-size: var(--dt-text-xs);
+  font-size: var(--dt-text-body-xs);
 }
 .dt-button--size-xs {
   height: 24px;
   padding: 4px 8px;
   border-radius: var(--dt-radius-xs);
-  font-size: var(--dt-text-xs);
+  font-size: var(--dt-text-body-xs);
 }
 
 /* ── States ──────────────────────────────── */

@@ -39,7 +39,7 @@ const placeholder = computed(() => ctx?.placeholder.value ?? 'Select an option..
   width: 100%;
   height: 2.75rem;
   padding: 0 var(--dt-spacing-xl);
-  font-size: var(--dt-text-sm);
+  font-size: var(--dt-text-body-sm);
   font-family: inherit;
   color: var(--dt-color-text);
   background-color: var(--dt-color-background);

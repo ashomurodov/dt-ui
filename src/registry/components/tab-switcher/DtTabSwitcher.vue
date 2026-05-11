@@ -149,7 +149,7 @@ onBeforeUnmount(() => {
   padding: 10px 20px;
   border: none;
   border-radius: var(--dt-radius-sm);
-  font-size: var(--dt-text-sm);
+  font-size: var(--dt-text-body-sm);
   font-weight: 500;
   font-family: inherit;
   cursor: pointer;
@@ -176,7 +176,7 @@ onBeforeUnmount(() => {
   align-items: center;
   padding: 2px 6px;
   border-radius: var(--dt-radius-xs);
-  font-size: 10px;
+  font-size: var(--dt-text-body-xs);
   font-weight: 700;
   margin-left: 4px;
   background: var(--dt-color-error-light);

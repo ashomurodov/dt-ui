@@ -19,14 +19,14 @@
 .dt-dialog-header :deep(h2),
 .dt-dialog-header :deep(h3),
 .dt-dialog-header :deep(h4) {
-  font-size: var(--dt-text-lg);
+  font-size: var(--dt-text-h5);
   font-weight: 600;
   line-height: 1.25;
   color: var(--dt-color-text);
 }
 
 .dt-dialog-header :deep(p) {
-  font-size: var(--dt-text-sm);
+  font-size: var(--dt-text-body-sm);
   color: var(--dt-color-text-secondary);
 }
 </style>

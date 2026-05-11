@@ -88,7 +88,7 @@ const tabs = [
 | `--dt-radius-md` | Tab bar border-radius (12px). |
 | `--dt-radius-sm` | Indicator and tab pill border-radius (9px). |
 | `--dt-radius-xs` | Badge border-radius (6px). |
-| `--dt-text-sm` | Tab text font size (14px). |
+| `--dt-text-body-sm` | Tab text font size (14px). |
 | `--dt-transition-fast` | Tab text color transition. |
 
 ## Animation Details

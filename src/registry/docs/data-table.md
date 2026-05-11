@@ -112,6 +112,6 @@ const totalCount = ref(100)
 | `--dt-color-border-light` | Spinner border color. |
 | `--dt-color-accent` | Spinner top-border color. |
 | `--dt-radius-lg` | Row corner radius (16px). |
-| `--dt-text-xs` | Cell font size (12px). |
-| `--dt-text-sm` | Empty state font size (14px). |
+| `--dt-text-body-xs` | Cell font size (12px). |
+| `--dt-text-body-sm` | Empty state font size (14px). |
 | `--dt-transition-fast` | Row hover transition. |

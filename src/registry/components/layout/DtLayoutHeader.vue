@@ -127,9 +127,9 @@ const openModules = (event: MouseEvent) => {
   border-radius: 2px 8px 2px 8px;
   background: linear-gradient(270deg, var(--dt-brand-100) 0%, var(--dt-success-100) 100%);
   color: var(--dt-brand-700);
-  font-size: var(--dt-text-xs);
-  font-weight: 500;
-  line-height: 14px;
+  font-size: var(--dt-text-body-xs);
+  font-weight: var(--dt-font-medium);
+  line-height: var(--dt-leading-body-xs);
   white-space: nowrap;
 }
 
@@ -187,7 +187,7 @@ const openModules = (event: MouseEvent) => {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 13px;
+  font-size: var(--dt-text-body-sm);
   font-weight: 600;
   background: var(--dt-color-background-secondary);
   color: var(--dt-color-text);

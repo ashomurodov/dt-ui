@@ -114,7 +114,7 @@ const classes = computed(() => [
   justify-content: center;
   min-width: 32px;
   color: var(--dt-gray-400);
-  font-size: var(--dt-text-sm);
+  font-size: var(--dt-text-body-sm);
   user-select: none;
   letter-spacing: 2px;
 }
@@ -134,7 +134,7 @@ const classes = computed(() => [
   border: none;
   background: none;
   color: var(--dt-gray-500);
-  font-size: var(--dt-text-sm);
+  font-size: var(--dt-text-body-sm);
   font-family: inherit;
   cursor: pointer;
   transition: all var(--dt-transition-fast);

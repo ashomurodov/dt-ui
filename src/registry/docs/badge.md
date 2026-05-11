@@ -38,8 +38,8 @@ type BadgeSize = 'sm' | 'default'
 
 | Size | Padding | Font Size |
 | ------ | --------- | ----------- |
-| `sm` | 0.125rem 0.375rem | `--dt-text-xs` |
-| `default` | 0.25rem 0.5rem | `--dt-text-xs` |
+| `sm` | 0.125rem 0.375rem | `--dt-text-body-xs` |
+| `default` | 0.25rem 0.5rem | `--dt-text-body-xs` |
 
 ## Slots
 
@@ -158,8 +158,8 @@ const services = [
 | ---------- | ------- |
 | `--dt-spacing-xs` | Gap between the dot and the text. |
 | `--dt-radius-full` | Pill-shaped border-radius (9999px). Also used for the dot circle. |
-| `--dt-text-xs` | Font size at `sm` size. |
-| `--dt-text-sm` | Font size at `default` size. |
+| `--dt-text-body-xs` | Font size at `sm` size. |
+| `--dt-text-body-sm` | Font size at `default` size. |
 | `--dt-transition-base` | Duration/easing for background-color and color transitions. |
 
 ## Accessibility

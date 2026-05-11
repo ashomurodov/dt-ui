@@ -39,7 +39,7 @@ const props = withDefaults(defineProps<{
   align-items: center;
   gap: var(--dt-spacing-md);
   padding: var(--dt-spacing-md) var(--dt-spacing-lg);
-  font-size: var(--dt-text-sm);
+  font-size: var(--dt-text-body-sm);
   color: var(--dt-color-text);
   cursor: pointer;
   transition: background-color var(--dt-transition-fast);

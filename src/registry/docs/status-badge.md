@@ -91,4 +91,4 @@ const statusVariantMap: Record<number, StatusVariant> = {
 | `--dt-color-error-light` | Canceled/rejected/blocked variant background. |
 | `--dt-color-error` | Canceled/rejected/blocked variant text. |
 | `--dt-radius-xs` | Badge border-radius (6px). |
-| `--dt-text-xs` | Badge font size (12px). |
+| `--dt-text-body-xs` | Badge font size (12px). |

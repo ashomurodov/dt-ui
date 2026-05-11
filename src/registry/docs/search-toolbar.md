@@ -71,7 +71,7 @@ const handleSearch = () => {
 | `--dt-color-accent-hover` | Action button hover background. |
 | `--dt-radius-lg` | Search input border-radius (16px). |
 | `--dt-radius-md` | Action button border-radius (12px). |
-| `--dt-text-sm` | Font size (14px). |
+| `--dt-text-body-sm` | Font size (14px). |
 | `--dt-spacing-xl` | Gap between search and button; input left padding. |
 | `--dt-spacing-md` | Button icon-to-label gap. |
 | `--dt-transition-fast` | Focus/hover transitions. |

@@ -37,11 +37,11 @@ type ButtonSize = 'xl' | 'lg' | 'md' | 'sm' | 'xs'
 
 | Size | Height | Padding | Border Radius | Font Size |
 | ------ | -------- | --------- | --------------- | ----------- |
-| `xl` | 56px | 18px 24px | `--dt-radius-xl` (20px) | `--dt-text-base` |
-| `lg` | 48px | 16px 24px | `--dt-radius-lg` (16px) | `--dt-text-sm` |
-| `md` | 40px | 12px 18px | `--dt-radius-md` (12px) | `--dt-text-sm` |
-| `sm` | 32px | 8px 16px | `--dt-radius-sm` (8px) | `--dt-text-xs` |
-| `xs` | 24px | 4px 8px | `--dt-radius-xs` (6px) | `--dt-text-xs` |
+| `xl` | 56px | 18px 24px | `--dt-radius-xl` (20px) | `--dt-text-body-md` |
+| `lg` | 48px | 16px 24px | `--dt-radius-lg` (16px) | `--dt-text-body-sm` |
+| `md` | 40px | 12px 18px | `--dt-radius-md` (12px) | `--dt-text-body-sm` |
+| `sm` | 32px | 8px 16px | `--dt-radius-sm` (8px) | `--dt-text-body-xs` |
+| `xs` | 24px | 4px 8px | `--dt-radius-xs` (6px) | `--dt-text-body-xs` |
 
 ## Slots
 
@@ -160,7 +160,7 @@ The following design tokens are used by DtButton and can be overridden to theme 
 | `--dt-spacing-md` | Gap between icon slots and label. |
 | `--dt-radius-xxs` … `--dt-radius-xl` | Per-size border radius. |
 | `--dt-radius-full` | Spinner border-radius. |
-| `--dt-text-xs` / `--dt-text-sm` / `--dt-text-base` | Per-size font size. |
+| `--dt-text-body-xs` / `--dt-text-body-sm` / `--dt-text-body-md` | Per-size font size. |
 | `--dt-font-medium` | Button font weight. |
 | `--dt-transition-base` | Duration/easing for background, border, and color transitions. |
 

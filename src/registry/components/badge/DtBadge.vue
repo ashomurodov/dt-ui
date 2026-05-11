@@ -42,15 +42,15 @@ const classes = computed(() => [
 /* Sizes (Figma: SM/MD/LG) */
 .dt-badge--size-sm {
   padding: 4px 6px;
-  font-size: var(--dt-text-xs);
+  font-size: var(--dt-text-body-xs);
 }
 .dt-badge--size-md {
   padding: 4px 8px;
-  font-size: var(--dt-text-sm);
+  font-size: var(--dt-text-body-sm);
 }
 .dt-badge--size-lg {
   padding: 4px 10px;
-  font-size: var(--dt-text-sm);
+  font-size: var(--dt-text-body-sm);
 }
 
 /* Variants (Figma colors) */

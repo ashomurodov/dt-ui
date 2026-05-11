@@ -64,7 +64,7 @@ import {
 .dt-select-content__empty {
   padding: var(--dt-spacing-xl);
   text-align: center;
-  font-size: var(--dt-text-sm);
+  font-size: var(--dt-text-body-sm);
   color: var(--dt-color-text-secondary);
 }
 

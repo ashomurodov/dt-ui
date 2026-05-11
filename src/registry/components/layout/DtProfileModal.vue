@@ -409,13 +409,13 @@ const onMenuItemClick = (item: DtProfileMenuItem) => {
   justify-content: center;
   background: var(--dt-color-background-secondary);
   color: var(--dt-color-text);
-  font-size: var(--dt-text-xl);
+  font-size: var(--dt-text-h4);
   font-weight: 600;
   letter-spacing: 0.02em;
 }
 
 .dt-profile-modal__name {
-  font-size: var(--dt-text-lg);
+  font-size: var(--dt-text-h5);
   font-weight: 600;
   color: var(--dt-color-text);
   margin: 0 0 var(--dt-spacing-xs) 0;
@@ -423,7 +423,7 @@ const onMenuItemClick = (item: DtProfileMenuItem) => {
 }
 
 .dt-profile-modal__details {
-  font-size: var(--dt-text-sm);
+  font-size: var(--dt-text-body-sm);
   color: var(--dt-color-text-secondary);
   margin: 0;
 }
@@ -448,7 +448,7 @@ const onMenuItemClick = (item: DtProfileMenuItem) => {
   color: var(--dt-color-text);
   cursor: pointer;
   transition: background var(--dt-transition-fast);
-  font-size: var(--dt-text-sm);
+  font-size: var(--dt-text-body-sm);
   text-decoration: none;
 }
 
@@ -475,7 +475,7 @@ const onMenuItemClick = (item: DtProfileMenuItem) => {
 }
 
 .dt-profile-modal__options-title {
-  font-size: var(--dt-text-xl);
+  font-size: var(--dt-text-h4);
   font-weight: 600;
   color: var(--dt-color-text);
   margin: 0 0 var(--dt-spacing-xl) 0;
@@ -496,7 +496,7 @@ const onMenuItemClick = (item: DtProfileMenuItem) => {
   border-radius: var(--dt-radius-sm);
   cursor: pointer;
   transition: background var(--dt-transition-fast);
-  font-size: var(--dt-text-sm);
+  font-size: var(--dt-text-body-sm);
   color: var(--dt-color-text);
   width: 100%;
   text-align: left;

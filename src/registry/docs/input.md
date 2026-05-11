@@ -153,9 +153,9 @@ async function submit() {
 | ---------- | ------- |
 | `--dt-spacing-xs` | Gap between label, input, and error/hint elements. |
 | `--dt-radius-sm` | Input border-radius. |
-| `--dt-text-xs` | Error and hint text font size. |
-| `--dt-text-sm` | Label font size. |
-| `--dt-text-base` | Input text font size. |
+| `--dt-text-body-xs` | Error and hint text font size. |
+| `--dt-text-body-sm` | Label font size. |
+| `--dt-text-body-md` | Input text font size. |
 | `--dt-transition-base` | Duration/easing for border-color and box-shadow transitions. |
 
 ## Accessibility

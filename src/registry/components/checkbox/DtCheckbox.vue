@@ -125,7 +125,7 @@ const classes = computed(() => [
 }
 
 .dt-checkbox__label {
-  font-size: var(--dt-text-sm);
+  font-size: var(--dt-text-body-sm);
   color: var(--dt-color-text);
 }
 

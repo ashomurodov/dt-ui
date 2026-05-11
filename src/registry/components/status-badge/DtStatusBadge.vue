@@ -17,7 +17,7 @@ defineProps<{
   display: inline-flex;
   padding: 3px 6px;
   border-radius: var(--dt-radius-xs);
-  font-size: var(--dt-text-xs);
+  font-size: var(--dt-text-body-xs);
   font-weight: var(--dt-font-medium);
   white-space: nowrap;
 }

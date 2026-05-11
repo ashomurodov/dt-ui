@@ -174,14 +174,14 @@ import { DtBadge } from '@/components/ui/badge'
 | `--dt-spacing-xl` | Bottom padding separating the header from subsequent content. |
 | `--dt-color-text` | Heading text color. |
 | `--dt-color-text-secondary` | Description paragraph text color. |
-| `--dt-text-sm` | Description paragraph font size. |
+| `--dt-text-body-sm` | Description paragraph font size. |
 
 ### DtCardContent
 
 | Property | Usage |
 | ---------- | ------- |
 | `--dt-color-text` | Text color. |
-| `--dt-text-base` | Font size. |
+| `--dt-text-body-md` | Font size. |
 
 ### DtCardFooter
 

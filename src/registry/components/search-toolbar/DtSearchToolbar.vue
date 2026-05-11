@@ -56,7 +56,7 @@ defineEmits<{
   border: 1px solid var(--dt-color-border);
   border-radius: var(--dt-radius-lg);
   background: var(--dt-color-background);
-  font-size: var(--dt-text-sm);
+  font-size: var(--dt-text-body-sm);
   font-family: inherit;
   color: var(--dt-color-text);
   outline: none;
@@ -92,7 +92,7 @@ defineEmits<{
   border-radius: var(--dt-radius-md);
   background: var(--dt-color-accent);
   color: var(--dt-color-white);
-  font-size: var(--dt-text-sm);
+  font-size: var(--dt-text-body-sm);
   font-weight: 500;
   font-family: inherit;
   cursor: pointer;

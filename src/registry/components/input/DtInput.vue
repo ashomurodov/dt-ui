@@ -89,7 +89,7 @@ function onInput(event: Event) {
 }
 
 .dt-input__label {
-  font-size: var(--dt-text-sm);
+  font-size: var(--dt-text-body-sm);
   font-weight: var(--dt-font-medium);
   color: var(--dt-color-text);
 }
@@ -120,25 +120,25 @@ function onInput(event: Event) {
   height: 64px;
   padding: 22px 24px;
   border-radius: var(--dt-radius-xl);
-  font-size: var(--dt-text-base);
+  font-size: var(--dt-text-body-md);
 }
 .dt-input--lg {
   height: 60px;
   padding: 22px 20px;
   border-radius: var(--dt-radius-xl);
-  font-size: var(--dt-text-base);
+  font-size: var(--dt-text-body-md);
 }
 .dt-input--md {
   height: 48px;
   padding: 16px 16px;
   border-radius: var(--dt-radius-lg);
-  font-size: var(--dt-text-sm);
+  font-size: var(--dt-text-body-sm);
 }
 .dt-input--sm {
   height: 36px;
   padding: 12px 12px;
   border-radius: var(--dt-radius-md);
-  font-size: var(--dt-text-xs);
+  font-size: var(--dt-text-body-xs);
 }
 
 /* States */
@@ -204,12 +204,12 @@ function onInput(event: Event) {
 
 /* Messages */
 .dt-input__error {
-  font-size: var(--dt-text-xs);
+  font-size: var(--dt-text-body-xs);
   color: var(--dt-color-error);
 }
 
 .dt-input__hint {
-  font-size: var(--dt-text-xs);
+  font-size: var(--dt-text-body-xs);
   color: var(--dt-color-text-secondary);
 }
 

@@ -92,5 +92,5 @@ The first 5 pages remain as a stable block — no pages appear or disappear one 
 | `--dt-color-border` | Secondary button border. |
 | `--dt-radius-sm` | LG/MD button radius (8px). |
 | `--dt-radius-xxs` | SM button radius (4px). |
-| `--dt-text-sm` | Page number font size. |
+| `--dt-text-body-sm` | Page number font size. |
 | `--dt-spacing-3xl` | Top margin. |

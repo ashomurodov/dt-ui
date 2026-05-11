@@ -23,7 +23,7 @@ withDefaults(defineProps<{
 }
 
 .dt-page-view__title {
-  font-size: var(--dt-text-xl);
+  font-size: var(--dt-text-h4);
   font-weight: 700;
   color: var(--dt-color-text);
   margin: 0 0 var(--dt-spacing-3xl) 0;
@@ -35,7 +35,7 @@ withDefaults(defineProps<{
   }
 
   .dt-page-view__title {
-    font-size: var(--dt-text-2xl);
+    font-size: var(--dt-text-h3);
     margin-bottom: var(--dt-spacing-xl);
   }
 }

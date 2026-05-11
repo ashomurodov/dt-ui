@@ -25,7 +25,7 @@
 }
 
 .dt-card-header :deep(p) {
-  font-size: var(--dt-text-sm);
+  font-size: var(--dt-text-body-sm);
   color: var(--dt-color-text-secondary);
 }
 </style>

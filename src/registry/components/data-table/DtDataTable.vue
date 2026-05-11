@@ -88,7 +88,7 @@ const getRowIndex = (index: number, page?: number, pageSize?: number) => {
 }
 
 .dt-data-table thead th {
-  font-size: var(--dt-text-xs);
+  font-size: var(--dt-text-body-xs);
   font-weight: 500;
   color: var(--dt-color-icon-secondary);
   text-align: left;
@@ -117,7 +117,7 @@ const getRowIndex = (index: number, page?: number, pageSize?: number) => {
 .dt-data-table__row td {
   padding: 6px 12px;
   vertical-align: middle;
-  font-size: var(--dt-text-xs);
+  font-size: var(--dt-text-body-xs);
   color: var(--dt-color-text);
 }
 
@@ -134,7 +134,7 @@ const getRowIndex = (index: number, page?: number, pageSize?: number) => {
   text-align: center;
   padding: 48px 12px !important;
   color: var(--dt-color-text-tertiary);
-  font-size: var(--dt-text-sm);
+  font-size: var(--dt-text-body-sm);
 }
 
 .dt-data-table__spinner {
