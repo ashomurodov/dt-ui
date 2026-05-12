@@ -39,14 +39,13 @@ defineEmits<{
 .dt-search-toolbar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: var(--dt-spacing-xl);
-  margin-bottom: 20px;
 }
 
 .dt-search-toolbar__search {
   position: relative;
-  width: 250px;
+  flex: 1;
+  min-width: 0;
 }
 
 .dt-search-toolbar__input {
