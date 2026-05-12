@@ -206,10 +206,12 @@ Horizontal stack of avatars with overlap, an optional `+N` overflow chip, and an
 <!-- Slot-based for full control -->
 <DtAvatarGroup size="md" show-add @add="invite">
   <DtAvatar src="/a.jpg" />
-  <DtAvatar src="/b.jpg" status="online" />
+  <DtAvatar src="/b.jpg" />
   <DtAvatar name="Mardon Shonazarov" />
 </DtAvatarGroup>
 ```
+
+> Status indicators on avatars inside a stacked group are hidden — the overlap clips them. Use a non-stacked layout (e.g. a list with `DtAvatarLabel`) if you need per-avatar status.
 
 ## DtAvatarAdd
 

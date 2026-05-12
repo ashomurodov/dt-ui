@@ -171,12 +171,12 @@ const showStatus = computed(() => !!slots.status || props.status != null)
   overflow: hidden;
 }
 
-.dt-avatar--xs  .dt-avatar__status { width: 8px;  height: 8px;  transform: translate(15%, 15%); }
-.dt-avatar--sm  .dt-avatar__status { width: 10px; height: 10px; transform: translate(15%, 15%); }
-.dt-avatar--md  .dt-avatar__status { width: 12px; height: 12px; transform: translate(15%, 15%); }
-.dt-avatar--lg  .dt-avatar__status { width: 14px; height: 14px; transform: translate(15%, 15%); }
-.dt-avatar--xl  .dt-avatar__status { width: 16px; height: 16px; transform: translate(15%, 15%); }
-.dt-avatar--2xl .dt-avatar__status { width: 18px; height: 18px; transform: translate(15%, 15%); }
+.dt-avatar--xs  .dt-avatar__status { width: 8px;  height: 8px;  }
+.dt-avatar--sm  .dt-avatar__status { width: 10px; height: 10px; }
+.dt-avatar--md  .dt-avatar__status { width: 12px; height: 12px; }
+.dt-avatar--lg  .dt-avatar__status { width: 14px; height: 14px; }
+.dt-avatar--xl  .dt-avatar__status { width: 16px; height: 16px; }
+.dt-avatar--2xl .dt-avatar__status { width: 18px; height: 18px; }
 
 .dt-avatar__status--online  { background: var(--dt-color-success); }
 .dt-avatar__status--offline { background: var(--dt-gray-300); }

@@ -89,6 +89,12 @@ const overflow = computed(() => {
   background: var(--dt-color-background); /* opaque so halo stays clean */
 }
 
+/* Status indicators don't survive the overlap cleanly — hide them inside the stack.
+   Consumers who need per-avatar status in a group can switch to a non-stacked layout. */
+.dt-avatar-group__stack :deep(.dt-avatar__status) {
+  display: none;
+}
+
 .dt-avatar-group--xs .dt-avatar-group__stack :deep(.dt-avatar:not(:first-child)) { margin-left: -4px; }
 .dt-avatar-group--sm .dt-avatar-group__stack :deep(.dt-avatar:not(:first-child)) { margin-left: -8px; }
 .dt-avatar-group--md .dt-avatar-group__stack :deep(.dt-avatar:not(:first-child)) { margin-left: -12px; }
