@@ -22,7 +22,7 @@ import { DtToggle } from '@/components/ui/toggle'
 | ------- | --------- | ------------- |
 | `update:modelValue` | `boolean` | Emitted when toggled. |
 
-## Sizes (Figma)
+## Sizes
 
 | Size | Track | Thumb |
 | ------ | ------- | ------- |

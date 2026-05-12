@@ -58,9 +58,7 @@ const classes = computed(() => [
     color var(--dt-transition-base);
 }
 
-/* ── Variants ───────────────────────────────
-   Figma: Default / Outline / Transparent / Secondary-Grey
-*/
+/* ── Variants: default / outline / transparent / secondary-grey ── */
 .dt-button--default {
   background: var(--dt-color-accent);
   border-color: var(--dt-color-accent);
@@ -117,9 +115,7 @@ const classes = computed(() => [
   border-color: var(--dt-gray-600);
 }
 
-/* ── Sizes (Figma: 3xl / 2xl / xl / lg / md / sm / xs / 2xs) ──
-   Height + horizontal padding from Figma specs; vertical centering via flex.
-*/
+/* ── Sizes: 3xl / 2xl / xl / lg / md / sm / xs / 2xs ────── */
 .dt-button--size-3xl {
   height: 60px;
   padding: 0 var(--dt-spacing-4xl);     /* 32px */
@@ -221,7 +217,7 @@ const classes = computed(() => [
   pointer-events: none;
 }
 
-/* Focus ring: Figma uses a 2px outer ring offset by 5px, one radius step bigger */
+/* Focus ring: 2px outer ring offset by 5px, one radius step bigger than the button */
 .dt-button:focus-visible {
   outline: none;
 }

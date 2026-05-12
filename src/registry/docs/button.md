@@ -1,6 +1,6 @@
 # DtButton
 
-A clickable button component mirroring the DT Design System Figma button spec — four variants, eight sizes, plus loading and disabled states. Renders a native `<button>` element and forwards all attributes via `$attrs`, so native events like `click`, `focus`, and `blur` work without any special binding.
+A clickable button component with four variants, eight sizes, and loading + disabled states. Renders a native `<button>` element and forwards all attributes via `$attrs`, so native events like `click`, `focus`, and `blur` work without any special binding.
 
 ## Import
 
@@ -178,7 +178,7 @@ The following design tokens are used by DtButton and can be overridden to theme 
 
 - Uses a native `<button>` element, so it is keyboard-focusable and activatable with Enter/Space by default.
 - The `disabled` attribute is set natively when `disabled` or `loading` is true, which removes the button from the tab order and prevents activation.
-- A visible `:focus-visible` ring matches the Figma spec: 2px outer ring at `--dt-color-ring`, offset 5px outside the button, with radius one step larger than the button itself.
+- A visible `:focus-visible` ring is drawn as a 2px outer ring at `--dt-color-ring`, offset 5px outside the button, with radius one step larger than the button itself.
 - The loading spinner is marked `aria-hidden="true"` to avoid screen readers announcing decorative content.
 - When using an icon-only button (no visible text label), pass an `aria-label` attribute to give the button an accessible name.
 - Color contrast for all variant/foreground combinations should be verified against WCAG 2.1 AA (4.5:1 for text, 3:1 for UI components).

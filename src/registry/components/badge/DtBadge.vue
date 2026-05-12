@@ -39,7 +39,7 @@ const classes = computed(() => [
   line-height: 1;
 }
 
-/* Sizes (Figma: SM/MD/LG) */
+/* Sizes: sm / md / lg */
 .dt-badge--size-sm {
   padding: 4px 6px;
   font-size: var(--dt-text-body-xs);
@@ -53,7 +53,7 @@ const classes = computed(() => [
   font-size: var(--dt-text-body-sm);
 }
 
-/* Variants (Figma colors) */
+/* Variants */
 .dt-badge--gray {
   background: var(--dt-gray-100);
   color: var(--dt-gray-800);

@@ -25,7 +25,7 @@ All components use CSS custom properties prefixed with \`--dt-\` defined in \`ba
 | \`--dt-color-border\` | \`#dde1e9\` | Border color |
 | \`--dt-color-error\` | \`#ef4444\` | Error/destructive color |
 | \`--dt-color-success\` | \`#16a34a\` | Success color |
-| \`--dt-color-warning\` | \`#eab308\` | Warning color (yellow per Figma) |
+| \`--dt-color-warning\` | \`#eab308\` | Warning color (yellow) |
 | \`--dt-color-ring\` | \`#0096b2\` | Focus ring color |
 | \`--dt-radius-xs\` | \`6px\` | Small radius (badges) |
 | \`--dt-radius-md\` | \`12px\` | Base radius (inputs, buttons) |

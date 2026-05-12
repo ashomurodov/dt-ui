@@ -29,7 +29,7 @@ import { DtCheckbox } from '@/components/ui/checkbox'
 | ------ | ------------- |
 | `default` | Label text next to the checkbox. |
 
-## Sizes (Figma)
+## Sizes
 
 | Size | Box | Check Icon |
 | ------ | ----- | ------------ |

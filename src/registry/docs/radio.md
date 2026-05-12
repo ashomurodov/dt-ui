@@ -24,7 +24,7 @@ import { DtRadio } from '@/components/ui/radio'
 | ------- | --------- | ------------- |
 | `update:modelValue` | `string \| number` | Emitted when selected. |
 
-## Sizes (Figma)
+## Sizes
 
 | Size | Circle | Inner Dot |
 | ------ | -------- | ----------- |

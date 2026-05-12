@@ -24,7 +24,7 @@ All tokens are prefixed with `--dt-` and defined in `base.css`. Here are the mai
 
 ### Spacing
 
-Tokens follow Figma's named scale: `--dt-spacing-none` (0) through `--dt-spacing-11xl` (10rem / 160px). Common stops: `--dt-spacing-xs` (4px), `--dt-spacing-md` (8px), `--dt-spacing-lg` (12px), `--dt-spacing-xl` (16px), `--dt-spacing-3xl` (24px).
+Tokens follow a named scale: `--dt-spacing-none` (0) through `--dt-spacing-11xl` (10rem / 160px). Common stops: `--dt-spacing-xs` (4px), `--dt-spacing-md` (8px), `--dt-spacing-lg` (12px), `--dt-spacing-xl` (16px), `--dt-spacing-3xl` (24px).
 
 ### Radii
 

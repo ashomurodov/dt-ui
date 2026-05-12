@@ -1,6 +1,6 @@
 # DtPagination
 
-Page navigation with prev/next arrows, numbered page buttons, and smart ellipsis. Supports two visual hierarchies (primary/secondary) and 3 sizes from the Figma design system. Shows a stable 5-page window with first/last page always visible. Automatically hides on single page.
+Page navigation with prev/next arrows, numbered page buttons, and smart ellipsis. Supports two visual hierarchies (primary/secondary) and 3 sizes. Shows a stable 5-page window with first/last page always visible. Automatically hides on single page.
 
 ## Import
 
@@ -37,7 +37,7 @@ The pagination shows a stable 5-page window with ellipsis for large page counts:
 
 The first 5 pages remain as a stable block — no pages appear or disappear one by one when clicking through the first few pages.
 
-## Variants (Figma)
+## Variants
 
 ### Secondary (default)
 - Bordered buttons (`--dt-color-border`)
@@ -51,7 +51,7 @@ The first 5 pages remain as a stable block — no pages appear or disappear one 
 - Hover: gray background
 - Disabled: gray fill, muted text
 
-## Sizes (Figma)
+## Sizes
 
 | Size | Height | Border Radius |
 | ------ | -------- | --------------- |
