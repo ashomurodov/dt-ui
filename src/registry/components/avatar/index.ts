@@ -1,0 +1,8 @@
+export { default as DtAvatar } from './DtAvatar.vue'
+export { default as DtAvatarLabel } from './DtAvatarLabel.vue'
+export { default as DtAvatarGroup } from './DtAvatarGroup.vue'
+export { default as DtAvatarAdd } from './DtAvatarAdd.vue'
+export type { AvatarSize, AvatarStatus } from './DtAvatar.vue'
+export type { AvatarLabelSize } from './DtAvatarLabel.vue'
+export type { AvatarGroupSize, AvatarGroupUser } from './DtAvatarGroup.vue'
+export type { AvatarAddSize } from './DtAvatarAdd.vue'

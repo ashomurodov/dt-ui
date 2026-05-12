@@ -32,6 +32,14 @@
       "peerDeps": [],
       "docs": "docs/badge.md"
     },
+    "avatar": {
+      "name": "DtAvatar",
+      "description": "User avatar with image, initials, or icon fallback. Six sizes, optional status indicator, label-group composition, stacked group, and add-button.",
+      "files": ["DtAvatar.vue", "DtAvatarLabel.vue", "DtAvatarGroup.vue", "DtAvatarAdd.vue", "index.ts"],
+      "internalDeps": [],
+      "peerDeps": [],
+      "docs": "docs/avatar.md"
+    },
     "dialog": {
       "name": "DtDialog",
       "description": "Modal dialog with overlay, header, content, and footer",
