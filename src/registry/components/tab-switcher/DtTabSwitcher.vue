@@ -136,7 +136,7 @@ onBeforeUnmount(() => {
   position: absolute;
   top: 4px;
   bottom: 4px;
-  background: var(--dt-color-icon-dark);
+  background: var(--dt-color-text);
   border-radius: var(--dt-radius-sm);
   z-index: 0;
   transform-origin: left;
@@ -164,11 +164,11 @@ onBeforeUnmount(() => {
 }
 
 .dt-tab-switcher__btn--active {
-  color: var(--dt-color-white);
+  color: var(--dt-color-background);
 }
 
 .dt-tab-switcher__btn--active:hover {
-  color: var(--dt-color-white);
+  color: var(--dt-color-background);
 }
 
 .dt-tab-switcher__badge {
