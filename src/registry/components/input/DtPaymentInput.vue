@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { computed, useAttrs } from 'vue'
-import DtInput, { type InputVariant, type InputSize, type InputState, type InputLabelPosition } from './DtInput.vue'
+import DtInput, { type InputSize, type InputState, type InputLabelPosition } from './DtInput.vue'
 import { detectCardBrand, formatCardNumber, type CardBrand } from './card-brands'
 
 const props = withDefaults(defineProps<{
   /** Formatted card number (with spaces). */
   modelValue?: string
-  variant?: InputVariant
   size?: InputSize
   label?: string
   labelPosition?: InputLabelPosition
@@ -16,7 +15,6 @@ const props = withDefaults(defineProps<{
   /** Max digits accepted. Defaults to 16 (Visa / MC / UzCard / Humo). Use 15 for Amex. */
   maxDigits?: number
 }>(), {
-  variant: 'primary',
   size: 'md',
   labelPosition: 'top',
   disabled: false,
@@ -51,7 +49,6 @@ defineExpose({ brand })
 <template>
   <DtInput
     :model-value="modelValue"
-    :variant="variant"
     :size="size"
     :label="label"
     :label-position="labelPosition"

@@ -3,7 +3,6 @@ export { default as DtPhoneInput } from './DtPhoneInput.vue'
 export { default as DtPaymentInput } from './DtPaymentInput.vue'
 
 export type {
-  InputVariant,
   InputSize,
   InputState,
   InputLabelPosition,

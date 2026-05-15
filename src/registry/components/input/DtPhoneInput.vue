@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, watch, useAttrs } from 'vue'
-import DtInput, { type InputVariant, type InputSize, type InputState, type InputLabelPosition } from './DtInput.vue'
+import DtInput, { type InputSize, type InputState, type InputLabelPosition } from './DtInput.vue'
 import { countries, applyMask, maskDigitCount, type CountryDial } from './countries'
 
 export interface PhoneValue {
@@ -15,7 +15,6 @@ export interface PhoneValue {
 const props = withDefaults(defineProps<{
   modelValue?: string | PhoneValue
   defaultCountry?: CountryDial['code']
-  variant?: InputVariant
   size?: InputSize
   label?: string
   labelPosition?: InputLabelPosition
@@ -26,7 +25,6 @@ const props = withDefaults(defineProps<{
   allowedCountries?: CountryDial['code'][]
 }>(), {
   defaultCountry: 'UZ',
-  variant: 'primary',
   size: 'md',
   labelPosition: 'top',
   disabled: false,
@@ -149,7 +147,6 @@ watch(dropdownOpen, (open) => {
 <template>
   <DtInput
     :model-value="national"
-    :variant="variant"
     :size="size"
     :label="label"
     :label-position="labelPosition"

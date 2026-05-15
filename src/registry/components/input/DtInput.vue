@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, useAttrs } from 'vue'
 
-export type InputVariant = 'primary' | 'secondary'
 export type InputSize = 'sm' | 'md' | 'lg' | 'xl'
 export type InputState = 'error' | 'success' | undefined
 export type InputLabelPosition = 'top' | 'floating'
@@ -9,7 +8,6 @@ export type InputLabelPosition = 'top' | 'floating'
 const props = withDefaults(defineProps<{
   modelValue?: string | number
   type?: string
-  variant?: InputVariant
   size?: InputSize
   label?: string
   labelPosition?: InputLabelPosition
@@ -23,7 +21,6 @@ const props = withDefaults(defineProps<{
   id?: string
 }>(), {
   type: 'text',
-  variant: 'primary',
   size: 'md',
   labelPosition: 'top',
   disabled: false,
@@ -92,7 +89,6 @@ function onClear() {
       class="dt-input"
       :for="inputId"
       :class="[
-        `dt-input--${variant}`,
         `dt-input--${size}`,
         labelPosition === 'floating' && label && 'dt-input--floating',
         state && `dt-input--${state}`,
@@ -172,42 +168,31 @@ function onClear() {
   line-height: var(--dt-leading-body-sm);
 }
 
-/* ── Container ─────────────────────────────── */
+/* ── Container ─────────────────────────────────
+   One visual treatment, four states:
+   default → white bg
+   hover / focus / disabled → tinted bg (background-tertiary = #f8f9fa)
+   focus → accent border, no glow ring
+*/
 .dt-input {
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   width: 100%;
   background: var(--dt-color-background);
   border: 1.5px solid var(--dt-color-border);
   transition: border-color var(--dt-transition-fast),
-    background-color var(--dt-transition-fast),
-    box-shadow var(--dt-transition-fast);
+    background-color var(--dt-transition-fast);
   cursor: text;
 }
 
-.dt-input--primary {
-  background: var(--dt-color-background);
-  border-color: var(--dt-color-border);
-}
-
-.dt-input--secondary {
+.dt-input:hover:not(.dt-input--disabled):not(:focus-within) {
   background: var(--dt-color-background-tertiary);
-  border-color: transparent;
-}
-
-.dt-input:hover:not(.dt-input--disabled) {
-  border-color: var(--dt-color-border-hover);
-}
-.dt-input--secondary:hover:not(.dt-input--disabled) {
-  background: var(--dt-gray-100);
-  border-color: transparent;
 }
 
 .dt-input:focus-within:not(.dt-input--disabled) {
+  background: var(--dt-color-background-tertiary);
   border-color: var(--dt-color-accent);
-  background: var(--dt-color-background);
-  box-shadow: 0 0 0 3px var(--dt-brand-100);
 }
 
 /* ── Sizes ─────────────────────────────────── */
@@ -249,10 +234,12 @@ function onClear() {
   min-width: 0;
   display: flex;
   align-items: center;
+  align-self: stretch;
 }
 
 .dt-input__field {
   width: 100%;
+  height: 100%;
   border: 0;
   background: transparent;
   outline: none;
@@ -273,7 +260,13 @@ function onClear() {
   color: transparent;
 }
 
-/* ── Floating label ────────────────────────── */
+/* ── Floating label — stays INSIDE the field ── */
+.dt-input--floating .dt-input__field {
+  /* Leave room for the label at the top, value slightly below center. */
+  padding-top: 20px;
+  padding-bottom: 0;
+}
+
 .dt-input__floating-label {
   position: absolute;
   left: 0;
@@ -282,27 +275,18 @@ function onClear() {
   pointer-events: none;
   color: var(--dt-color-text-tertiary);
   font-size: inherit;
-  transition: top 140ms ease, font-size 140ms ease, color 140ms ease, transform 140ms ease;
+  line-height: 1;
+  transition: top 140ms ease, font-size 140ms ease, transform 140ms ease;
 }
 
-/* Float up when focused or when the field has a real value */
+/* When focused or filled: label moves to TOP of the field (still inside) */
 .dt-input__field:focus ~ .dt-input__floating-label,
 .dt-input__field:not(:placeholder-shown) ~ .dt-input__floating-label {
-  top: -2px;
-  transform: translateY(-100%);
+  top: 8px;
+  transform: translateY(0);
   font-size: var(--dt-text-body-xs);
-}
-
-.dt-input__field:focus ~ .dt-input__floating-label {
-  color: var(--dt-color-accent);
-}
-
-.dt-input--error .dt-input__field:focus ~ .dt-input__floating-label {
-  color: var(--dt-color-error);
-}
-
-.dt-input--success .dt-input__field:focus ~ .dt-input__floating-label {
-  color: var(--dt-color-success);
+  /* Color stays secondary in all states — the field border carries the focus signal */
+  color: var(--dt-color-text-secondary);
 }
 
 /* ── Adornments / clear ────────────────────── */
@@ -345,21 +329,11 @@ function onClear() {
 }
 
 /* ── Validation states ────────────────────── */
-.dt-input--error {
-  border-color: var(--dt-color-error);
-}
-.dt-input--error:focus-within {
-  border-color: var(--dt-color-error);
-  box-shadow: 0 0 0 3px var(--dt-error-100);
-}
+.dt-input--error           { border-color: var(--dt-color-error); }
+.dt-input--error:focus-within { border-color: var(--dt-color-error); }
 
-.dt-input--success {
-  border-color: var(--dt-color-success);
-}
-.dt-input--success:focus-within {
-  border-color: var(--dt-color-success);
-  box-shadow: 0 0 0 3px var(--dt-success-100);
-}
+.dt-input--success            { border-color: var(--dt-color-success); }
+.dt-input--success:focus-within { border-color: var(--dt-color-success); }
 
 /* ── Disabled ──────────────────────────────── */
 .dt-input--disabled {
