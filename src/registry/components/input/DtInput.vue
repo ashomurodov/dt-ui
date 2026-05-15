@@ -186,14 +186,18 @@ function onClear() {
   cursor: text;
 }
 
-/* Hover bg only applies to neutral inputs (no validation state) — error/success
-   keep their white bg + colored border so the signal stays clean. */
-.dt-input:hover:not(.dt-input--disabled):not(:focus-within):not(.dt-input--error):not(.dt-input--success) {
+/* Bg changes on hover/focus for ALL states (incl. error/success). */
+.dt-input:hover:not(.dt-input--disabled):not(:focus-within) {
   background: var(--dt-color-background-tertiary); /* gray-100 */
 }
 
-.dt-input:focus-within:not(.dt-input--disabled):not(.dt-input--error):not(.dt-input--success) {
+.dt-input:focus-within:not(.dt-input--disabled) {
   background: var(--dt-gray-50); /* lighter than hover */
+}
+
+/* Border color flips to accent on focus only when no validation state is set —
+   error/success keep their validation border in every interactive state. */
+.dt-input:focus-within:not(.dt-input--disabled):not(.dt-input--error):not(.dt-input--success) {
   border-color: var(--dt-color-accent);
 }
 
