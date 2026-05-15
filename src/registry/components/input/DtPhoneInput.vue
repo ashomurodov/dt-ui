@@ -242,7 +242,7 @@ watch(dropdownOpen, (open) => {
 }
 
 .dt-phone-prefix__chip :deep(svg) {
-  width: 60%;
+  width: 44%;
   height: auto;
   display: block;
   border-radius: 2px;
