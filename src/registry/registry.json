@@ -10,8 +10,8 @@
     },
     "input": {
       "name": "DtInput",
-      "description": "A text input with label, error, and hint support",
-      "files": ["DtInput.vue", "index.ts"],
+      "description": "Text input with 2 variants, 4 sizes, validation states, optional floating label, clearable. Plus DtPhoneInput (UZ + 4 neighbors) and DtPaymentInput (card-brand detection).",
+      "files": ["DtInput.vue", "DtPhoneInput.vue", "DtPaymentInput.vue", "countries.ts", "card-brands.ts", "index.ts"],
       "internalDeps": [],
       "peerDeps": [],
       "docs": "docs/input.md"

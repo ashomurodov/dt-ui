@@ -1,48 +1,59 @@
 # DtInput
 
-A text input component with built-in label, error message, and hint text support. Wraps a native `<input>` element and provides two-way binding through `v-model`. Automatically links the label and error/hint text to the input using generated or user-supplied `id` values for proper accessibility.
+Text input with two visual variants, four sizes, validation states (error / success), top or floating label, optional clear button, and `prefix` / `suffix` slots for icons and adornments. Wraps a native `<input>` and forwards all attributes via `$attrs`.
+
+The same package ships:
+
+- **`DtInput`** — the base component.
+- **`DtPhoneInput`** — country flag + dial code + masked national number (UZ default, RU/KZ/KG/TJ also built-in).
+- **`DtPaymentInput`** — card-number input with 4-digit grouping and built-in brand detection (Visa / Mastercard / Amex / UzCard / Humo).
 
 ## Import
 
 ```ts
-import { DtInput } from '@/components/ui/input'
+import {
+  DtInput,
+  DtPhoneInput,
+  DtPaymentInput,
+  type PhoneValue,
+  type CardBrand,
+} from '@/components/ui/input'
 ```
 
-## Props
+## DtInput props
 
 | Prop | Type | Default | Description |
 | ------ | ------ | --------- | ------------- |
-| `modelValue` | `string \| number` | `undefined` | The bound value. Use with `v-model`. |
-| `type` | `InputType` | `'text'` | The native input type. |
-| `placeholder` | `string` | `undefined` | Placeholder text shown when the input is empty. |
-| `disabled` | `boolean` | `false` | Disables the input (reduces opacity, sets `cursor: not-allowed`, and applies `--dt-color-background-tertiary` background). |
-| `error` | `string` | `undefined` | Error message text. When set, the input border turns red and the error message is displayed below the input. |
-| `hint` | `string` | `undefined` | Hint text displayed below the input. Only shown when `error` is not set. |
-| `id` | `string` | auto-generated | HTML `id` for the input element. If not provided, a random id (`dt-input-*`) is generated. Used to associate the label and describedby elements. |
+| `modelValue` | `string \| number` | — | Bound value (v-model). |
+| `type` | `string` | `'text'` | Native input type (text/email/password/number/search/tel/url/…). |
+| `variant` | `'primary' \| 'secondary'` | `'primary'` | Primary = white background with border. Secondary = filled, borderless until focus. |
+| `size` | `'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Height: 48 / 56 / 64 / 72 px. |
+| `label` | `string` | — | Label text. String-only — for custom markup, wrap externally. |
+| `labelPosition` | `'top' \| 'floating'` | `'top'` | `top` = external label above the field. `floating` = label sits inside, animates up on focus or when filled. |
+| `state` | `'error' \| 'success' \| undefined` | `undefined` | Validation state. Drives border color and message color. |
+| `message` | `string` | — | Helper / error / success message rendered below the field. |
+| `placeholder` | `string` | — | Native placeholder. Ignored visually when `labelPosition="floating"`. |
+| `disabled` | `boolean` | `false` | Native disabled. |
+| `clearable` | `boolean` | `false` | Shows a × button when the field has a value. Emits `clear` and clears `modelValue`. |
+| `id` | `string` | auto | HTML id for `<label for>` association. |
 
-### Type Reference
-
-```ts
-type InputType = 'text' | 'email' | 'password' | 'number' | 'search' | 'tel' | 'url'
-```
-
-## Slots
-
-| Slot | Description |
-| ------ | ------------- |
-| `label` | Content for the `<label>` element above the input. The label automatically receives a `for` attribute pointing to the input `id`. If this slot is empty, no label is rendered. |
-
-## Events
+## DtInput events
 
 | Event | Payload | Description |
 | ------- | --------- | ------------- |
-| `update:modelValue` | `string \| number` | Emitted on every input event. When `type="number"`, the value is coerced to `Number` before emitting. |
+| `update:modelValue` | `string \| number` | Standard v-model. |
+| `clear` | — | Fires when the × button is clicked. |
 
-All other native input events (`focus`, `blur`, `keydown`, etc.) are forwarded through `v-bind="attrs"` on the `<input>` element.
+## DtInput slots
 
-## Usage Examples
+| Slot | Description |
+| ------ | ------------- |
+| `prefix` | Leading adornment (icon, currency symbol, country flag, etc.). |
+| `suffix` | Trailing adornment (icon, unit, brand logo, etc.). |
 
-### Basic Text Input
+## Usage
+
+### Basic
 
 ```vue
 <script setup lang="ts">
@@ -53,116 +64,188 @@ const name = ref('')
 </script>
 
 <template>
-  <DtInput v-model="name" placeholder="Enter your name">
-    <template #label>Full Name</template>
-  </DtInput>
+  <DtInput v-model="name" label="Full name" placeholder="Your name" />
 </template>
 ```
 
-### Input with Validation Error and Hint
+### Variants and sizes
 
 ```vue
-<script setup lang="ts">
-import { ref, computed } from 'vue'
-import { DtInput } from '@/components/ui/input'
+<DtInput v-model="text" variant="primary"   label="Primary" />
+<DtInput v-model="text" variant="secondary" label="Secondary" />
 
-const email = ref('')
-
-const emailError = computed(() => {
-  if (!email.value) return undefined
-  return email.value.includes('@') ? undefined : 'Please enter a valid email address'
-})
-</script>
-
-<template>
-  <DtInput
-    v-model="email"
-    type="email"
-    placeholder="you@example.com"
-    :error="emailError"
-    hint="We will never share your email with anyone."
-  >
-    <template #label>Email Address</template>
-  </DtInput>
-</template>
+<DtInput v-model="text" size="sm" label="Small (48px)" />
+<DtInput v-model="text" size="md" label="Medium (56px)" />
+<DtInput v-model="text" size="lg" label="Large (64px)" />
+<DtInput v-model="text" size="xl" label="Extra Large (72px)" />
 ```
 
-### Composed with DtCard and DtButton for a Login Form
+### Floating label
+
+```vue
+<DtInput
+  v-model="email"
+  label="Email"
+  label-position="floating"
+  type="email"
+/>
+```
+
+CSS-only animation driven by `:placeholder-shown` + `:focus`. No JS, no flicker.
+
+### Validation
+
+```vue
+<DtInput v-model="email" label="Email"
+         state="error"
+         message="That doesn't look like a valid email" />
+
+<DtInput v-model="email" label="Email"
+         state="success"
+         message="Looks good" />
+
+<DtInput v-model="email" label="Hint"
+         message="At least 3 characters" />
+```
+
+`state` drives border and message color. `message` works in all three modes (hint / error / success).
+
+### Adornments
+
+```vue
+<DtInput v-model="search" label="Search" clearable>
+  <template #prefix>
+    <SearchIcon :size="18" />
+  </template>
+</DtInput>
+
+<DtInput v-model="text" label="Website">
+  <template #prefix><span>https://</span></template>
+  <template #suffix><span>.com</span></template>
+</DtInput>
+```
+
+## DtPhoneInput
+
+Composes `DtInput` with a country prefix dropdown and per-country mask.
+
+### Props
+
+| Prop | Type | Default | Description |
+| ------ | ------ | --------- | ------------- |
+| `modelValue` | `PhoneValue \| string` | — | `{ e164, country, national }` object or a raw E.164 string. Emits a `PhoneValue`. |
+| `defaultCountry` | `'UZ' \| 'RU' \| 'KZ' \| 'KG' \| 'TJ'` | `'UZ'` | Initial selected country. |
+| `allowedCountries` | `Array<…>` | all 5 | Restricts the dropdown. Pass `['UZ']` to lock the prefix entirely. |
+| ... | | | All other `DtInput` props are forwarded (`variant`, `size`, `label`, `labelPosition`, `state`, `message`, `disabled`). |
+
+### `PhoneValue`
+
+```ts
+interface PhoneValue {
+  /** Full international number, e.g. '+998901234567' (no spaces/parens). */
+  e164: string
+  /** ISO code of the selected country. */
+  country: 'UZ' | 'RU' | 'KZ' | 'KG' | 'TJ'
+  /** Masked national portion, e.g. '(90) 123 45 67'. */
+  national: string
+}
+```
+
+### Usage
 
 ```vue
 <script setup lang="ts">
 import { ref } from 'vue'
-import { DtInput } from '@/components/ui/input'
-import { DtButton } from '@/components/ui/button'
-import { DtCard, DtCardHeader, DtCardContent, DtCardFooter } from '@/components/ui/card'
+import { DtPhoneInput, type PhoneValue } from '@/components/ui/input'
 
-const email = ref('')
-const password = ref('')
-const loading = ref(false)
-
-async function submit() {
-  loading.value = true
-  // ... perform login
-  loading.value = false
-}
+const phone = ref<PhoneValue>({ e164: '', country: 'UZ', national: '' })
 </script>
 
 <template>
-  <DtCard :shadow="true" style="max-width: 24rem;">
-    <DtCardHeader>
-      <h3>Sign In</h3>
-      <p>Enter your credentials to access your account.</p>
-    </DtCardHeader>
-    <DtCardContent>
-      <div style="display: flex; flex-direction: column; gap: 1rem;">
-        <DtInput v-model="email" type="email" placeholder="you@example.com">
-          <template #label>Email</template>
-        </DtInput>
-        <DtInput v-model="password" type="password" placeholder="Your password">
-          <template #label>Password</template>
-        </DtInput>
-      </div>
-    </DtCardContent>
-    <DtCardFooter>
-      <DtButton :loading="loading" style="width: 100%;" @click="submit">
-        Sign In
-      </DtButton>
-    </DtCardFooter>
-  </DtCard>
+  <DtPhoneInput v-model="phone" label="Phone number" />
+</template>
+```
+
+When the user picks a different country the digits-only payload is preserved and reformatted with the new country's mask.
+
+## DtPaymentInput
+
+Composes `DtInput` with 4-digit grouping and brand detection. The brand-icon itself is **not shipped** — provide your own SVG/img via the `#brand` slot.
+
+### Props
+
+| Prop | Type | Default | Description |
+| ------ | ------ | --------- | ------------- |
+| `modelValue` | `string` | — | Formatted card number (with spaces). v-model. |
+| `maxDigits` | `number` | `16` | Max digits accepted. Use `15` for Amex-only forms. |
+| ... | | | All other `DtInput` props are forwarded. |
+
+### Events
+
+| Event | Payload | Description |
+| ------- | --------- | ------------- |
+| `update:modelValue` | `string` | Fires with the formatted (spaced) value on every keystroke. |
+| `brand-change` | `CardBrand` | Fires only when the detected brand changes. |
+
+### `CardBrand`
+
+```ts
+type CardBrand = 'visa' | 'mastercard' | 'amex' | 'uzcard' | 'humo' | 'unknown'
+```
+
+Detection rules:
+
+- **Visa** — starts with `4`
+- **Mastercard** — `51`–`55` or `2221`–`2720`
+- **Amex** — `34` or `37`
+- **UzCard** — `8600`, `5614`, or `6262`
+- **Humo** — `9860`
+
+### Usage
+
+```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+import { DtPaymentInput, type CardBrand } from '@/components/ui/input'
+
+const card = ref('')
+const brand = ref<CardBrand>('unknown')
+</script>
+
+<template>
+  <DtPaymentInput v-model="card" label="Card number"
+                  @brand-change="(b) => brand = b">
+    <template #brand="{ brand }">
+      <img v-if="brand === 'visa'"       src="/brands/visa.svg"       alt="Visa" />
+      <img v-else-if="brand === 'mastercard'" src="/brands/mc.svg"    alt="Mastercard" />
+      <span v-else aria-hidden="true">💳</span>
+    </template>
+  </DtPaymentInput>
 </template>
 ```
 
 ## CSS Custom Properties
 
-### Colors
-
 | Property | Usage |
 | ---------- | ------- |
-| `--dt-color-text` | Input text color and label color. |
-| `--dt-color-background` | Input background color. |
-| `--dt-color-background-tertiary` | Disabled input background color. |
-| `--dt-color-text-secondary` | Placeholder text color and hint text color. |
-| `--dt-color-border` | Default border color. |
-| `--dt-color-border-hover` | Border color on hover. |
-| `--dt-color-ring` | Border and box-shadow color on focus. |
-| `--dt-color-error` | Border and box-shadow color when `error` is set. Also used for error text color. |
-
-### Layout & Typography
-
-| Property | Usage |
-| ---------- | ------- |
-| `--dt-spacing-xs` | Gap between label, input, and error/hint elements. |
-| `--dt-radius-sm` | Input border-radius. |
-| `--dt-text-body-xs` | Error and hint text font size. |
-| `--dt-text-body-sm` | Label font size. |
-| `--dt-text-body-md` | Input text font size. |
-| `--dt-transition-base` | Duration/easing for border-color and box-shadow transitions. |
+| `--dt-color-background` | Primary variant background. |
+| `--dt-color-background-tertiary` | Secondary variant background. |
+| `--dt-color-border` | Idle border (primary). |
+| `--dt-color-border-hover` | Hover border (primary). |
+| `--dt-color-accent` | Focus border + floating label color when focused. |
+| `--dt-brand-100` | 3px focus ring. |
+| `--dt-color-error` / `--dt-error-100` | Error border + ring. |
+| `--dt-color-success` / `--dt-success-100` | Success border + ring. |
+| `--dt-color-text` / `--dt-color-text-secondary` / `--dt-color-text-tertiary` | Value text / labels / placeholder. |
+| `--dt-color-text-disabled` | Disabled value + placeholder. |
+| `--dt-radius-md` / `lg` / `xl` | Per-size radius. |
+| `--dt-text-body-sm` / `body-md` | Per-size font. |
 
 ## Accessibility
 
-- The `<label>` element uses a `for` attribute linked to the input `id`, providing a clickable label that focuses the input.
-- When `error` is set, `aria-invalid="true"` is added to the input, signaling the invalid state to assistive technologies.
-- The `aria-describedby` attribute is dynamically set to point at either the error element (id: `{id}-error`) or the hint element (id: `{id}-hint`), so screen readers announce the supplementary text when the input is focused.
-- Error messages are rendered with `role="alert"`, causing screen readers to announce them immediately when they appear.
-- The disabled state uses both the native `disabled` attribute and an opacity wrapper class, ensuring the input is removed from the tab order.
-- Focus styles use a visible box-shadow ring (`color-mix(in srgb, var(--dt-ring) 25%, transparent)`) in addition to the border color change, providing a clear visual indicator for keyboard users.
+- Native `<input>` + `<label for>` association via `id`.
+- `aria-invalid="true"` set when `state="error"`.
+- `aria-describedby` connects the `message` line to the input.
+- Floating label is CSS-only — no flicker, no JS state leak.
+- Phone dropdown uses real `role="listbox"` + `aria-selected` on options.
+- Clear button has an `aria-label="Clear"`.
