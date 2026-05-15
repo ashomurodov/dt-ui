@@ -173,7 +173,7 @@ watch(dropdownOpen, (open) => {
           :aria-expanded="visibleCountries.length > 1 ? dropdownOpen : undefined"
           @click="toggleDropdown"
         >
-          <span class="dt-phone-prefix__flag" aria-hidden="true">{{ country.flag }}</span>
+          <span class="dt-phone-prefix__flag" aria-hidden="true" v-html="country.flag" />
           <svg
             v-if="visibleCountries.length > 1"
             class="dt-phone-prefix__caret"
@@ -198,7 +198,7 @@ watch(dropdownOpen, (open) => {
             :aria-selected="c.code === country.code"
             @click="selectCountry(c)"
           >
-            <span class="dt-phone-prefix__option-flag" aria-hidden="true">{{ c.flag }}</span>
+            <span class="dt-phone-prefix__option-flag" aria-hidden="true" v-html="c.flag" />
             <span class="dt-phone-prefix__option-name">{{ c.name }}</span>
             <span class="dt-phone-prefix__option-dial">{{ c.dial }}</span>
           </li>
@@ -239,8 +239,33 @@ watch(dropdownOpen, (open) => {
 }
 
 .dt-phone-prefix__flag {
-  font-size: 1.25em;
-  line-height: 1;
+  display: inline-flex;
+  width: 20px;
+  height: 14px;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 2px;
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.1);
+}
+.dt-phone-prefix__flag :deep(svg) {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.dt-phone-prefix__option-flag {
+  display: inline-flex;
+  width: 20px;
+  height: 14px;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 2px;
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.1);
+}
+.dt-phone-prefix__option-flag :deep(svg) {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 .dt-phone-prefix__caret {

@@ -75,8 +75,9 @@ function onClear() {
       {{ label }}
     </label>
 
-    <div
+    <label
       class="dt-input"
+      :for="inputId"
       :class="[
         `dt-input--${variant}`,
         `dt-input--${size}`,
@@ -128,7 +129,7 @@ function onClear() {
       <span v-if="$slots.suffix" class="dt-input__adornment dt-input__adornment--end">
         <slot name="suffix" />
       </span>
-    </div>
+    </label>
 
     <p
       v-if="message"
