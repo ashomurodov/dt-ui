@@ -66,6 +66,30 @@
       "peerDeps": [],
       "docs": "docs/select.md"
     },
+    "dropdown-menu": {
+      "name": "DtDropdownMenu",
+      "description": "Floating menu with items, separators, labels, groups, checkbox/radio items, and nested submenus. Bring your own trigger via asChild.",
+      "files": [
+        "DtDropdownMenu.vue",
+        "DtDropdownMenuTrigger.vue",
+        "DtDropdownMenuContent.vue",
+        "DtDropdownMenuItem.vue",
+        "DtDropdownMenuSeparator.vue",
+        "DtDropdownMenuLabel.vue",
+        "DtDropdownMenuGroup.vue",
+        "DtDropdownMenuCheckboxItem.vue",
+        "DtDropdownMenuRadioGroup.vue",
+        "DtDropdownMenuRadioItem.vue",
+        "DtDropdownMenuSub.vue",
+        "DtDropdownMenuSubTrigger.vue",
+        "DtDropdownMenuSubContent.vue",
+        "index.ts"
+      ],
+      "internalDeps": [],
+      "dependencies": ["reka-ui@2.9.6"],
+      "peerDeps": [],
+      "docs": "docs/dropdown-menu.md"
+    },
     "toggle": {
       "name": "DtToggle",
       "description": "Switch toggle with 3 sizes and active/disabled states",
