@@ -9,6 +9,7 @@ const props = withDefaults(defineProps<{
   activeModule?: string
   envMode?: 'dev' | 'preprod' | 'prod'
   showModulesButton?: boolean
+  showProfileButton?: boolean
   modules?: DtModuleItem[]
   modulesTitle?: string
   modulesDescription?: string
@@ -17,6 +18,7 @@ const props = withDefaults(defineProps<{
   activeModule: 'cabinet',
   envMode: 'dev',
   showModulesButton: true,
+  showProfileButton: true,
   modules: () => [],
   modulesTitle: 'Modules',
   modulesDescription: '',
@@ -76,7 +78,7 @@ const openModules = (event: MouseEvent) => {
         </svg>
       </button>
 
-      <div class="dt-header__profile-wrapper">
+      <div v-if="showProfileButton" class="dt-header__profile-wrapper">
         <button
           class="dt-header__action-btn dt-header__profile-trigger"
           @click="$emit('toggle-profile')"
