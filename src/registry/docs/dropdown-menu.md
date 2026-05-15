@@ -43,14 +43,11 @@ import {
   DtDropdownMenuItem,
   DtDropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu'
-import { DtButton } from '@/components/ui/button'
 </script>
 
 <template>
   <DtDropdownMenu>
-    <DtDropdownMenuTrigger>
-      <DtButton>Open menu</DtButton>
-    </DtDropdownMenuTrigger>
+    <DtDropdownMenuTrigger label="Action" />
 
     <DtDropdownMenuContent>
       <DtDropdownMenuItem @select="copy">Copy</DtDropdownMenuItem>
@@ -60,6 +57,32 @@ import { DtButton } from '@/components/ui/button'
     </DtDropdownMenuContent>
   </DtDropdownMenu>
 </template>
+```
+
+### Icon-only trigger
+
+```vue
+<DtDropdownMenu>
+  <DtDropdownMenuTrigger icon-only />
+  <DtDropdownMenuContent align="end">
+    <DtDropdownMenuItem>Edit</DtDropdownMenuItem>
+    <DtDropdownMenuItem>Duplicate</DtDropdownMenuItem>
+    <DtDropdownMenuSeparator />
+    <DtDropdownMenuItem destructive>Delete</DtDropdownMenuItem>
+  </DtDropdownMenuContent>
+</DtDropdownMenu>
+```
+
+The default icon is a vertical three-dot glyph; pass any 16px SVG via the default slot to override.
+
+### Custom trigger (BYO)
+
+For full control, set `as-child` and slot your own element. `as-child` defers all styling and chevron rendering to your element.
+
+```vue
+<DtDropdownMenuTrigger as-child>
+  <DtButton variant="outline">Open menu</DtButton>
+</DtDropdownMenuTrigger>
 ```
 
 ### Items with leading icon
@@ -150,11 +173,22 @@ The default slot receives helpers for programmatic control.
 
 ## DtDropdownMenuTrigger
 
-Wraps Reka `DropdownMenuTrigger`. `asChild` is `true` by default so usage like `<DtDropdownMenuTrigger><DtButton /></DtDropdownMenuTrigger>` merges the trigger behavior onto the slotted child and avoids nested buttons.
+Renders an opinionated button trigger by default — white surface, gray-200 border, `--dt-shadow-xs`, `--dt-radius-sm` (8px), trailing chevron-down that rotates 180° when the menu is open. Pass `icon-only` for a square icon trigger (default glyph: vertical three dots). For full BYO, set `as-child` and slot your own element.
+
+The default-slot content (or `label` prop) becomes the visible text in button mode; in `icon-only` mode the default slot becomes the icon (override the three-dot default with any 16px SVG).
 
 | Prop | Type | Default | Description |
 | ------ | ------ | --------- | ------------- |
-| `asChild` | `boolean` | `true` | Merge trigger behavior into the slotted child. |
+| `asChild` | `boolean` | `false` | Render the slotted element as the trigger. All built-in styling is skipped. |
+| `iconOnly` | `boolean` | `false` | Render a square icon-only trigger. Default glyph is a vertical three-dot. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Button: 32 / 36 / 40 px. Icon: 24 / 32 / 40 px square. |
+| `disabled` | `boolean` | `false` | Disabled state. |
+| `label` | `string` | — | Convenience label for button mode. Default slot wins. |
+
+| Slot | Description |
+| ------ | ------------- |
+| `default` | Button mode: label text or rich label content. Icon mode: 16px icon override. |
+| `leading` | Button mode only — leading 16px icon. |
 
 ## DtDropdownMenuContent
 
