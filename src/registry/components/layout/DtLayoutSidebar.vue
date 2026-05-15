@@ -426,6 +426,7 @@ const DtSidebarItem = defineComponent({
   top: var(--dt-header-height);
   align-self: start;
   padding-left: var(--dt-spacing-3xl);
+  padding-bottom: var(--dt-spacing-3xl);
   margin: 0 calc(var(--dt-spacing-xl) * -1);
   max-height: calc(100vh - var(--dt-header-height));
   overflow-x: hidden;
