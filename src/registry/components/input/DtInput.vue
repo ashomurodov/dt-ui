@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, useAttrs } from 'vue'
+import { computed, nextTick, ref, useAttrs } from 'vue'
 
 export type InputVariant = 'primary' | 'secondary'
 export type InputSize = 'sm' | 'md' | 'lg' | 'xl'
@@ -53,12 +53,22 @@ const effectivePlaceholder = computed(() => {
   return props.placeholder
 })
 
-function onInput(event: Event) {
+async function onInput(event: Event) {
   const target = event.target as HTMLInputElement
   const value = props.type === 'number' && target.value !== ''
     ? Number(target.value)
     : target.value
   emit('update:modelValue', value)
+
+  // Re-sync the DOM after parent reactivity settles. Handles the case where
+  // the parent masked/normalized the input back to the same value Vue was
+  // already bound to (e.g. typing past a phone mask's digit limit) — without
+  // this, Vue skips the re-render and the DOM keeps the overflowed text.
+  await nextTick()
+  const expected = props.modelValue == null ? '' : String(props.modelValue)
+  if (target.value !== expected) {
+    target.value = expected
+  }
 }
 
 function onClear() {
