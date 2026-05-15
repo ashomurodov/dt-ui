@@ -186,12 +186,14 @@ function onClear() {
   cursor: text;
 }
 
-.dt-input:hover:not(.dt-input--disabled):not(:focus-within) {
-  background: var(--dt-color-background-tertiary);
+/* Hover bg only applies to neutral inputs (no validation state) — error/success
+   keep their white bg + colored border so the signal stays clean. */
+.dt-input:hover:not(.dt-input--disabled):not(:focus-within):not(.dt-input--error):not(.dt-input--success) {
+  background: var(--dt-color-background-tertiary); /* gray-100 */
 }
 
-.dt-input:focus-within:not(.dt-input--disabled) {
-  background: var(--dt-color-background-tertiary);
+.dt-input:focus-within:not(.dt-input--disabled):not(.dt-input--error):not(.dt-input--success) {
+  background: var(--dt-gray-50); /* lighter than hover */
   border-color: var(--dt-color-accent);
 }
 
