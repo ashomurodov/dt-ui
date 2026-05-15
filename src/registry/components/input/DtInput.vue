@@ -18,6 +18,8 @@ const props = withDefaults(defineProps<{
   placeholder?: string
   disabled?: boolean
   clearable?: boolean
+  /** Reduce left padding so a chip-style prefix (e.g. phone flag) can sit close to the edge. */
+  compactPrefix?: boolean
   id?: string
 }>(), {
   type: 'text',
@@ -26,6 +28,7 @@ const props = withDefaults(defineProps<{
   labelPosition: 'top',
   disabled: false,
   clearable: false,
+  compactPrefix: false,
 })
 
 const emit = defineEmits<{
@@ -85,6 +88,7 @@ function onClear() {
         state && `dt-input--${state}`,
         disabled && 'dt-input--disabled',
         hasValue && 'dt-input--has-value',
+        compactPrefix && 'dt-input--compact-prefix',
       ]"
     >
       <span v-if="$slots.prefix" class="dt-input__adornment dt-input__adornment--start">
@@ -223,6 +227,10 @@ function onClear() {
   font-size: 18px;
   border-width: 2px;
 }
+
+/* Compact-prefix mode: shrink the left padding so a chip prefix sits close to the edge. */
+.dt-input--compact-prefix { padding-left: var(--dt-spacing-sm); }
+.dt-input--compact-prefix .dt-input__adornment--start { margin-right: var(--dt-spacing-md); }
 
 /* ── Native input ──────────────────────────── */
 .dt-input__field-wrap {

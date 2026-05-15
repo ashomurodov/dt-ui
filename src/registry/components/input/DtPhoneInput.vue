@@ -157,32 +157,27 @@ watch(dropdownOpen, (open) => {
     :message="message"
     :placeholder="placeholder"
     :disabled="disabled"
+    :compact-prefix="true"
     inputmode="tel"
     autocomplete="tel-national"
     v-bind="attrs"
     @update:model-value="onNationalInput"
   >
     <template #prefix>
-      <div class="dt-phone-prefix">
+      <div class="dt-phone-prefix" :class="`dt-phone-prefix--${size}`">
         <button
           ref="triggerRef"
           type="button"
           class="dt-phone-prefix__trigger"
-          :disabled="disabled"
+          :disabled="disabled || visibleCountries.length <= 1"
           :aria-haspopup="visibleCountries.length > 1 ? 'listbox' : undefined"
           :aria-expanded="visibleCountries.length > 1 ? dropdownOpen : undefined"
+          :aria-label="visibleCountries.length > 1 ? `Country: ${country.name}` : country.name"
           @click="toggleDropdown"
         >
-          <span class="dt-phone-prefix__flag" aria-hidden="true" v-html="country.flag" />
-          <svg
-            v-if="visibleCountries.length > 1"
-            class="dt-phone-prefix__caret"
-            viewBox="0 0 12 12" fill="none" aria-hidden="true"
-          >
-            <path d="M3 5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-          <span class="dt-phone-prefix__dial">{{ country.dial }}</span>
+          <span class="dt-phone-prefix__chip" aria-hidden="true" v-html="country.flag" />
         </button>
+        <span class="dt-phone-prefix__dial">{{ country.dial }}</span>
 
         <ul
           v-if="dropdownOpen && visibleCountries.length > 1"
@@ -213,24 +208,22 @@ watch(dropdownOpen, (open) => {
   position: relative;
   display: inline-flex;
   align-items: center;
+  gap: var(--dt-spacing-sm);
 }
 
+/* Flag chip — clickable when there's a country dropdown. */
 .dt-phone-prefix__trigger {
   display: inline-flex;
-  align-items: center;
-  gap: var(--dt-spacing-xs);
   padding: 0;
   border: 0;
   background: transparent;
-  color: var(--dt-color-text);
-  font: inherit;
   cursor: pointer;
-  border-radius: var(--dt-radius-xs);
+  border-radius: var(--dt-radius-md);
+  flex-shrink: 0;
 }
 
 .dt-phone-prefix__trigger:disabled {
-  cursor: not-allowed;
-  color: var(--dt-color-text-disabled);
+  cursor: default;
 }
 
 .dt-phone-prefix__trigger:focus-visible {
@@ -238,25 +231,37 @@ watch(dropdownOpen, (open) => {
   outline-offset: 2px;
 }
 
-.dt-phone-prefix__flag {
+.dt-phone-prefix__chip {
   display: inline-flex;
-  width: 20px;
-  height: 14px;
-  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  background: var(--dt-color-background-tertiary);
+  border-radius: var(--dt-radius-md);
   overflow: hidden;
-  border-radius: 2px;
-  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.1);
+  transition: background-color var(--dt-transition-fast);
 }
-.dt-phone-prefix__flag :deep(svg) {
-  width: 100%;
-  height: 100%;
+
+.dt-phone-prefix__chip :deep(svg) {
+  width: 60%;
+  height: auto;
   display: block;
+  border-radius: 2px;
 }
+
+.dt-phone-prefix__trigger:not(:disabled):hover .dt-phone-prefix__chip {
+  background: var(--dt-gray-200);
+}
+
+/* Chip scales with the input size. */
+.dt-phone-prefix--sm .dt-phone-prefix__chip { width: 36px; height: 36px; }
+.dt-phone-prefix--md .dt-phone-prefix__chip { width: 44px; height: 44px; }
+.dt-phone-prefix--lg .dt-phone-prefix__chip { width: 50px; height: 50px; }
+.dt-phone-prefix--xl .dt-phone-prefix__chip { width: 56px; height: 56px; }
 
 .dt-phone-prefix__option-flag {
   display: inline-flex;
-  width: 20px;
-  height: 14px;
+  width: 24px;
+  height: 18px;
   flex-shrink: 0;
   overflow: hidden;
   border-radius: 2px;
@@ -268,14 +273,7 @@ watch(dropdownOpen, (open) => {
   display: block;
 }
 
-.dt-phone-prefix__caret {
-  width: 12px;
-  height: 12px;
-  color: var(--dt-color-text-secondary);
-}
-
 .dt-phone-prefix__dial {
-  margin-left: var(--dt-spacing-xs);
   color: var(--dt-color-text);
 }
 
