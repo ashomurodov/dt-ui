@@ -32,6 +32,14 @@
       "peerDeps": [],
       "docs": "docs/badge.md"
     },
+    "badge-group": {
+      "name": "DtBadgeGroup",
+      "description": "Inline announcement badge: pill or modern style, leading or trailing layout, five colors, two sizes, optional link.",
+      "files": ["DtBadgeGroup.vue", "index.ts"],
+      "internalDeps": [],
+      "peerDeps": [],
+      "docs": "docs/badge-group.md"
+    },
     "avatar": {
       "name": "DtAvatar",
       "description": "User avatar with image, initials, or icon fallback. Six sizes, optional status indicator, label-group composition, stacked group, and add-button.",
