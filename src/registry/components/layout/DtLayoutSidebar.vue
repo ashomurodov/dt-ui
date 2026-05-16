@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, computed, defineComponent, h, resolveComponent, Transition, watch } from 'vue'
+import { ref, computed, defineComponent, h, provide, resolveComponent, Transition, watch, onMounted, onBeforeUnmount, type InjectionKey, type WritableComputedRef, type ComputedRef } from 'vue'
 import type { PropType } from 'vue'
 
 export interface DtNavItem {
@@ -29,19 +29,37 @@ export interface DtNavSection {
   collapsible?: boolean
 }
 
+export type DtSidebarMobileMode = 'drawer' | 'bottom'
+
+export interface DtSidebarContext {
+  drawerOpen: WritableComputedRef<boolean>
+  mobileMode: ComputedRef<DtSidebarMobileMode>
+  toggleDrawer: () => void
+  openDrawer: () => void
+  closeDrawer: () => void
+}
+
+export const DT_SIDEBAR_INJECTION_KEY: InjectionKey<DtSidebarContext> = Symbol('dt-layout-sidebar')
+
 const props = withDefaults(defineProps<{
   items: DtNavItem[]
   sections?: DtNavSection[]
   mobileItems?: number
+  mobileMode?: DtSidebarMobileMode
+  drawerOpen?: boolean
+  defaultDrawerOpen?: boolean
   openKeys?: string[]
   defaultOpenKeys?: string[]
 }>(), {
   mobileItems: 5,
+  mobileMode: 'drawer',
+  defaultDrawerOpen: false,
   defaultOpenKeys: () => [],
 })
 
 const emit = defineEmits<{
   'update:openKeys': [keys: string[]]
+  'update:drawerOpen': [open: boolean]
   'item-click': [payload: DtSidebarItemClickPayload]
 }>()
 
@@ -128,6 +146,59 @@ const toggleItem = (key: string) => {
   setOpenKeys([...activeOpenKeys.value, key])
 }
 
+// ── Drawer state ─────────────────────────────────
+const isDrawerControlled = computed(() => props.drawerOpen !== undefined)
+const internalDrawerOpen = ref(props.defaultDrawerOpen)
+
+const drawerOpenValue = computed(() => {
+  return isDrawerControlled.value ? !!props.drawerOpen : internalDrawerOpen.value
+})
+
+const setDrawerOpen = (next: boolean) => {
+  if (!isDrawerControlled.value) {
+    internalDrawerOpen.value = next
+  }
+  emit('update:drawerOpen', next)
+}
+
+const openDrawer = () => setDrawerOpen(true)
+const closeDrawer = () => setDrawerOpen(false)
+const toggleDrawer = () => setDrawerOpen(!drawerOpenValue.value)
+
+const drawerOpenWritable = computed<boolean>({
+  get: () => drawerOpenValue.value,
+  set: (val) => setDrawerOpen(val),
+})
+
+const mobileModeRef = computed(() => props.mobileMode)
+
+provide(DT_SIDEBAR_INJECTION_KEY, {
+  drawerOpen: drawerOpenWritable,
+  mobileMode: mobileModeRef,
+  toggleDrawer,
+  openDrawer,
+  closeDrawer,
+})
+
+// Close drawer on Escape
+const onKeydown = (event: KeyboardEvent) => {
+  if (event.key === 'Escape' && drawerOpenValue.value) {
+    closeDrawer()
+  }
+}
+
+onMounted(() => {
+  if (typeof window !== 'undefined') {
+    window.addEventListener('keydown', onKeydown)
+  }
+})
+
+onBeforeUnmount(() => {
+  if (typeof window !== 'undefined') {
+    window.removeEventListener('keydown', onKeydown)
+  }
+})
+
 const handleItemClick = (
   item: DtNavItem,
   event: MouseEvent,
@@ -142,6 +213,11 @@ const handleItemClick = (
   const payload = { item, event, level, parentKey }
   emit('item-click', payload)
   void item.onClick?.(payload)
+
+  // Close drawer when navigating via a leaf item with a route target
+  if (drawerOpenValue.value && item.to && !item.children?.length) {
+    closeDrawer()
+  }
 }
 
 watch(
@@ -166,6 +242,12 @@ const visibleSections = computed(() => {
 })
 
 const mobileVisibleItems = computed(() => visibleItems.value.slice(0, props.mobileItems))
+
+const sidebarClasses = computed(() => [
+  'dt-sidebar',
+  `dt-sidebar--${props.mobileMode}`,
+  props.mobileMode === 'drawer' && drawerOpenValue.value && 'dt-sidebar--drawer-open',
+])
 
 const DtSidebarItem = defineComponent({
   name: 'DtSidebarItem',
@@ -337,8 +419,31 @@ const DtSidebarItem = defineComponent({
 </script>
 
 <template>
-  <div class="dt-sidebar">
-    <!-- Desktop nav -->
+  <!-- Backdrop for drawer mode -->
+  <Transition name="dt-sidebar-backdrop">
+    <div
+      v-if="mobileMode === 'drawer' && drawerOpenValue"
+      class="dt-sidebar-backdrop"
+      aria-hidden="true"
+      @click="closeDrawer"
+    />
+  </Transition>
+
+  <div :class="sidebarClasses">
+    <!-- Drawer close button (mobile + drawer mode only — visible when open) -->
+    <button
+      v-if="mobileMode === 'drawer'"
+      class="dt-sidebar__close"
+      type="button"
+      aria-label="Close navigation"
+      @click="closeDrawer"
+    >
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </button>
+
+    <!-- Desktop / drawer nav -->
     <nav class="dt-sidebar__nav dt-sidebar__nav--desktop">
       <div v-if="$slots.top" class="dt-sidebar__slot dt-sidebar__slot--top">
         <slot name="top" />
@@ -393,8 +498,8 @@ const DtSidebarItem = defineComponent({
       <slot name="desktop-extra" />
     </nav>
 
-    <!-- Mobile bottom nav -->
-    <nav class="dt-sidebar__nav dt-sidebar__nav--mobile">
+    <!-- Mobile bottom nav (rendered only when mobileMode === 'bottom') -->
+    <nav v-if="mobileMode === 'bottom'" class="dt-sidebar__nav dt-sidebar__nav--mobile">
       <DtSidebarItem
         v-for="item in mobileVisibleItems"
         :key="getItemKey(item)"
@@ -691,9 +796,93 @@ const DtSidebarItem = defineComponent({
   overflow: hidden;
 }
 
-/* Mobile */
+/* Drawer close button (rendered only inside .dt-sidebar--drawer) */
+.dt-sidebar__close {
+  display: none;
+  position: absolute;
+  top: var(--dt-spacing-lg);
+  right: var(--dt-spacing-lg);
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid var(--dt-color-border);
+  border-radius: var(--dt-radius-sm);
+  background: var(--dt-color-background);
+  color: var(--dt-color-icon-dark);
+  cursor: pointer;
+  z-index: 1;
+  transition: background-color var(--dt-transition-fast),
+    border-color var(--dt-transition-fast);
+}
+
+.dt-sidebar__close:hover,
+.dt-sidebar__close:focus-visible {
+  background: var(--dt-color-background-secondary);
+  border-color: var(--dt-color-border-hover);
+  outline: none;
+}
+
+.dt-sidebar__close svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Backdrop (drawer mode only) */
+.dt-sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 39;
+  background-color: var(--dt-color-overlay);
+}
+
+.dt-sidebar-backdrop-enter-active,
+.dt-sidebar-backdrop-leave-active {
+  transition: opacity var(--dt-transition-base);
+}
+
+.dt-sidebar-backdrop-enter-from,
+.dt-sidebar-backdrop-leave-to {
+  opacity: 0;
+}
+
+/* ── Mobile (≤1024px) ────────────────────────── */
 @media (max-width: 1024px) {
-  .dt-sidebar {
+  /* Drawer mode (default): off-canvas left, slide-in */
+  .dt-sidebar--drawer {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 280px;
+    max-width: 80vw;
+    max-height: 100vh;
+    height: 100vh;
+    z-index: 40;
+    margin: 0;
+    padding: var(--dt-spacing-xl) var(--dt-spacing-lg);
+    padding-bottom: var(--dt-spacing-3xl);
+    border-right: 1px solid var(--dt-color-border-light);
+    transform: translateX(-100%);
+    transition: transform var(--dt-transition-base);
+    overflow-y: auto;
+  }
+
+  .dt-sidebar--drawer.dt-sidebar--drawer-open {
+    transform: translateX(0);
+  }
+
+  .dt-sidebar--drawer .dt-sidebar__nav--desktop {
+    display: flex;
+  }
+
+  .dt-sidebar--drawer .dt-sidebar__close {
+    display: inline-flex;
+  }
+
+  /* Bottom mode (opt-in): horizontal bar at bottom */
+  .dt-sidebar--bottom {
     top: unset;
     width: 100%;
     max-width: 100%;
@@ -709,14 +898,15 @@ const DtSidebarItem = defineComponent({
     background-color: var(--dt-color-background);
     border-top: 1px solid var(--dt-color-border-light);
     padding-left: 0;
+    padding-bottom: 0;
     margin: 0;
   }
 
-  .dt-sidebar__nav--desktop {
+  .dt-sidebar--bottom .dt-sidebar__nav--desktop {
     display: none;
   }
 
-  .dt-sidebar__nav--mobile {
+  .dt-sidebar--bottom .dt-sidebar__nav--mobile {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -726,11 +916,11 @@ const DtSidebarItem = defineComponent({
     max-width: 600px;
   }
 
-  .dt-sidebar__nav--mobile .dt-sidebar__item {
+  .dt-sidebar--bottom .dt-sidebar__nav--mobile .dt-sidebar__item {
     flex: 0 0 auto;
   }
 
-  .dt-sidebar__nav--mobile .dt-sidebar__link {
+  .dt-sidebar--bottom .dt-sidebar__nav--mobile .dt-sidebar__link {
     flex-direction: column;
     gap: var(--dt-spacing-xs);
     padding: var(--dt-spacing-sm);
@@ -741,8 +931,8 @@ const DtSidebarItem = defineComponent({
     font-size: var(--dt-text-body-xs);
   }
 
-  .dt-sidebar__nav--mobile .dt-sidebar__link-label,
-  .dt-sidebar__nav--mobile .dt-sidebar__link span:not(.dt-sidebar__icon-slot):not(.dt-sidebar__badge) {
+  .dt-sidebar--bottom .dt-sidebar__nav--mobile .dt-sidebar__link-label,
+  .dt-sidebar--bottom .dt-sidebar__nav--mobile .dt-sidebar__link span:not(.dt-sidebar__icon-slot):not(.dt-sidebar__badge) {
     max-width: 60px;
     text-align: center;
   }

@@ -17,7 +17,6 @@ withDefaults(defineProps<{
 
 <style scoped>
 .dt-page-view {
-  padding: var(--dt-spacing-3xl);
   padding-bottom: var(--dt-spacing-6xl);
   margin: 0 auto;
 }
@@ -29,11 +28,7 @@ withDefaults(defineProps<{
   margin: 0 0 var(--dt-spacing-3xl) 0;
 }
 
-@media (max-width: 768px) {
-  .dt-page-view {
-    padding: var(--dt-spacing-xl);
-  }
-
+@media (max-width: 1024px) {
   .dt-page-view__title {
     font-size: var(--dt-text-h3);
     margin-bottom: var(--dt-spacing-xl);

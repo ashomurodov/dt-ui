@@ -47,6 +47,7 @@
   grid-area: content;
   min-width: 0;
   overflow: hidden;
+  padding: var(--dt-spacing-3xl);
 }
 
 @media (max-width: 1024px) {
@@ -55,16 +56,13 @@
     grid-auto-columns: 1fr;
   }
 
+  /* Sidebar self-positions on mobile (drawer or bottom-nav) */
   .dt-layout__sidebar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 40;
+    display: contents;
   }
 
   .dt-layout__content {
-    padding-bottom: var(--dt-mobile-nav-height);
+    padding: var(--dt-spacing-lg);
   }
 }
 </style>

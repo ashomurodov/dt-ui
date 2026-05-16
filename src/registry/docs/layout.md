@@ -36,15 +36,15 @@ The root shell. Uses CSS Grid to position sidebar and content side-by-side on de
 | Slot | Description |
 | ------ | ------------- |
 | `header` | Place `DtLayoutHeader` here. Renders in a sticky header area. |
-| `sidebar` | Place `DtLayoutSidebar` here. Desktop: sticky sidebar. Mobile: fixed bottom nav. |
-| `default` | Page content (`<router-view />`). |
+| `sidebar` | Place `DtLayoutSidebar` here. Desktop: sticky sidebar. Mobile: off-canvas drawer (default) or fixed bottom nav (opt-in). |
+| `default` | Page content (`<router-view />`). Padded `24px` on desktop, `12px` on mobile. |
 | `footer` | Optional footer, rendered after the main grid. |
 
 ---
 
 ### DtLayoutHeader
 
-Pre-styled header with logo area, badge, module switcher button, and profile avatar button. Height: 84px desktop, 76px mobile.
+Pre-styled header with logo area, badge, module switcher button, and profile avatar button. Height: 60px desktop, 50px mobile. Automatically renders a mobile hamburger trigger that toggles the sidebar drawer (via `provide`/`inject` from `DtLayoutSidebar`).
 
 #### Props
 
@@ -56,6 +56,8 @@ Pre-styled header with logo area, badge, module switcher button, and profile ava
 | `activeModule` | `string` | `'cabinet'` | Current module key. Highlights the matching item in the modules modal. |
 | `envMode` | `'dev' \| 'preprod' \| 'prod'` | `'dev'` | Legacy compatibility prop. The built-in modal does not use it. |
 | `showModulesButton` | `boolean` | `true` | Whether to show the grid modules button. |
+| `showProfileButton` | `boolean` | `true` | Whether to show the profile avatar button. |
+| `showMobileTrigger` | `boolean` | `true` | Whether to show the mobile hamburger toggle (visible only on mobile when a sidebar with `mobileMode: 'drawer'` is present). |
 | `modules` | `DtModuleItem[]` | `[]` | Items shown in the built-in modules modal. |
 | `modulesTitle` | `string` | `'Modules'` | Optional modal title. |
 | `modulesDescription` | `string` | `''` | Optional modal description. |
@@ -106,7 +108,7 @@ Use `href` for normal navigation, `onClick` for app-owned behavior, `logo` for i
 
 ### DtLayoutSidebar
 
-Config-driven sidebar navigation. Desktop: sticky scrollable sidebar with collapsible sections. Mobile: fixed bottom nav showing first N items.
+Config-driven sidebar navigation. Desktop: sticky scrollable sidebar with collapsible sections. Mobile: **off-canvas drawer** by default (slides in from the left, toggled by the header's hamburger), or fixed bottom nav (`mobileMode: 'bottom'`).
 
 #### Props
 
@@ -114,7 +116,20 @@ Config-driven sidebar navigation. Desktop: sticky scrollable sidebar with collap
 | ------ | ------ | --------- | ------------- |
 | `items` | `DtNavItem[]` | **required** | Main navigation items. |
 | `sections` | `DtNavSection[]` | `[]` | Optional collapsible grouped sections below the main items. |
-| `mobileItems` | `number` | `5` | Number of items visible in the mobile bottom nav. |
+| `mobileMode` | `'drawer' \| 'bottom'` | `'drawer'` | Mobile presentation: left-side drawer (default) or fixed bottom nav. |
+| `mobileItems` | `number` | `5` | Number of items visible in the mobile bottom nav (when `mobileMode: 'bottom'`). |
+| `drawerOpen` | `boolean` | `undefined` | Controlled drawer open state. Use with `v-model:drawerOpen`. |
+| `defaultDrawerOpen` | `boolean` | `false` | Initial drawer open state when uncontrolled. |
+| `openKeys` | `string[]` | `undefined` | Controlled list of expanded child-group keys. |
+| `defaultOpenKeys` | `string[]` | `[]` | Initial expanded keys when uncontrolled. |
+
+#### Events
+
+| Event | Payload | Description |
+| ------- | --------- | ------------- |
+| `update:drawerOpen` | `boolean` | Emitted when the mobile drawer is opened or closed. |
+| `update:openKeys` | `string[]` | Emitted when an expandable group is toggled. |
+| `item-click` | `DtSidebarItemClickPayload` | Emitted on any nav item click. |
 
 #### Types
 
@@ -144,7 +159,8 @@ interface DtNavSection {
 - Active route highlighting via Vue Router's `router-link-active` class.
 - Collapsible sections with animated chevron (90° rotation) and slide transition.
 - Desktop: 246px wide, sticky, hidden scrollbar, max-height to viewport.
-- Mobile (≤1024px): Fixed bottom bar, horizontal layout, first N items shown.
+- Mobile drawer mode (default): off-canvas left drawer, 280px wide (max 80vw), backdrop, Escape to close, auto-closes when a leaf nav item is clicked. The header's hamburger trigger toggles it via `provide`/`inject`.
+- Mobile bottom mode (opt-in via `mobileMode="bottom"`): horizontal bar fixed at the bottom, shows first N items.
 
 ---
 
@@ -349,6 +365,5 @@ All layout components use `--dt-*` tokens from `base.css`. Key tokens:
 
 | Breakpoint | Behavior |
 | ----------- | ---------- |
-| > 1024px | Sidebar: sticky left column. Header: 84px. |
-| ≤ 1024px | Sidebar: fixed bottom nav. Header: 76px. Content: 80px bottom padding. |
-| ≤ 768px | DtPageView: reduced padding, smaller title. |
+| > 1024px | Sidebar: sticky left column. Header: 60px. Content padding: 24px. |
+| ≤ 1024px | Sidebar: off-canvas drawer (or bottom nav with `mobileMode="bottom"`). Header: 50px + hamburger trigger. Content padding: 12px. |
