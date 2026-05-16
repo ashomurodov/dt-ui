@@ -59,7 +59,9 @@ provide('dt-layout-sidebar', {
 .dt-layout__main {
   display: grid;
   grid-template-areas: 'sidebar content';
-  grid-auto-columns: minmax(var(--dt-sidebar-width, 240px), auto) 1fr;
+  /* Fixed sidebar column so wide #top slot content doesn't grow the column
+     (consumers can override --dt-sidebar-width). Content area gets the rest. */
+  grid-template-columns: var(--dt-sidebar-width, 240px) 1fr;
 }
 
 .dt-layout__sidebar {
@@ -77,7 +79,7 @@ provide('dt-layout-sidebar', {
 @media (max-width: 1024px) {
   .dt-layout__main {
     grid-template-areas: 'content';
-    grid-auto-columns: 1fr;
+    grid-template-columns: 1fr;
   }
 
   /* Sidebar self-positions on mobile (drawer or bottom-nav) */
