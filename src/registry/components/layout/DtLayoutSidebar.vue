@@ -418,6 +418,19 @@ const DtSidebarItem = defineComponent({
 </script>
 
 <template>
+  <!-- Floating open trigger (mobile + drawer mode + drawer closed) -->
+  <button
+    v-if="mobileMode === 'drawer' && !drawerOpenValue"
+    class="dt-sidebar-trigger"
+    type="button"
+    aria-label="Open navigation"
+    @click="openDrawer"
+  >
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+  </button>
+
   <!-- Backdrop for drawer mode -->
   <Transition name="dt-sidebar-backdrop">
     <div
@@ -793,6 +806,42 @@ const DtSidebarItem = defineComponent({
   max-height: 0;
   opacity: 0;
   overflow: hidden;
+}
+
+/* Floating open trigger (mobile only, drawer mode, drawer closed) */
+.dt-sidebar-trigger {
+  display: none;
+  position: fixed;
+  top: var(--dt-header-height-mobile);
+  left: 0;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--dt-color-icon-dark);
+  cursor: pointer;
+  z-index: 35;
+  transition: background-color var(--dt-transition-fast);
+}
+
+.dt-sidebar-trigger:hover,
+.dt-sidebar-trigger:focus-visible {
+  background: var(--dt-color-background-secondary);
+  outline: none;
+}
+
+.dt-sidebar-trigger svg {
+  width: 20px;
+  height: 20px;
+}
+
+@media (max-width: 1024px) {
+  .dt-sidebar-trigger {
+    display: inline-flex;
+  }
 }
 
 /* Drawer close button (rendered only inside .dt-sidebar--drawer) */

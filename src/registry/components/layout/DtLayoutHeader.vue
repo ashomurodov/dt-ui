@@ -1,7 +1,6 @@
 <script lang="ts" setup>
-import { computed, inject, ref } from 'vue'
+import { computed, ref } from 'vue'
 import DtModulesModal, { type DtModuleClickPayload, type DtModuleItem } from './DtModulesModal.vue'
-import type { DtSidebarContext } from './DtLayoutSidebar.vue'
 
 const props = withDefaults(defineProps<{
   badge?: string
@@ -11,7 +10,6 @@ const props = withDefaults(defineProps<{
   envMode?: 'dev' | 'preprod' | 'prod'
   showModulesButton?: boolean
   showProfileButton?: boolean
-  showMobileTrigger?: boolean
   modules?: DtModuleItem[]
   modulesTitle?: string
   modulesDescription?: string
@@ -21,7 +19,6 @@ const props = withDefaults(defineProps<{
   envMode: 'dev',
   showModulesButton: true,
   showProfileButton: true,
-  showMobileTrigger: true,
   modules: () => [],
   modulesTitle: 'Modules',
   modulesDescription: '',
@@ -51,34 +48,11 @@ const openModules = (event: MouseEvent) => {
   }
 }
 
-const sidebarCtx = inject<DtSidebarContext | null>('dt-layout-sidebar', null)
-
-const showHamburger = computed(() => {
-  if (!props.showMobileTrigger) return false
-  if (!sidebarCtx) return false
-  return sidebarCtx.mobileMode.value === 'drawer'
-})
-
-const onHamburgerClick = () => {
-  sidebarCtx?.toggleDrawer()
-}
 </script>
 
 <template>
   <div class="dt-header">
     <div class="dt-header__logo-group">
-      <button
-        v-if="showHamburger"
-        class="dt-header__mobile-trigger"
-        type="button"
-        :aria-expanded="sidebarCtx?.drawerOpen.value ? 'true' : 'false'"
-        aria-label="Open navigation"
-        @click="onHamburgerClick"
-      >
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
       <slot name="logo" />
       <span v-if="badge" class="dt-header__badge">{{ badge }}</span>
     </div>
@@ -147,34 +121,6 @@ const onHamburgerClick = () => {
   display: flex;
   align-items: center;
   gap: var(--dt-spacing-md);
-}
-
-.dt-header__mobile-trigger {
-  display: none;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  padding: 0;
-  border: 1px solid var(--dt-color-border);
-  border-radius: var(--dt-radius-sm);
-  background: var(--dt-color-background);
-  color: var(--dt-color-icon-dark);
-  cursor: pointer;
-  transition: background-color var(--dt-transition-fast),
-    border-color var(--dt-transition-fast);
-}
-
-.dt-header__mobile-trigger:hover,
-.dt-header__mobile-trigger:focus-visible {
-  background: var(--dt-color-background-secondary);
-  border-color: var(--dt-color-border-hover);
-  outline: none;
-}
-
-.dt-header__mobile-trigger svg {
-  width: 20px;
-  height: 20px;
 }
 
 .dt-header__badge {
@@ -255,10 +201,6 @@ const onHamburgerClick = () => {
   .dt-header {
     height: var(--dt-header-height-mobile);
     padding: 0 var(--dt-spacing-xl);
-  }
-
-  .dt-header__mobile-trigger {
-    display: inline-flex;
   }
 
   .dt-header__action-btn {
