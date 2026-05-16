@@ -898,7 +898,9 @@ const DtSidebarItem = defineComponent({
 
 /* ── Mobile (≤1024px) ────────────────────────── */
 @media (max-width: 1024px) {
-  /* Drawer mode (default): off-canvas left, slide-in */
+  /* Drawer mode (default): off-canvas left, slide-in. The drawer itself does
+     NOT scroll — the inner nav does. That keeps the absolutely-positioned
+     close button outside the scroll area, so it stays pinned. */
   .dt-sidebar--drawer {
     position: fixed;
     top: 0;
@@ -906,16 +908,16 @@ const DtSidebarItem = defineComponent({
     left: 0;
     width: 280px;
     max-width: 80vw;
-    max-height: 100vh;
     height: 100vh;
     z-index: 40;
     margin: 0;
-    padding: var(--dt-spacing-xl) var(--dt-spacing-lg);
-    padding-bottom: var(--dt-spacing-3xl);
+    padding: 0;
     border-right: 1px solid var(--dt-color-border-light);
     transform: translateX(-100%);
     transition: transform var(--dt-transition-base);
-    overflow-y: auto;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
   }
 
   .dt-sidebar--drawer.dt-sidebar--drawer-open {
@@ -924,6 +926,10 @@ const DtSidebarItem = defineComponent({
 
   .dt-sidebar--drawer .dt-sidebar__nav--desktop {
     display: flex;
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--dt-spacing-xl) var(--dt-spacing-lg);
+    padding-bottom: var(--dt-spacing-3xl);
   }
 
   .dt-sidebar--drawer .dt-sidebar__close {
