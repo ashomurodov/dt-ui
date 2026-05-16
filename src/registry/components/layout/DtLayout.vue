@@ -27,7 +27,7 @@ provide('dt-layout-sidebar', {
 
 <template>
   <div class="dt-layout">
-    <header class="dt-layout__header">
+    <header v-if="$slots.header" class="dt-layout__header">
       <slot name="header" />
     </header>
     <div class="dt-layout__main">
