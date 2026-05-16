@@ -73,6 +73,7 @@ provide('dt-layout-sidebar', {
   grid-area: content;
   min-width: 0;
   overflow: hidden;
+  padding: var(--dt-spacing-3xl);
 }
 
 @media (max-width: 1024px) {
@@ -86,9 +87,8 @@ provide('dt-layout-sidebar', {
     display: contents;
   }
 
-  /* Edge gutter on mobile so router-view doesn't sit flush against the wall */
   .dt-layout__content {
-    padding: 0 var(--dt-spacing-lg);
+    padding: var(--dt-spacing-lg);
   }
 }
 </style>
