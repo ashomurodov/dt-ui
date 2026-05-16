@@ -827,12 +827,15 @@ const DtSidebarItem = defineComponent({
   cursor: pointer;
   z-index: 35;
   box-shadow: 0 2px 8px rgba(16, 24, 40, 0.08);
-  transition: background-color var(--dt-transition-fast);
+  opacity: 0.6;
+  transition: background-color var(--dt-transition-fast),
+    opacity var(--dt-transition-fast);
 }
 
 .dt-sidebar-trigger:hover,
 .dt-sidebar-trigger:focus-visible {
   background: var(--dt-color-accent-hover);
+  opacity: 1;
   outline: none;
 }
 
