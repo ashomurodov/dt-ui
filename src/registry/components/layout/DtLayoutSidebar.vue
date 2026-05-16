@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, computed, defineComponent, h, provide, resolveComponent, Transition, watch, onMounted, onBeforeUnmount, type InjectionKey, type WritableComputedRef, type ComputedRef } from 'vue'
+import { ref, computed, defineComponent, h, provide, resolveComponent, Transition, watch, onMounted, onBeforeUnmount, type WritableComputedRef, type ComputedRef } from 'vue'
 import type { PropType } from 'vue'
 
 export interface DtNavItem {
@@ -38,8 +38,6 @@ export interface DtSidebarContext {
   openDrawer: () => void
   closeDrawer: () => void
 }
-
-export const DT_SIDEBAR_INJECTION_KEY: InjectionKey<DtSidebarContext> = Symbol('dt-layout-sidebar')
 
 const props = withDefaults(defineProps<{
   items: DtNavItem[]
@@ -172,7 +170,7 @@ const drawerOpenWritable = computed<boolean>({
 
 const mobileModeRef = computed(() => props.mobileMode)
 
-provide(DT_SIDEBAR_INJECTION_KEY, {
+provide('dt-layout-sidebar', {
   drawerOpen: drawerOpenWritable,
   mobileMode: mobileModeRef,
   toggleDrawer,

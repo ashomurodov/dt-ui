@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, inject, ref } from 'vue'
 import DtModulesModal, { type DtModuleClickPayload, type DtModuleItem } from './DtModulesModal.vue'
-import { DT_SIDEBAR_INJECTION_KEY, type DtSidebarContext } from './DtLayoutSidebar.vue'
+import type { DtSidebarContext } from './DtLayoutSidebar.vue'
 
 const props = withDefaults(defineProps<{
   badge?: string
@@ -51,7 +51,7 @@ const openModules = (event: MouseEvent) => {
   }
 }
 
-const sidebarCtx = inject<DtSidebarContext | null>(DT_SIDEBAR_INJECTION_KEY, null)
+const sidebarCtx = inject<DtSidebarContext | null>('dt-layout-sidebar', null)
 
 const showHamburger = computed(() => {
   if (!props.showMobileTrigger) return false
