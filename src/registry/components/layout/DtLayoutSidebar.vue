@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, computed, defineComponent, h, inject, resolveComponent, Transition, watch, onMounted, onBeforeUnmount, type WritableComputedRef, type ComputedRef } from 'vue'
+import { ref, computed, defineComponent, h, inject, resolveComponent, Transition, watch, onMounted, onBeforeUnmount, type Ref } from 'vue'
 import type { PropType } from 'vue'
 
 export interface DtNavItem {
@@ -32,8 +32,8 @@ export interface DtNavSection {
 export type DtSidebarMobileMode = 'drawer' | 'bottom'
 
 export interface DtSidebarContext {
-  drawerOpen: WritableComputedRef<boolean>
-  mobileMode: ComputedRef<DtSidebarMobileMode>
+  drawerOpen: Ref<boolean>
+  mobileMode: Ref<DtSidebarMobileMode>
   registerMobileMode?: (mode: DtSidebarMobileMode) => void
   toggleDrawer: () => void
   openDrawer: () => void

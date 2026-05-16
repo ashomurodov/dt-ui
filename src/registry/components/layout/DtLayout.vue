@@ -1,35 +1,28 @@
 <script lang="ts" setup>
-import { computed, provide, reactive, type WritableComputedRef, type ComputedRef } from 'vue'
+import { ref, provide, type Ref } from 'vue'
 
 export type DtSidebarMobileMode = 'drawer' | 'bottom'
 
 export interface DtLayoutSidebarContext {
-  drawerOpen: WritableComputedRef<boolean>
-  mobileMode: ComputedRef<DtSidebarMobileMode>
+  drawerOpen: Ref<boolean>
+  mobileMode: Ref<DtSidebarMobileMode>
   registerMobileMode: (mode: DtSidebarMobileMode) => void
   toggleDrawer: () => void
   openDrawer: () => void
   closeDrawer: () => void
 }
 
-const state = reactive<{ drawerOpen: boolean; mobileMode: DtSidebarMobileMode }>({
-  drawerOpen: false,
-  mobileMode: 'drawer',
-})
+const drawerOpen = ref(false)
+const mobileMode = ref<DtSidebarMobileMode>('drawer')
 
-const ctx: DtLayoutSidebarContext = {
-  drawerOpen: computed({
-    get: () => state.drawerOpen,
-    set: (val) => { state.drawerOpen = val },
-  }),
-  mobileMode: computed(() => state.mobileMode),
-  registerMobileMode: (mode) => { state.mobileMode = mode },
-  toggleDrawer: () => { state.drawerOpen = !state.drawerOpen },
-  openDrawer: () => { state.drawerOpen = true },
-  closeDrawer: () => { state.drawerOpen = false },
-}
-
-provide('dt-layout-sidebar', ctx)
+provide('dt-layout-sidebar', {
+  drawerOpen,
+  mobileMode,
+  registerMobileMode: (mode: DtSidebarMobileMode) => { mobileMode.value = mode },
+  toggleDrawer: () => { drawerOpen.value = !drawerOpen.value },
+  openDrawer: () => { drawerOpen.value = true },
+  closeDrawer: () => { drawerOpen.value = false },
+} satisfies DtLayoutSidebarContext)
 </script>
 
 <template>
