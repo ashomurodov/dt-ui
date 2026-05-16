@@ -73,7 +73,6 @@ provide('dt-layout-sidebar', {
   grid-area: content;
   min-width: 0;
   overflow: hidden;
-  padding: var(--dt-spacing-3xl);
 }
 
 @media (max-width: 1024px) {
@@ -85,10 +84,6 @@ provide('dt-layout-sidebar', {
   /* Sidebar self-positions on mobile (drawer or bottom-nav) */
   .dt-layout__sidebar {
     display: contents;
-  }
-
-  .dt-layout__content {
-    padding: var(--dt-spacing-lg);
   }
 }
 </style>
