@@ -45,7 +45,6 @@ const props = withDefaults(defineProps<{
   sections?: DtNavSection[]
   mobileItems?: number
   mobileMode?: DtSidebarMobileMode
-  drawerOpen?: boolean
   defaultDrawerOpen?: boolean
   openKeys?: string[]
   defaultOpenKeys?: string[]
@@ -147,25 +146,23 @@ const toggleItem = (key: string) => {
 
 // ── Drawer state ─────────────────────────────────
 // When wrapped in DtLayout, drawer state lives in the layout context (so
-// DtLayoutHeader's hamburger can toggle it). When standalone, fall back to a
-// local ref. Props (drawerOpen, defaultDrawerOpen) still win if provided.
+// DtLayoutHeader's trigger can toggle it). When standalone, fall back to a
+// local ref. The `drawerOpen` prop is no longer used to detect controlled
+// mode because Vue coerces Boolean props to `false` when not passed, making
+// `!== undefined` checks unreliable.
 const layoutCtx = inject<DtSidebarContext | null>('dt-layout-sidebar', null)
-const isDrawerControlled = computed(() => props.drawerOpen !== undefined)
 const localDrawerOpen = ref(props.defaultDrawerOpen)
 
 const drawerOpenValue = computed(() => {
-  if (isDrawerControlled.value) return !!props.drawerOpen
   if (layoutCtx) return layoutCtx.drawerOpen.value
   return localDrawerOpen.value
 })
 
 const setDrawerOpen = (next: boolean) => {
-  if (!isDrawerControlled.value) {
-    if (layoutCtx) {
-      layoutCtx.drawerOpen.value = next
-    } else {
-      localDrawerOpen.value = next
-    }
+  if (layoutCtx) {
+    layoutCtx.drawerOpen.value = next
+  } else {
+    localDrawerOpen.value = next
   }
   emit('update:drawerOpen', next)
 }
@@ -587,7 +584,7 @@ const DtSidebarItem = defineComponent({
   border-radius: var(--dt-radius-lg);
   color: var(--dt-color-text);
   font-size: var(--dt-text-body-sm);
-  font-weight: 500;
+  font-weight: 400;
   transition: background-color var(--dt-transition-fast);
   text-decoration: none;
   min-width: 0;
