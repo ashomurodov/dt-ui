@@ -85,5 +85,10 @@ provide('dt-layout-sidebar', {
   .dt-layout__sidebar {
     display: contents;
   }
+
+  /* Edge gutter on mobile so router-view doesn't sit flush against the wall */
+  .dt-layout__content {
+    padding: 0 var(--dt-spacing-lg);
+  }
 }
 </style>
