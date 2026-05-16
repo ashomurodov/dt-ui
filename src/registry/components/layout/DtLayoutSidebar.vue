@@ -807,34 +807,40 @@ const DtSidebarItem = defineComponent({
   overflow: hidden;
 }
 
-/* Floating open trigger (mobile only, drawer mode, drawer closed) */
+/* Floating open trigger (mobile only, drawer mode, drawer closed).
+   Looks like a bookmark tab stuck to the left wall: flush left, vertically
+   centered in the bottom half of the viewport, taller than it is wide, with
+   only the right-side corners rounded. */
 .dt-sidebar-trigger {
   display: none;
   position: fixed;
-  top: var(--dt-header-height-mobile);
+  top: 75%;
   left: 0;
+  transform: translateY(-50%);
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 28px;
+  height: 60px;
   padding: 0;
   border: 0;
-  background: transparent;
+  border-radius: 0 var(--dt-radius-sm) var(--dt-radius-sm) 0;
+  background: var(--dt-color-border);
   color: var(--dt-color-icon-dark);
   cursor: pointer;
   z-index: 35;
+  box-shadow: 0 2px 8px rgba(16, 24, 40, 0.08);
   transition: background-color var(--dt-transition-fast);
 }
 
 .dt-sidebar-trigger:hover,
 .dt-sidebar-trigger:focus-visible {
-  background: var(--dt-color-background-secondary);
+  background: var(--dt-color-border-hover);
   outline: none;
 }
 
 .dt-sidebar-trigger svg {
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
 }
 
 @media (max-width: 1024px) {
