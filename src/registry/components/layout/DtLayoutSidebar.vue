@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, computed, defineComponent, h, provide, resolveComponent, Transition, watch, onMounted, onBeforeUnmount, type WritableComputedRef, type ComputedRef } from 'vue'
+import { ref, computed, defineComponent, h, inject, resolveComponent, Transition, watch, onMounted, onBeforeUnmount, type WritableComputedRef, type ComputedRef } from 'vue'
 import type { PropType } from 'vue'
 
 export interface DtNavItem {
@@ -34,6 +34,7 @@ export type DtSidebarMobileMode = 'drawer' | 'bottom'
 export interface DtSidebarContext {
   drawerOpen: WritableComputedRef<boolean>
   mobileMode: ComputedRef<DtSidebarMobileMode>
+  registerMobileMode?: (mode: DtSidebarMobileMode) => void
   toggleDrawer: () => void
   openDrawer: () => void
   closeDrawer: () => void
@@ -145,16 +146,26 @@ const toggleItem = (key: string) => {
 }
 
 // ── Drawer state ─────────────────────────────────
+// When wrapped in DtLayout, drawer state lives in the layout context (so
+// DtLayoutHeader's hamburger can toggle it). When standalone, fall back to a
+// local ref. Props (drawerOpen, defaultDrawerOpen) still win if provided.
+const layoutCtx = inject<DtSidebarContext | null>('dt-layout-sidebar', null)
 const isDrawerControlled = computed(() => props.drawerOpen !== undefined)
-const internalDrawerOpen = ref(props.defaultDrawerOpen)
+const localDrawerOpen = ref(props.defaultDrawerOpen)
 
 const drawerOpenValue = computed(() => {
-  return isDrawerControlled.value ? !!props.drawerOpen : internalDrawerOpen.value
+  if (isDrawerControlled.value) return !!props.drawerOpen
+  if (layoutCtx) return layoutCtx.drawerOpen.value
+  return localDrawerOpen.value
 })
 
 const setDrawerOpen = (next: boolean) => {
   if (!isDrawerControlled.value) {
-    internalDrawerOpen.value = next
+    if (layoutCtx) {
+      layoutCtx.drawerOpen.value = next
+    } else {
+      localDrawerOpen.value = next
+    }
   }
   emit('update:drawerOpen', next)
 }
@@ -163,20 +174,13 @@ const openDrawer = () => setDrawerOpen(true)
 const closeDrawer = () => setDrawerOpen(false)
 const toggleDrawer = () => setDrawerOpen(!drawerOpenValue.value)
 
-const drawerOpenWritable = computed<boolean>({
-  get: () => drawerOpenValue.value,
-  set: (val) => setDrawerOpen(val),
-})
-
-const mobileModeRef = computed(() => props.mobileMode)
-
-provide('dt-layout-sidebar', {
-  drawerOpen: drawerOpenWritable,
-  mobileMode: mobileModeRef,
-  toggleDrawer,
-  openDrawer,
-  closeDrawer,
-})
+// Push the sidebar's mobileMode prop up to the layout so DtLayoutHeader can
+// decide whether to render its hamburger trigger.
+const syncMobileMode = (mode: DtSidebarMobileMode) => {
+  layoutCtx?.registerMobileMode?.(mode)
+}
+syncMobileMode(props.mobileMode)
+watch(() => props.mobileMode, syncMobileMode)
 
 // Close drawer on Escape
 const onKeydown = (event: KeyboardEvent) => {

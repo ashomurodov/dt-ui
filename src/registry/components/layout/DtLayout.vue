@@ -1,4 +1,35 @@
 <script lang="ts" setup>
+import { computed, provide, reactive, type WritableComputedRef, type ComputedRef } from 'vue'
+
+export type DtSidebarMobileMode = 'drawer' | 'bottom'
+
+export interface DtLayoutSidebarContext {
+  drawerOpen: WritableComputedRef<boolean>
+  mobileMode: ComputedRef<DtSidebarMobileMode>
+  registerMobileMode: (mode: DtSidebarMobileMode) => void
+  toggleDrawer: () => void
+  openDrawer: () => void
+  closeDrawer: () => void
+}
+
+const state = reactive<{ drawerOpen: boolean; mobileMode: DtSidebarMobileMode }>({
+  drawerOpen: false,
+  mobileMode: 'drawer',
+})
+
+const ctx: DtLayoutSidebarContext = {
+  drawerOpen: computed({
+    get: () => state.drawerOpen,
+    set: (val) => { state.drawerOpen = val },
+  }),
+  mobileMode: computed(() => state.mobileMode),
+  registerMobileMode: (mode) => { state.mobileMode = mode },
+  toggleDrawer: () => { state.drawerOpen = !state.drawerOpen },
+  openDrawer: () => { state.drawerOpen = true },
+  closeDrawer: () => { state.drawerOpen = false },
+}
+
+provide('dt-layout-sidebar', ctx)
 </script>
 
 <template>
