@@ -442,18 +442,19 @@ const DtSidebarItem = defineComponent({
   </Transition>
 
   <div :class="sidebarClasses">
-    <!-- Drawer close button (mobile + drawer mode only — visible when open) -->
-    <button
-      v-if="mobileMode === 'drawer'"
-      class="dt-sidebar__close"
-      type="button"
-      aria-label="Close navigation"
-      @click="closeDrawer"
-    >
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-      </svg>
-    </button>
+    <!-- Drawer header row with close button (mobile + drawer mode only) -->
+    <div v-if="mobileMode === 'drawer'" class="dt-sidebar__drawer-header">
+      <button
+        class="dt-sidebar__close"
+        type="button"
+        aria-label="Close navigation"
+        @click="closeDrawer"
+      >
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
+    </div>
 
     <!-- Desktop / drawer nav -->
     <nav class="dt-sidebar__nav dt-sidebar__nav--desktop">
@@ -844,23 +845,30 @@ const DtSidebarItem = defineComponent({
   }
 }
 
-/* Drawer close button (rendered only inside .dt-sidebar--drawer) */
-.dt-sidebar__close {
+/* Drawer header row + close button (rendered only inside .dt-sidebar--drawer) */
+.dt-sidebar__drawer-header {
   display: none;
-  position: absolute;
-  top: var(--dt-spacing-lg);
-  right: var(--dt-spacing-lg);
-  width: 32px;
-  height: 32px;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  justify-content: flex-end;
+  padding: var(--dt-spacing-xs) 0;
+  margin-bottom: var(--dt-spacing-md);
+  background: var(--dt-color-background);
+}
+
+.dt-sidebar__close {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: 32px;
+  height: 32px;
   padding: 0;
   border: 1px solid var(--dt-color-border);
   border-radius: var(--dt-radius-sm);
   background: var(--dt-color-background);
   color: var(--dt-color-icon-dark);
   cursor: pointer;
-  z-index: 1;
   transition: background-color var(--dt-transition-fast),
     border-color var(--dt-transition-fast);
 }
@@ -925,8 +933,8 @@ const DtSidebarItem = defineComponent({
     display: flex;
   }
 
-  .dt-sidebar--drawer .dt-sidebar__close {
-    display: inline-flex;
+  .dt-sidebar--drawer .dt-sidebar__drawer-header {
+    display: flex;
   }
 
   /* Bottom mode (opt-in): horizontal bar at bottom */
