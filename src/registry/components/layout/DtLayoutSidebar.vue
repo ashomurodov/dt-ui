@@ -909,6 +909,9 @@ const DtSidebarItem = defineComponent({
     width: 280px;
     max-width: 80vw;
     height: 100vh;
+    height: 100dvh;
+    max-height: 100vh;
+    max-height: 100dvh;
     z-index: 40;
     margin: 0;
     padding: 0;
@@ -930,6 +933,11 @@ const DtSidebarItem = defineComponent({
     overflow-y: auto;
     padding: var(--dt-spacing-xl) var(--dt-spacing-lg);
     padding-bottom: var(--dt-spacing-3xl);
+    scrollbar-width: none;
+  }
+
+  .dt-sidebar--drawer .dt-sidebar__nav--desktop::-webkit-scrollbar {
+    display: none;
   }
 
   .dt-sidebar--drawer .dt-sidebar__close {
