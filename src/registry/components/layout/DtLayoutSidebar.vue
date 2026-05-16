@@ -169,7 +169,6 @@ const setDrawerOpen = (next: boolean) => {
 
 const openDrawer = () => setDrawerOpen(true)
 const closeDrawer = () => setDrawerOpen(false)
-const toggleDrawer = () => setDrawerOpen(!drawerOpenValue.value)
 
 // Push the sidebar's mobileMode prop up to the layout so DtLayoutHeader can
 // decide whether to render its hamburger trigger.
