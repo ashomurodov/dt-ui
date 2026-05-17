@@ -817,11 +817,11 @@ const DtSidebarItem = defineComponent({
   transform: translateY(-50%);
   align-items: center;
   justify-content: center;
-  width: 35px;
-  height: 30px;
+  width: 20px;
+  height: 60px;
   padding: 0;
   border: 0;
-  border-radius: 0 var(--dt-radius-sm) var(--dt-radius-sm) 0;
+  border-radius: 0 var(--dt-radius-lg) var(--dt-radius-lg) 0;
   background: var(--dt-color-accent);
   color: var(--dt-color-white);
   cursor: pointer;
@@ -857,15 +857,15 @@ const DtSidebarItem = defineComponent({
   display: none;
   position: absolute;
   top: 75%;
-  right: -35px;
+  right: -20px;
   transform: translateY(-50%);
   align-items: center;
   justify-content: center;
-  width: 35px;
-  height: 30px;
+  width: 20px;
+  height: 60px;
   padding: 0;
   border: 0;
-  border-radius: 0 var(--dt-radius-sm) var(--dt-radius-sm) 0;
+  border-radius: 0 var(--dt-radius-lg) var(--dt-radius-lg) 0;
   background: var(--dt-color-background);
   color: var(--dt-color-accent);
   cursor: pointer;
@@ -914,15 +914,18 @@ const DtSidebarItem = defineComponent({
      close button outside the scroll area, so it stays pinned. */
   .dt-sidebar--drawer {
     position: fixed;
-    top: 0;
+    /* Offset by header height so the CDN header (z-index 203) or DtLayoutHeader
+       (sticky z-index 30) doesn't cover the drawer's first nav item. Falls back
+       to 0 if --dt-header-height isn't defined (cabinets without a header). */
+    top: var(--dt-header-height, 0px);
     bottom: 0;
     left: 0;
     width: 280px;
     max-width: 80vw;
-    height: 100vh;
-    height: 100dvh;
-    max-height: 100vh;
-    max-height: 100dvh;
+    height: calc(100vh - var(--dt-header-height, 0px));
+    height: calc(100dvh - var(--dt-header-height, 0px));
+    max-height: calc(100vh - var(--dt-header-height, 0px));
+    max-height: calc(100dvh - var(--dt-header-height, 0px));
     z-index: 40;
     margin: 0;
     padding: 0;
