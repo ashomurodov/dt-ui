@@ -31,7 +31,8 @@ program
 
 program
   .command('update')
-  .description('Update base.css, utils, and AGENT.md to latest version')
+  .description('Bump aetherx-dt-ui to latest, refresh shared files, and optionally re-copy components')
+  .option('--no-install', 'Skip the npm install step — diff against the version already in node_modules')
   .action(updateCommand)
 
 program.parse()

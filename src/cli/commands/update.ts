@@ -17,6 +17,12 @@ import {
   loadRegistry,
 } from '../utils/registry.js'
 import { rebuildAgentMd } from '../utils/agent.js'
+import pkg from '../../../package.json' with { type: 'json' }
+
+interface UpdateOptions {
+  // Commander turns `--no-install` into `options.install = false`. Default is true.
+  install?: boolean
+}
 
 interface ComponentDiff {
   name: string
@@ -61,7 +67,7 @@ function diffComponent(
   }
 }
 
-export async function updateCommand() {
+export async function updateCommand(options: UpdateOptions = {}) {
   p.intro(pc.bold(pc.cyan('dt-ui update')))
 
   if (!configExists()) {
@@ -69,9 +75,27 @@ export async function updateCommand() {
     process.exit(1)
   }
 
+  const s = p.spinner()
+
+  // Step 0 (default): bump aetherx-dt-ui to latest so the diff below sees the
+  // newest registry. Skip with --no-install if you've pinned to a specific
+  // version and only want to refresh shared files / re-copy components.
+  const shouldInstall = options.install !== false
+  if (shouldInstall) {
+    const pm = detectPackageManager()
+    const cmd = getInstallCommand(pm, [`${pkg.name}@latest`])
+    s.start(`Installing ${pc.cyan(`${pkg.name}@latest`)} via ${pm}…`)
+    try {
+      execSync(cmd, { cwd: process.cwd(), stdio: 'pipe' })
+      s.stop(`${pc.green('✓')} ${pkg.name}@latest installed`)
+    } catch {
+      s.stop(pc.yellow(`Failed to install ${pkg.name}@latest. Continuing with the version already in node_modules.`))
+      p.log.warn(pc.dim(cmd))
+    }
+  }
+
   const config = readConfig()
   const registry = loadRegistry()
-  const s = p.spinner()
 
   // Refresh shared files (always safe — these are registry-managed, not authored).
   s.start('Updating base.css...')
