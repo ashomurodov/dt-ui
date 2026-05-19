@@ -544,7 +544,7 @@ const DtSidebarItem = defineComponent({
   position: sticky;
   top: var(--dt-header-height);
   align-self: start;
-  padding-left: var(--dt-spacing-xl);
+  padding-left: var(--dt-spacing-3xl);
   padding-bottom: var(--dt-spacing-3xl);
   margin-left: calc(var(--dt-spacing-xl) * -1);
   max-height: calc(100vh - var(--dt-header-height));
