@@ -207,6 +207,13 @@ const onMenuItemClick = (item: DtProfileMenuItem) => {
   }
   emit('menu-click', item.key)
 }
+
+// A method, not an inline multi-statement handler: prettier reformats
+// `@click="emit('logout'); close()"` into a newline-separated form Vue can't parse.
+const onLogout = () => {
+  emit('logout')
+  close()
+}
 </script>
 
 <template>
@@ -297,7 +304,7 @@ const onMenuItemClick = (item: DtProfileMenuItem) => {
 
             <!-- Logout -->
             <ul class="dt-profile-modal__list">
-              <li class="dt-profile-modal__item" @click="emit('logout'); close()">
+              <li class="dt-profile-modal__item" @click="onLogout">
                 <svg class="dt-profile-modal__icon" width="22" height="22" viewBox="0 0 22 22" fill="none">
                   <path d="M8 19H5C3.895 19 3 18.105 3 17V5C3 3.895 3.895 3 5 3H8M15 16L19 12M19 12L15 8M19 12H9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
