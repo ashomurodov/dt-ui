@@ -181,12 +181,16 @@ const onKeydown = (e: KeyboardEvent) => {
 }
 
 onMounted(() => {
-  document.addEventListener('click', onClickOutside)
+  // Use mousedown (not click) for outside-detection: a menu item's @click changes
+  // currentView and re-keys the panel, detaching the clicked node. A document 'click'
+  // listener would then see that detached node as "outside" and wrongly close the modal.
+  // mousedown fires before that navigation, while the target is still in the DOM.
+  document.addEventListener('mousedown', onClickOutside)
   document.addEventListener('keydown', onKeydown)
 })
 
 onUnmounted(() => {
-  document.removeEventListener('click', onClickOutside)
+  document.removeEventListener('mousedown', onClickOutside)
   document.removeEventListener('keydown', onKeydown)
 })
 

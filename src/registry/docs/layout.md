@@ -179,7 +179,7 @@ Fully self-contained profile dropdown with user info, theme switcher, language p
 | `menuItems` | `DtProfileMenuItem[]` | `[]` | Optional extra menu items specific to the module. |
 | `isOrganization` | `boolean` | `false` | If true, displays `user.organization_name` instead of personal name. |
 | `profileUrl` | `string` | `undefined` | URL for the "Profile" link (opens in new tab). If not set, profile link is hidden. |
-| `resourceUrl` | `string` | `undefined` | Base URL for file resources (e.g., `https://resource.dthub.uz/api/file/view-image`). Prepended to `user.logo_url` to build the full avatar URL. |
+| `resourceUrl` | `string` | `undefined` | Base URL for file resources (e.g., `https://resource.dthub.uz/api/file/view-image`). Prepended to `user.logo_url` when it's a bare key; absolute `http(s)` `logo_url` values are used as-is. |
 
 #### DtUser Interface
 
@@ -214,19 +214,30 @@ interface DtProfileMenuItem {
 | `locale-change` | `'uz' \| 'ru' \| 'en'` | Emitted when a language option is selected. |
 | `logout` | — | Emitted when logout is clicked. |
 | `menu-click` | `string` | Emitted when a custom menu item is clicked (receives the item's `key`). |
+| `open-switch-account` | — | Emitted when the Switch-account sub-view opens. Use to lazy-load the account list. |
 
 #### Slots
 
-| Slot | Description |
-| ------ | ------------- |
-| `menu-extra` | Extra `<li>` items injected into the built-in menu (between language and logout). |
+| Slot | Slot props | Description |
+| ------ | ------------ | ------------- |
+| `menu-extra` | — | Extra `<li>` items injected into the built-in menu (between language and logout). |
+| `switch-account` | `{ back, close }` | When provided, the modal automatically adds a **Switch account** menu item that opens an in-popover sub-view rendering this slot (e.g. an account list). `back()` returns to the main view; `close()` closes the modal. No `menuItems` wiring needed. |
+
+```vue
+<DtProfileModal v-model="open" :user="user" @logout="logout" @open-switch-account="loadAccounts">
+  <template #switch-account="{ close }">
+    <AccountList @switched="close" />
+  </template>
+</DtProfileModal>
+```
 
 #### Built-in Features
 
-- **3 animated views**: Main → Appearance / Language (slide transitions, 250ms).
-- **Built-in i18n**: Labels for "Appearance", "Language", "Logout", theme names in uz/ru/en.
+- **Animated views**: Main → Appearance / Language / Switch account. Each view slides in with a **direction-aware** animation (forward = from the right, back = from the left, ~280ms). Only the incoming panel animates, so navigation stays snappy.
+- **Switch account**: Provided via the `#switch-account` slot — adds its own menu item + sub-view automatically.
+- **Built-in i18n**: Labels for "Switch account", "Appearance", "Language", "Logout", theme names in uz/ru/en.
 - **Hardcoded options**: Theme (light/dark/system), locale (O'zbekcha/Русский/English).
-- **Auto-computed**: Display name, initials, phone number from the `user` object.
+- **Auto-computed**: Display name + initials (from the **displayed** name — org name in a company context, the user's name otherwise), phone, and avatar (absolute URL or `resourceUrl` + key) from the `user` object.
 - **Close behavior**: Click outside, Escape key, close button.
 - **Radio buttons**: Animated dot pop (scale 0 → 1.2 → 1, 200ms).
 
