@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref, watch, onMounted, onUnmounted } from 'vue'
+import { computed, ref, watch, onMounted, onUnmounted, useSlots } from 'vue'
 
 export interface DtUser {
   first_name: string
@@ -19,6 +19,7 @@ export interface DtProfileMenuItem {
 
 type Theme = 'light' | 'dark' | 'system'
 type Locale = 'uz' | 'ru' | 'en'
+type View = 'main' | 'appearance' | 'language' | 'switch-account'
 
 // Built-in i18n — shared across all 23 modules
 const i18n: Record<Locale, Record<string, string>> = {
@@ -27,6 +28,7 @@ const i18n: Record<Locale, Record<string, string>> = {
     appearance: 'Внешний вид',
     language: 'Язык',
     logout: 'Выйти',
+    switchAccount: 'Сменить аккаунт',
     lightTheme: 'Светлая тема',
     darkTheme: 'Тёмная тема',
     systemTheme: 'Системная',
@@ -36,6 +38,7 @@ const i18n: Record<Locale, Record<string, string>> = {
     appearance: 'Tashqi ko\'rinish',
     language: 'Til',
     logout: 'Chiqish',
+    switchAccount: 'Hisobni almashtirish',
     lightTheme: 'Yorug\' mavzu',
     darkTheme: 'Qorong\'u mavzu',
     systemTheme: 'Tizim',
@@ -45,6 +48,7 @@ const i18n: Record<Locale, Record<string, string>> = {
     appearance: 'Appearance',
     language: 'Language',
     logout: 'Logout',
+    switchAccount: 'Switch account',
     lightTheme: 'Light theme',
     darkTheme: 'Dark theme',
     systemTheme: 'System',
@@ -83,7 +87,13 @@ const emit = defineEmits<{
   'locale-change': [code: Locale]
   'logout': []
   'menu-click': [key: string]
+  // Fired when the user opens the Switch-account sub-view (so the host can lazy-load accounts).
+  'open-switch-account': []
 }>()
+
+const slots = useSlots()
+// The Switch-account menu item + sub-view appear only when the host provides the slot.
+const hasSwitchAccount = computed(() => !!slots['switch-account'])
 
 // Internal translations
 const t = (key: string) => i18n[props.locale]?.[key] ?? i18n.en[key] ?? key
@@ -93,8 +103,27 @@ const isOpen = computed({
   set: (val) => emit('update:modelValue', val),
 })
 
-const currentView = ref<'main' | 'appearance' | 'language'>('main')
+const currentView = ref<View>('main')
+// Drives the slide direction: forward = deeper (slide in from right), back = to main (from left).
+const direction = ref<'forward' | 'back'>('forward')
 const modalRef = ref<HTMLElement | null>(null)
+
+const slideClass = computed(() =>
+  direction.value === 'back'
+    ? 'dt-profile-modal__content--from-left'
+    : 'dt-profile-modal__content--from-right'
+)
+
+const goTo = (view: View) => {
+  direction.value = 'forward'
+  currentView.value = view
+  if (view === 'switch-account') emit('open-switch-account')
+}
+
+const goBack = () => {
+  direction.value = 'back'
+  currentView.value = 'main'
+}
 
 const displayName = computed(() => {
   if (props.isOrganization && props.user.organization_name) {
@@ -108,15 +137,18 @@ const displayDetails = computed(() => {
 })
 
 const avatarUrl = computed(() => {
-  if (!props.user.logo_url) return null
-  if (props.resourceUrl) return `${props.resourceUrl}/${props.user.logo_url}`
-  return props.user.logo_url
+  const logo = props.user.logo_url
+  if (!logo) return null
+  // Absolute URLs (resource service) are used as-is; bare keys get the resource base.
+  if (/^https?:\/\//i.test(logo)) return logo
+  if (props.resourceUrl) return `${props.resourceUrl}/${logo}`
+  return logo
 })
 
+// Initials match the displayed name: organization context → org initials, personal → user's.
 const profileInitials = computed(() => {
-  const first = props.user.first_name?.[0] || ''
-  const last = props.user.last_name?.[0] || ''
-  return (first + last).toUpperCase()
+  const parts = (displayName.value || '').trim().split(/\s+/).filter(Boolean)
+  return ((parts[0]?.[0] || '') + (parts[1]?.[0] || '')).toUpperCase()
 })
 
 const close = () => {
@@ -125,7 +157,10 @@ const close = () => {
 
 watch(isOpen, (opened) => {
   if (!opened) {
-    setTimeout(() => { currentView.value = 'main' }, 300)
+    setTimeout(() => {
+      currentView.value = 'main'
+      direction.value = 'forward'
+    }, 300)
   }
 })
 
@@ -173,9 +208,11 @@ const onMenuItemClick = (item: DtProfileMenuItem) => {
 <template>
   <Transition name="dt-profile-fade">
     <div v-if="isOpen" ref="modalRef" class="dt-profile-modal">
-      <Transition name="dt-profile-slide" mode="out-in">
+      <!-- Single panel, re-keyed per view. The incoming panel slides in (direction-aware);
+           the outgoing one is removed instantly — no leave animation, so it stays snappy. -->
+      <div :key="currentView" class="dt-profile-modal__content" :class="slideClass">
         <!-- Main view -->
-        <div v-if="currentView === 'main'" key="main" class="dt-profile-modal__content">
+        <template v-if="currentView === 'main'">
           <div class="dt-profile-modal__top-row">
             <span />
             <button class="dt-profile-modal__close" @click="close">
@@ -195,8 +232,17 @@ const onMenuItemClick = (item: DtProfileMenuItem) => {
           </div>
 
           <div class="dt-profile-modal__menu">
-            <!-- Profile link -->
+            <!-- Account actions -->
             <ul class="dt-profile-modal__list">
+              <li v-if="hasSwitchAccount" class="dt-profile-modal__item" @click="goTo('switch-account')">
+                <svg class="dt-profile-modal__icon" width="22" height="22" viewBox="0 0 24 24" fill="none">
+                  <path d="M7 9.5C8.38071 9.5 9.5 8.38071 9.5 7C9.5 5.61929 8.38071 4.5 7 4.5C5.61929 4.5 4.5 5.61929 4.5 7C4.5 8.38071 5.61929 9.5 7 9.5Z" stroke="currentColor" stroke-width="1.5"/>
+                  <path d="M3 19.5C3 16.7386 4.79086 15 7 15C8.06087 15 9.0783 15.3214 9.82843 15.8787" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M17 19.5C18.3807 19.5 19.5 18.3807 19.5 17C19.5 15.6193 18.3807 14.5 17 14.5C15.6193 14.5 14.5 15.6193 14.5 17C14.5 18.3807 15.6193 19.5 17 19.5Z" stroke="currentColor" stroke-width="1.5"/>
+                  <path d="M14 6.5H18.5C19.6046 6.5 20.5 7.39543 20.5 8.5V10M20.5 10L19 8.5M20.5 10L22 8.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>{{ t('switchAccount') }}</span>
+              </li>
               <li v-if="profileUrl" class="dt-profile-modal__item" @click="openProfile">
                 <svg class="dt-profile-modal__icon" width="22" height="22" viewBox="0 0 22 22" fill="none">
                   <circle cx="11" cy="8" r="3.5" stroke="currentColor" stroke-width="1.5"/>
@@ -226,14 +272,14 @@ const onMenuItemClick = (item: DtProfileMenuItem) => {
 
             <!-- Appearance + Language -->
             <ul class="dt-profile-modal__list">
-              <li class="dt-profile-modal__item" @click="currentView = 'appearance'">
+              <li class="dt-profile-modal__item" @click="goTo('appearance')">
                 <svg class="dt-profile-modal__icon" width="22" height="22" viewBox="0 0 22 22" fill="none">
                   <circle cx="11" cy="11" r="4" stroke="currentColor" stroke-width="1.5"/>
                   <path d="M11 2V4M11 18V20M2 11H4M18 11H20M4.93 4.93L6.34 6.34M15.66 15.66L17.07 17.07M4.93 17.07L6.34 15.66M15.66 6.34L17.07 4.93" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                 </svg>
                 <span>{{ t('appearance') }}</span>
               </li>
-              <li class="dt-profile-modal__item" @click="currentView = 'language'">
+              <li class="dt-profile-modal__item" @click="goTo('language')">
                 <svg class="dt-profile-modal__icon" width="22" height="22" viewBox="0 0 22 22" fill="none">
                   <circle cx="11" cy="11" r="9" stroke="currentColor" stroke-width="1.5"/>
                   <path d="M2 11H20M11 2C13.5 4.5 15 7.5 15 11C15 14.5 13.5 17.5 11 20M11 2C8.5 4.5 7 7.5 7 11C7 14.5 8.5 17.5 11 20" stroke="currentColor" stroke-width="1.5"/>
@@ -255,12 +301,12 @@ const onMenuItemClick = (item: DtProfileMenuItem) => {
               </li>
             </ul>
           </div>
-        </div>
+        </template>
 
         <!-- Appearance view -->
-        <div v-else-if="currentView === 'appearance'" key="appearance" class="dt-profile-modal__content">
+        <template v-else-if="currentView === 'appearance'">
           <div class="dt-profile-modal__sub-header">
-            <button class="dt-profile-modal__back" @click="currentView = 'main'">
+            <button class="dt-profile-modal__back" @click="goBack">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                 <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
@@ -289,12 +335,12 @@ const onMenuItemClick = (item: DtProfileMenuItem) => {
               </button>
             </div>
           </div>
-        </div>
+        </template>
 
         <!-- Language view -->
-        <div v-else-if="currentView === 'language'" key="language" class="dt-profile-modal__content">
+        <template v-else-if="currentView === 'language'">
           <div class="dt-profile-modal__sub-header">
-            <button class="dt-profile-modal__back" @click="currentView = 'main'">
+            <button class="dt-profile-modal__back" @click="goBack">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                 <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
@@ -323,8 +369,29 @@ const onMenuItemClick = (item: DtProfileMenuItem) => {
               </button>
             </div>
           </div>
-        </div>
-      </Transition>
+        </template>
+
+        <!-- Switch-account view — host fills the #switch-account slot with the account list. -->
+        <template v-else-if="currentView === 'switch-account'">
+          <div class="dt-profile-modal__sub-header">
+            <button class="dt-profile-modal__back" @click="goBack">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <button class="dt-profile-modal__close" @click="close">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+
+          <div class="dt-profile-modal__options-section">
+            <h2 class="dt-profile-modal__options-title">{{ t('switchAccount') }}</h2>
+            <slot name="switch-account" :close="close" :back="goBack" />
+          </div>
+        </template>
+      </div>
     </div>
   </Transition>
 </template>
@@ -346,6 +413,27 @@ const onMenuItemClick = (item: DtProfileMenuItem) => {
 .dt-profile-modal__content {
   position: relative;
   padding: var(--dt-spacing-xl);
+}
+
+/* Direction-aware slide for the incoming view (matches the native dt-header).
+   Only the entering panel animates — the outgoing one is removed instantly,
+   which keeps view changes snappy (no leave-then-enter lag). */
+.dt-profile-modal__content--from-right {
+  animation: dt-profile-from-right 0.28s ease;
+}
+
+.dt-profile-modal__content--from-left {
+  animation: dt-profile-from-left 0.28s ease;
+}
+
+@keyframes dt-profile-from-right {
+  from { opacity: 0; transform: translateX(16px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes dt-profile-from-left {
+  from { opacity: 0; transform: translateX(-16px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 .dt-profile-modal__top-row {
@@ -469,7 +557,7 @@ const onMenuItemClick = (item: DtProfileMenuItem) => {
   margin: var(--dt-spacing-md) 0;
 }
 
-/* Options (theme / language) */
+/* Options (theme / language) + switch-account sub-section share this header. */
 .dt-profile-modal__options-section {
   padding-top: var(--dt-spacing-xl);
 }
@@ -547,7 +635,7 @@ const onMenuItemClick = (item: DtProfileMenuItem) => {
   100% { transform: scale(1); }
 }
 
-/* Transitions */
+/* Open/close fade for the whole modal */
 .dt-profile-fade-enter-active,
 .dt-profile-fade-leave-active {
   transition: opacity 0.2s ease, transform 0.2s ease;
@@ -557,20 +645,5 @@ const onMenuItemClick = (item: DtProfileMenuItem) => {
 .dt-profile-fade-leave-to {
   opacity: 0;
   transform: translateY(-8px) scale(0.98);
-}
-
-.dt-profile-slide-enter-active,
-.dt-profile-slide-leave-active {
-  transition: all 0.25s ease;
-}
-
-.dt-profile-slide-enter-from {
-  opacity: 0;
-  transform: translateX(20px);
-}
-
-.dt-profile-slide-leave-to {
-  opacity: 0;
-  transform: translateX(-20px);
 }
 </style>

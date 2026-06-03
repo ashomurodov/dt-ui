@@ -75,6 +75,30 @@ function logout() {
 </template>
 ```
 
+## Profile modal
+
+`DtProfileModal` is the avatar/name dropdown with built-in Appearance and Language sub-views. Each view slides in with a direction-aware animation (forward = from the right, back = from the left) — only the incoming panel animates, so navigation stays snappy.
+
+### Switch account
+
+Provide the `#switch-account` slot and the modal automatically adds a **Switch account** menu item that opens an in-popover sub-view rendering your slot (e.g. the account list). No `menu-items` wiring needed.
+
+```vue
+<DtProfileModal v-model="showProfile" :user="user" @logout="logout" @open-switch-account="loadAccounts">
+  <template #switch-account="{ back, close }">
+    <AccountList @switched="close" />
+  </template>
+</DtProfileModal>
+```
+
+| API | Type | Notes |
+| --- | --- | --- |
+| `#switch-account` slot | `{ back, close }` | When present, shows the Switch-account menu item + sub-view. Slot props let the list trigger navigation/close. |
+| `@open-switch-account` | `() => void` | Emitted when the sub-view opens — use to lazy-load accounts. |
+| `resource-url` | `string` | Base for avatar **keys**; absolute `http(s)` `logo_url` values are used as-is. |
+
+The avatar falls back to initials derived from the **displayed** name (organization name in a company context, the user's name otherwise).
+
 ## Sidebar
 
 `DtLayoutSidebar` supports route links, action rows, badges, disabled/hidden rows, sections, and expandable parent items.
