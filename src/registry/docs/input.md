@@ -1,6 +1,24 @@
 # DtInput
 
-Text input with two visual variants, four sizes, validation states (error / success), top or floating label, optional clear button, and `prefix` / `suffix` slots for icons and adornments. Wraps a native `<input>` and forwards all attributes via `$attrs`.
+Text input with two visual variants, four sizes, validation states (error / success), top or floating label, optional clear button, and `prefix` / `suffix` slots for icons and adornments. Wraps a native `<input>`.
+
+## Where fallthrough attributes land
+
+`DtInput`'s root is a wrapper `<div>`, so it sets `inheritAttrs: false` and routes
+attributes deliberately:
+
+- **`class` and `style` → the wrapper.** That's what a caller sizes and positions.
+- **Everything else → the inner `<input>`**: `min`, `max`, `step`, `autofocus`,
+  `aria-*`, `data-*`, native listeners.
+
+Before v0.1.92 the component had no `inheritAttrs: false`, so Vue *also* applied
+every attribute to the wrapper — rendering
+`<div class="dt-input-wrapper" min="0" aria-label="…">`. Field attributes on a
+`<div>` are invalid, and the duplicated `aria-label` gave the wrapper an accessible
+name it should not have.
+
+⚠ Sizes start at **48px** (`sm`) and go to 72px (`xl`). This is a form field, not a
+toolbar control — for dense 30px rows, use a plain `<input>`.
 
 The same package ships:
 

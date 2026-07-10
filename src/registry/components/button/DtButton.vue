@@ -9,9 +9,16 @@ const props = withDefaults(defineProps<{
   size?: ButtonSize
   disabled?: boolean
   loading?: boolean
+  /**
+   * Square, padding-free button holding a single icon. Same convention as
+   * `DtDropdownMenuTrigger`'s `iconOnly`. The caller MUST supply an accessible
+   * name (`aria-label` or `title`) — an icon alone has none.
+   */
+  iconOnly?: boolean
 }>(), {
   variant: 'default',
   size: 'md',
+  iconOnly: false,
 })
 
 const classes = computed(() => [
@@ -20,6 +27,7 @@ const classes = computed(() => [
   `dt-button--size-${props.size}`,
   props.disabled && 'dt-button--disabled',
   props.loading && 'dt-button--loading',
+  props.iconOnly && 'dt-button--icon',
 ].filter(Boolean))
 </script>
 
@@ -236,6 +244,22 @@ const classes = computed(() => [
 .dt-button--size-sm:focus-visible::after  { border-radius: calc(var(--dt-radius-md) + 4px); }
 .dt-button--size-xs:focus-visible::after  { border-radius: calc(var(--dt-radius-sm) + 4px); }
 .dt-button--size-2xs:focus-visible::after { border-radius: calc(var(--dt-radius-xs) + 4px); }
+
+/* ── Icon-only ───────────────────────────────
+   Square, no horizontal padding. Widths mirror each size's height so the button
+   is a true square; the border-radius comes from the size class above. */
+.dt-button--icon {
+  padding: 0;
+  gap: 0;
+}
+.dt-button--icon.dt-button--size-3xl { width: 60px; }
+.dt-button--icon.dt-button--size-2xl { width: 56px; }
+.dt-button--icon.dt-button--size-xl  { width: 48px; }
+.dt-button--icon.dt-button--size-lg  { width: 44px; }
+.dt-button--icon.dt-button--size-md  { width: 40px; }
+.dt-button--icon.dt-button--size-sm  { width: 36px; }
+.dt-button--icon.dt-button--size-xs  { width: 32px; }
+.dt-button--icon.dt-button--size-2xs { width: 24px; }
 
 /* ── Spinner ─────────────────────────────── */
 .dt-button__spinner {

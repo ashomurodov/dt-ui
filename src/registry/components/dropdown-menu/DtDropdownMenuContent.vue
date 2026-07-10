@@ -4,6 +4,12 @@ import {
   DropdownMenuPortal,
 } from 'reka-ui'
 
+// The root is <DropdownMenuPortal>, which renders a Teleport — a fragment, not an element.
+// Vue cannot auto-inherit fallthrough attrs onto a fragment root: it drops them
+// and warns "Extraneous non-props attributes ... could not be automatically
+// inherited". They're already bound explicitly to the content node below.
+defineOptions({ inheritAttrs: false })
+
 withDefaults(defineProps<{
   side?: 'top' | 'right' | 'bottom' | 'left'
   sideOffset?: number

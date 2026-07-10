@@ -33,9 +33,37 @@ const emit = defineEmits<{
   clear: []
 }>()
 
+// The root is a wrapper <div> while $attrs are bound to the inner <input>.
+// See `rootAttrs`/`attrs` below.
+defineOptions({ inheritAttrs: false })
+
 defineExpose({ focus: () => inputRef.value?.focus() })
 
-const attrs = useAttrs()
+/**
+ * Fallthrough attributes are split by where they belong.
+ *
+ * The root of this component is the wrapper `<div>`, but `$attrs` is bound to the
+ * inner `<input>`. Without `inheritAttrs: false` (below), Vue ALSO auto-applies
+ * every attribute to that wrapper — rendering
+ * `<div class="dt-input-wrapper" min="0" aria-label="…">`. Field attributes on a
+ * div are invalid, and a duplicated `aria-label` gives the wrapper an accessible
+ * name it should not have.
+ *
+ * `class`/`style` are the exception: a caller sizes and positions the WRAPPER, so
+ * those are re-applied there by hand.
+ */
+const rawAttrs = useAttrs()
+
+const rootAttrs = computed(() => ({
+  class: rawAttrs.class,
+  style: rawAttrs.style,
+}))
+
+const attrs = computed(() => {
+  const { class: _class, style: _style, ...fieldAttrs } = rawAttrs
+  return fieldAttrs
+})
+
 const inputRef = ref<HTMLInputElement | null>(null)
 const uid = Math.random().toString(36).slice(2, 9)
 const inputId = computed(() => props.id || `dt-input-${uid}`)
@@ -76,7 +104,11 @@ function onClear() {
 </script>
 
 <template>
-  <div class="dt-input-wrapper" :class="[`dt-input-wrapper--${size}`]">
+  <div
+    class="dt-input-wrapper"
+    :class="[`dt-input-wrapper--${size}`, rootAttrs.class]"
+    :style="rootAttrs.style"
+  >
     <label
       v-if="label && labelPosition === 'top'"
       :for="inputId"

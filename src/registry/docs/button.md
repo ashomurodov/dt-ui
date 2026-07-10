@@ -1,6 +1,6 @@
 # DtButton
 
-A clickable button component with four variants, eight sizes, and loading + disabled states. Renders a native `<button>` element and forwards all attributes via `$attrs`, so native events like `click`, `focus`, and `blur` work without any special binding.
+A clickable button component with four variants, eight sizes, an icon-only mode, and loading + disabled states. Renders a native `<button>` element and forwards all attributes via `$attrs`, so native events like `click`, `focus`, and `blur` work without any special binding.
 
 ## Import
 
@@ -16,12 +16,28 @@ import { DtButton } from '@/components/ui/button'
 | `size` | `ButtonSize` | `'md'` | Controls height, padding, radius, and font size. |
 | `disabled` | `boolean` | `false` | Disables the button (sets native `disabled` attribute). |
 | `loading` | `boolean` | `false` | Shows a spinner and disables interaction. The native `disabled` attribute is also set while loading. |
+| `iconOnly` | `boolean` | `false` | Square, padding-free button holding a single icon. Width matches the size's height. |
 
 ### Type Reference
 
 ```ts
 type ButtonVariant = 'default' | 'outline' | 'transparent' | 'secondary-grey'
 type ButtonSize = '3xl' | '2xl' | 'xl' | 'lg' | 'md' | 'sm' | 'xs' | '2xs'
+```
+
+## Icon-only buttons
+
+`iconOnly` drops the horizontal padding and squares the button — the width mirrors
+each size's height (`2xs` 24px … `3xl` 60px), and the radius comes from the size.
+Same convention as `DtDropdownMenuTrigger`'s `iconOnly`.
+
+⚠ An icon has no accessible name. **You must supply one**, or the control is
+invisible to a screen reader and has no tooltip:
+
+```vue
+<DtButton icon-only size="xs" variant="transparent" aria-label="Delete" title="Delete">
+  <TrashIcon />
+</DtButton>
 ```
 
 ### Variant Behavior
