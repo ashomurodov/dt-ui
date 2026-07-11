@@ -1,6 +1,9 @@
+import { createRequire } from 'node:module'
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+
+const PACKAGE_NAME = 'aetherx-dt-ui'
 
 export interface ComponentEntry {
   name: string
@@ -16,21 +19,45 @@ export interface Registry {
   components: Record<string, ComponentEntry>
 }
 
-function getRegistryDir(): string {
-  // In dev: src/registry, in dist: src/registry (included via package.json files)
-  const thisFile = fileURLToPath(import.meta.url)
-  const cliDir = path.dirname(thisFile)
+/**
+ * Locate the registry the CONSUMER has installed, resolved from their project cwd
+ * — not from wherever this CLI module happens to live.
+ *
+ * This distinction is the whole ballgame for `update`. `npx dt-ui update` first
+ * `npm install`s `aetherx-dt-ui@latest`, then reads the registry. If we resolve
+ * relative to `import.meta.url`, we read the files of the ALREADY-RUNNING process,
+ * which is the OLD version — under pnpm every version has its own store path, so
+ * `npx` keeps executing the old binary while the new one sits unused in
+ * node_modules. The command then copies stale components and cheerfully reports
+ * success. (Under npm's flat node_modules the two paths coincide, which is why
+ * this hid for so long.)
+ *
+ * So: resolve the installed package from the user's cwd first. Fall back to the
+ * CLI's own bundled copy only when the package isn't a dependency (e.g. `npx`
+ * one-shot with nothing installed yet).
+ */
+export function getRegistryDir(): string {
+  // 1. The registry inside the consumer's installed package (the source of truth
+  //    after `update` bumps the version). `createRequire` rooted at cwd walks the
+  //    real node_modules resolution, pnpm symlinks included.
+  try {
+    const requireFromCwd = createRequire(path.join(process.cwd(), 'noop.js'))
+    const pkgJson = requireFromCwd.resolve(`${PACKAGE_NAME}/package.json`)
+    const installedRegistry = path.join(path.dirname(pkgJson), 'src/registry')
+    if (fs.existsSync(path.join(installedRegistry, 'registry.json'))) {
+      return installedRegistry
+    }
+  } catch {
+    // Not installed in this project — fall through to the bundled copy.
+  }
 
-  // Try multiple possible locations
+  // 2. This CLI's own bundled registry (dev, or `npx` with nothing installed).
+  const cliDir = path.dirname(fileURLToPath(import.meta.url))
   const candidates = [
-    // When running from built dist/
-    path.resolve(cliDir, '../../src/registry'),
-    // When running from src/cli/utils/
-    path.resolve(cliDir, '../../registry'),
-    // When running via unbuild stub
-    path.resolve(cliDir, '../../../src/registry'),
+    path.resolve(cliDir, '../../src/registry'), // built dist/
+    path.resolve(cliDir, '../../registry'), // src/cli/utils/
+    path.resolve(cliDir, '../../../src/registry'), // unbuild stub
   ]
-
   for (const candidate of candidates) {
     if (fs.existsSync(path.join(candidate, 'registry.json'))) {
       return candidate
