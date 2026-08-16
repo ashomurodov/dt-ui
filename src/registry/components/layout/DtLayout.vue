@@ -52,7 +52,7 @@ provide('dt-layout-sidebar', {
 .dt-layout__header {
   position: sticky;
   top: 0;
-  z-index: 30;
+  z-index: 40;
   background-color: var(--dt-color-background);
 }
 
