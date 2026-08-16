@@ -33,10 +33,6 @@ const PEEK_RATIO = 0.5
 /** Breathing room at the true start/end where there is no neighbour to peek. */
 const EDGE_GAP = 8
 
-/** Last committed indicator geometry, in the track's layout coordinate space. */
-let lastLeft = 0
-let lastWidth = 0
-
 const prefersReduced = () =>
   typeof window !== 'undefined' &&
   !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
@@ -56,8 +52,6 @@ const setIndicatorInstant = (left: number, width: number) => {
   el.style.transform = 'translateX(0) scaleX(1)'
   el.style.left = left + 'px'
   el.style.width = width + 'px'
-  lastLeft = left
-  lastWidth = width
   ready.value = true
 }
 
@@ -100,9 +94,6 @@ const animateIndicator = (newLeft: number, newWidth: number) => {
   // Play: animate back to identity. Runs on the compositor.
   el.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
   el.style.transform = 'translateX(0) scaleX(1)'
-
-  lastLeft = newLeft
-  lastWidth = newWidth
 }
 
 /**
@@ -161,15 +152,16 @@ const syncTo = (idx: number, animate: boolean) => {
 // A click only emits — the actual move is driven by the `modelValue` watcher
 // below, so clicks and programmatic changes follow one identical path. If a
 // controlled parent ignores the click, nothing moves, which is correct.
+//
+// We deliberately do NOT scroll on focus. Scrolling the moment a button is
+// focused (which happens on mousedown) would move it out from under the
+// pointer mid-gesture, so the `click` never fires and the first press only
+// scrolls — you'd have to click twice to select. The scroll-into-view + peek
+// is instead driven entirely by the `modelValue` watcher, i.e. *after* a tab
+// is actually selected. Keyboard users still get the browser's native
+// scroll-into-view while tabbing, plus the peek once they pick a tab.
 const onTabClick = (key: string) => {
   emit('update:modelValue', key)
-}
-
-const onFocusIn = (e: FocusEvent) => {
-  const target = (e.target as HTMLElement | null)?.closest<HTMLElement>('.dt-tab-switcher__btn')
-  if (!target) return
-  const idx = buttons().indexOf(target)
-  if (idx >= 0) scrollIntoView(idx, true)
 }
 
 watch(
@@ -201,7 +193,6 @@ onMounted(async () => {
   const track = trackRef.value
   if (track) {
     track.addEventListener('scroll', updateEdges, { passive: true })
-    track.addEventListener('focusin', onFocusIn)
     ro = new ResizeObserver(() => {
       syncTo(activeIndex(), false)
       updateEdges()
@@ -215,7 +206,6 @@ onBeforeUnmount(() => {
   const track = trackRef.value
   if (track) {
     track.removeEventListener('scroll', updateEdges)
-    track.removeEventListener('focusin', onFocusIn)
   }
 })
 </script>
